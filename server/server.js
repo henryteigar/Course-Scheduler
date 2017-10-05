@@ -8,7 +8,7 @@ const api = require('./routes/api');
 
 // MIDDLEWARE
 // =======================================
-app.use(express.static(path.join(__dirname, '../client/public')));
+app.use(express.static(path.join(__dirname, '../client')));
 app.use(bodyParser.json());
 app.use('/api', api.router);
 
@@ -16,7 +16,7 @@ app.use('/api', api.router);
 // ROUTES
 // =======================================
 app.get('/', (req,res) => {
-    res.sendFile(path.resolve(path.join(__dirname, 'client/public/index.html')));
+    res.sendFile(path.resolve(path.join(__dirname, '../client/index.html')));
 });
 
 
