@@ -19,7 +19,6 @@ app.get('/', (req,res) => {
     res.sendFile(path.resolve(path.join(__dirname, '../client/index.html')));
 });
 
-
 // START THE Server
 // =======================================
 port = process.env.PORT || 3000;

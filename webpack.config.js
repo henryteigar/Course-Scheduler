@@ -1,10 +1,12 @@
+const path = require("path");
+const webpack = require('webpack');
+
 module.exports = {
-    devtool: 'inline-source-map',
     entry: [__dirname + '/client/index.js'],
     output: {
-        path: __dirname + '/client/build',
+        path: path.resolve(__dirname, 'client/build'),
         filename: 'bundle.js',
-        publicPath: '/'
+        publicPath: '/build'
     },
     module: {
         loaders: [
@@ -19,3 +21,4 @@ module.exports = {
         ]
     }
 };
+console.log(__dirname);
