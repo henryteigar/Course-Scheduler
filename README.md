@@ -5,7 +5,7 @@ University of Tartu is in progress of developing a new information system for st
 This project's goal is to work out and develop the course registration system which should greatly 
 improve the current user experience.
  
- ## Installation
+## Installation
  
 ### Requirements
 * Node.js - https://nodejs.org/en/

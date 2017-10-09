@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack --config webpack.config.js; node server/server.js",
+    "start": "webpack --config webpack.config.js & node server/server.js",
     "dev": "concurrently --kill-others \"webpack-dev-server --config webpack.config.js --content-base client\" \"nodemon server/server.js\"",
-    "prod": "webpack --config webpack.config.js; npm run pm2-start",
+    "prod": "webpack --config webpack.config.js & npm run pm2-start",
     "pm2-stop": "pm2 stop server/server.js",
-    "pm2-start": "pm2 stop server/server.js; pm2 start server/server.js"
+    "pm2-start": "pm2 stop server/server.js & pm2 start server/server.js"
   },
   "author": "",
   "license": "ISC",
