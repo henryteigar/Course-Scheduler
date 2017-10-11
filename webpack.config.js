@@ -1,12 +1,11 @@
 const path = require("path");
-const webpack = require('webpack');
 
 module.exports = {
     entry: [__dirname + '/client/index.js'],
     output: {
         path: path.resolve(__dirname, 'client/build'),
         filename: 'bundle.js',
-        publicPath: '/build'
+        publicPath: '/build',
     },
     module: {
         loaders: [
@@ -19,6 +18,9 @@ module.exports = {
                 }
             }
         ]
+    },
+    devServer: {
+        historyApiFallback: true
     }
 };
 console.log(__dirname);
