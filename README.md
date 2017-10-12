@@ -1,5 +1,5 @@
 # Course scheduler for information system at University of Tartu - ÕIS 2
-[![Build Status](https://travis-ci.org/henryteigar/course-scheduler.svg?branch=master)](https://travis-ci.org/henryteigar/course-scheduler)  
+[![Build Status](https://travis-ci.com/henryteigar/course-scheduler.svg?token=ycymLXkH9KWQcXyhBa65&branch=initial-layout)](https://travis-ci.com/henryteigar/course-scheduler)
 <br/>
 University of Tartu is in progress of developing a new information system for students at university. 
 This project's goal is to work out and develop the course registration system which should greatly 
