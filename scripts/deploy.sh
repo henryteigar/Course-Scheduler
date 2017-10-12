@@ -1,6 +1,6 @@
 set -x
 if [ $TRAVIS_BRANCH == 'master' ] ; then
-    rm -r .git
+    rm -rf .git
     git init
 
     git remote add deploy "deploy@course-scheduler.me:/var/www"
