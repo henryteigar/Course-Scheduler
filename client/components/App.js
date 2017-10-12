@@ -1,4 +1,8 @@
-import React, {Component} from 'react';
+
+import React, { Component } from 'react';
+import Test from './Test';
+
+import './app.css'
 
 class App extends Component {
     constructor() {
@@ -8,12 +12,12 @@ class App extends Component {
 
     render() {
         return (
-            <div>
-
+            <div className="main">
+                <p className="red">Testtest</p>
                 <p>{this.state.name}</p>
+                <Test />
                 <button>TO</button>
             </div>
-
         )
     }
 }
