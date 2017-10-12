@@ -7,7 +7,7 @@ import './app.css'
 class App extends Component {
     constructor() {
         super();
-        this.state = {name: "test"}
+        this.state = {name: "tesaset"}
     }
 
     render() {
