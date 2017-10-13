@@ -1,7 +1,9 @@
 const path = require("path");
 
 module.exports = {
-    entry: [__dirname + '/client/index.js'],
+    entry: [
+        __dirname + '/client/index.js'
+    ],
     output: {
         path: path.resolve(__dirname, 'client/build'),
         filename: 'bundle.js',
@@ -28,6 +30,13 @@ module.exports = {
             {
                 test: /\.svg/,
                 loader: 'svg-url-loader',
+            },
+            {
+                test: /\.(ttf|eot|woff|woff2|otf)$/,
+                loader: 'file-loader',
+                options: {
+                    name: 'fonts/[name].[ext]',
+                }
             }
         ]
     },

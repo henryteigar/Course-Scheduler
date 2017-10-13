@@ -1,0 +1,18 @@
+@import '../../css/variables';
+
+.flashMessage {
+    background: $yellow-primary;
+    border: 2px solid $yellow-dark;
+    padding-left: 15px;
+
+    p {
+        color: $yellow-text;
+        line-height: 41px;
+
+        &:before {
+            content: "!";
+            margin-right: 10px;
+        }
+    }
+
+}
