@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 
+import Profile from './Profile/Profile';
+
 import '../../../css/components/header.scss'
 
 class Header extends Component {
     render() {
         return (
             <header className="header">
-                <p>Header</p>
+                <h1>Ainetele registreerumine</h1>
+                <Profile />
             </header>
         )
     }

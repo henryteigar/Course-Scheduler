@@ -6,7 +6,7 @@ class Sidebar extends Component {
     render() {
         return (
             <div className="sidebar">
-                <p>Sidebar</p>
+                <img className="logo" src="../../images/ut-logo.svg" />
             </div>
         )
     }
