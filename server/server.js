@@ -18,6 +18,9 @@ app.use('/api', api.router);
 app.get('/', (req,res) => {
     res.sendFile(path.resolve(path.join(__dirname, '../client/index.html')));
 });
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(path.join(__dirname, '../client/index.html')));
+});
 
 // START THE Server
 // =======================================

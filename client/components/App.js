@@ -1,8 +1,20 @@
+
 import React, { Component } from 'react';
+
+import Sidebar from './Sidebar/Sidebar';
+import MainContainer from './MainContainer/MainContainer';
+
+import '../css/main.scss'
+import 'normalize.css'
 
 class App extends Component {
     render() {
-        return <h1>Course-scheduler for UT students.</h1>
+        return (
+            <div>
+                <Sidebar />
+                <MainContainer />
+            </div>
+        )
     }
 }
 
