@@ -2,5 +2,38 @@
 
 .profile {
     float: right;
-    margin-right: 40px;
+    font-size: 12px;
+    height: 100%;
+    margin-right: 10px;
+
+    .profile-info {
+        float: left;
+        margin-right: 10px;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+
+        p {
+            line-height: 1.4em;
+
+            &.name {
+                color: $blue-primary;
+            }
+
+            &.studentId {
+                color: $gray-font-primary;
+            }
+        }
+    }
+
+    .profile-pic {
+        background-color: $blue-primary;
+        border-radius: 50%;
+        float: right;
+        height: 40px;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+    }
 }

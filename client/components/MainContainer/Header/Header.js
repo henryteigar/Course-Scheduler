@@ -10,6 +10,7 @@ class Header extends Component {
             <header className="header">
                 <h1>Ainetele registreerumine</h1>
                 <Profile />
+                <input placeholder="Otsi..."/>
             </header>
         )
     }
