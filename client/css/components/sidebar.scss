@@ -1,5 +1,7 @@
+@import '../../css/variables';
+
 .sidebar {
-    background: blue;
+    background: $blue-primary;
     float: left;
     height: 100%;
     width: 190px;
