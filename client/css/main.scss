@@ -5,11 +5,11 @@ small, strike, strong, sub, sup, tt, var, b, u, i, center,
 dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td {
     margin: 0; padding: 0;  border: 0; outline: 0; font-size: 100%;
-    vertical-align: baseline; background: transparent;
+    vertical-align: baseline; background: transparent; box-sizing: border-box;
 }
 
 html, body, #app {
-    font-family: "Helvetica Neue", serif;
+    font-family: "HelveticaNeue", sans-serif;
     font-size: 13px;
     height: 100%;
     width: 100%;
@@ -21,22 +21,6 @@ html, body, #app {
 }
 
 @font-face {
-    font-family: 'HelveticaBold';
-    src: local('HelveticaBold'), url(../fonts/HelveticaBold.otf) format('otf');
-}
-@font-face {
-    font-family: 'HelveticaLight';
-    src: local('HelveticaLight'), url(../fonts/HelveticaLight.otf) format('otf'), url(../fonts/HelveticaLight.ttf) format('ttf');
-}
-@font-face {
     font-family: 'HelveticaNeue';
-    src: local('HelveticaNeue'), url(../fonts/HelveticaNeue.ttf) format('ttf');
-}
-@font-face {
-    font-family: 'HelveticaNeueMedium';
-    src: local('HelveticaNeueMedium'), url(../fonts/HelveticaNeueMedium.otf) format('otf');
-}
-@font-face {
-    font-family: 'HelveticaNeueThin';
-    src: local('HelveticaNeueThin'), url(../fonts/HelveticaNeueThin.otf) format('otf');
+    src: local('HelveticaNeue'), url('../fonts/HelveticaNeue.ttf') format('ttf');
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import FlashMessage from './FlashMessage/FlashMessage'
-import InfoBox from './InfoBox/InfoBox'
+import InfoBoxContainer from './InfoBoxContainer/InfoBoxContainer'
 
 import '../../../css/components/content-wrapper.scss';
 
@@ -9,10 +9,7 @@ class ContentWrapper extends Component {
         return (
             <div className="contentWrapper">
                 <FlashMessage />
-
-                <InfoBox/>
-                <InfoBox/>
-                <InfoBox/>
+                <InfoBoxContainer />
             </div>
         )
     }
