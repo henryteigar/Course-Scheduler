@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import '../../../../css/components/flash-message.scss';
 
 class ContentWrapper extends Component {

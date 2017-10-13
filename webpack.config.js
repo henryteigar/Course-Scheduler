@@ -1,7 +1,9 @@
 const path = require("path");
 
 module.exports = {
-    entry: [__dirname + '/client/index.js'],
+    entry: [
+        __dirname + '/client/index.js'
+    ],
     output: {
         path: path.resolve(__dirname, 'client/build'),
         filename: 'bundle.js',
@@ -34,7 +36,7 @@ module.exports = {
                 loader: 'file-loader',
                 options: {
                     name: 'fonts/[name].[ext]',
-                },
+                }
             }
         ]
     },

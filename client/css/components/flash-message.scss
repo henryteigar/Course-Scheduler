@@ -4,4 +4,16 @@
   height: 45px;
   background: $yellow-primary;
   border: 2px solid $yellow-dark;
+  padding-left:15px;
+}
+
+.flashMessage p:before {
+  content: "!";
+
+  margin-right: 10px;
+}
+
+.flashMessage p {
+  line-height: 45px;
+  color: $yellow-text
 }
