@@ -1,0 +1,13 @@
+@import '../../css/variables';
+
+.searchArea {
+    background: white;
+    border: 1px solid $table-border-primary;
+    margin-bottom: 10px;
+
+    .searchButton {
+        float: right;
+        margin-right: 10px;
+        width: 95px;
+    }
+}

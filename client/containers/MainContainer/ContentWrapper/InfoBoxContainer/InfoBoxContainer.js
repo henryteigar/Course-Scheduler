@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import InfoBox from './InfoBox/InfoBox'
+import InfoBox from '../../../../components/InfoBox/InfoBox'
 import '../../../../css/components/info-box-container.scss';
 
 class InfoBoxContainer extends Component {

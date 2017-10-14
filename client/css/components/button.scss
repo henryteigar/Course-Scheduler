@@ -1,0 +1,19 @@
+@import "../variables";
+
+.big-blue {
+    background: $blue-primary;
+    border: 0;
+    border-radius: 3px;
+    color: white;
+    height: 32px;
+    outline: none;
+    width: 100%;
+
+    &:hover {
+        background: $blue-primary-hover;
+    }
+
+    &:active {
+        background: $blue-primary-clicked;
+    }
+}
