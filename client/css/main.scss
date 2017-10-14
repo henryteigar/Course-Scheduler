@@ -38,6 +38,15 @@ h2 {
     color: $blue-primary;
     display: inline-block;
     font-size: 15px !important;
+    line-height: 35px;
+    margin-left: 15px;
+}
+
+hr {
+    background: $table-border-primary;
+    border: 0px;
+    height: 1px !important;
+    margin: 0px 0 10px 0;
 }
 
 @font-face {
