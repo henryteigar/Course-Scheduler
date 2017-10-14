@@ -26,4 +26,14 @@ router.get('/subjects', (req, res) => {
     });
 });
 
+router.get('/users', (req, res) => {
+
+    pool.query('SELECT * FROM USERS', (err, result) => {
+        if (err) {
+            return console.log('ERROR ', err);
+        }
+        res.send(result.rows);
+    });
+});
+
 module.exports.router = router;
