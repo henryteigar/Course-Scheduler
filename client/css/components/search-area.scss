@@ -1,3 +1,20 @@
-.searchArea {
+@import '../../css/variables';
 
+
+.searchArea {
+    border: 1px solid $table-border-primary;
+    margin-bottom: 10px;
+    background: white;
+
+    h2 {
+        margin-left: 15px;
+        line-height: 35px;
+    }
+
+    hr {
+        height: 1px;
+        border: 0px;
+        margin: 0px 0 10px 0;
+        background: $table-border-primary;
+    }
 }

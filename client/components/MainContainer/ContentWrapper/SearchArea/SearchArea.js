@@ -11,7 +11,8 @@ class SearchArea extends Component {
     render() {
         return (
             <div className="searchArea">
-
+                <h2>Ainete lisamine</h2>
+                <hr />
             </div>
         )
     }
