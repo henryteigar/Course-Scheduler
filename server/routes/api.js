@@ -26,9 +26,14 @@ router.get('/subjects', (req, res) => {
     });
 });
 
-router.get('/users', (req, res) => {
+router.get('/users/:id', (req, res) => {
+    var id = req.params.id;
+    var whereQuery = "";
+    if (id) {
+        whereQuery = " WHERE id = " + id;
+    }
 
-    pool.query('SELECT * FROM USERS', (err, result) => {
+    pool.query('SELECT * FROM USERS' + whereQuery, (err, result) => {
         if (err) {
             return console.log('ERROR ', err);
         }
