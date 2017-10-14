@@ -12,12 +12,18 @@ router.get('/', (req, res) => {
 });
 
 router.get('/subjects', (req, res) => {
-    pool.query('select * from subjects', (err, result) => {
+    var param = req.query.query;
+    var whereQuery = "";
+    if (param) {
+        whereQuery = " WHERE LOWER(title) LIKE '%" + param +"%'";
+    };
+
+    pool.query('SELECT * FROM SUBJECTS' + whereQuery, (err, result) => {
         if (err) {
-            return console.log('ERROR ', err)
+            return console.log('ERROR ', err);
         }
-        res.send(result.rows)
-    })
+        res.send(result.rows);
+    });
 });
 
 module.exports.router = router;
