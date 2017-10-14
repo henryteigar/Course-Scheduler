@@ -5,6 +5,12 @@ University of Tartu is in progress of developing a new information system for st
 This project's goal is to work out and develop the course registration system which should greatly 
 improve the current user experience.
  
+## Demo 
+The latest released state of the software is currently accessible on http://course-scheduler.me:3000/
+
+## Documentation
+The relavant documentation is accessible in our [wiki page](https://github.com/henryteigar/course-scheduler/wiki)
+
 ## Installation
  
 ### Requirements
