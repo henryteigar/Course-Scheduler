@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
-import FlashMessage from './FlashMessage/FlashMessage'
+import FlashMessage from '../../../components/FlashMessage/FlashMessage'
 import InfoBoxContainer from './InfoBoxContainer/InfoBoxContainer'
 import SearchArea from './SearchArea/SearchArea'
 
 import '../../../css/components/content-wrapper.scss';
 
 class ContentWrapper extends Component {
+    constructor() {
+        super();
+        this.state = {
+            flashMessage: "Registreerimine järgmise semestri ainetele algab 15.mail"
+        }
+    }
     render() {
         return (
             <div className="contentWrapper">
-                <FlashMessage />
+                <FlashMessage message={this.state.flashMessage}/>
                 <InfoBoxContainer />
                 <SearchArea />
             </div>
