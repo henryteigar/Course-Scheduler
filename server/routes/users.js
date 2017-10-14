@@ -39,4 +39,15 @@ router.get('/:id/registered_subjects', (req, res) => {
     });
 });
 
+router.get('/:id/draft_subjects', (req, res) => {
+    let id = req.params.id;
+
+    pool.query('SELECT * FROM USER_DRAFT_SUBJECT WHERE user_id = $1', [id], (err, result) => {
+        if (err) {
+            return console.log('ERROR ', err);
+        }
+        res.send(result.rows);
+    });
+});
+
 module.exports = router;
