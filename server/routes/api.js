@@ -16,14 +16,11 @@ router.get('/', (req, res) => {
 router.use('/users', users);
 
 router.get('/subjects', (req, res) => {
-    let param = req.query.query;
-    let whereQuery = "";
+    let q = req.query.q;
+    q = q != undefined ?  req.query.q.toLowerCase() : "";
+    q = '%' + q + '%';
 
-    if (param) {
-        whereQuery = " WHERE LOWER(title) LIKE '%" + param +"%'";
-    }
-
-    pool.query('SELECT * FROM SUBJECTS' + whereQuery, (err, result) => {
+    pool.query('SELECT * FROM SUBJECTS WHERE LOWER(title) LIKE $1', [q], (err, result) => {
         if (err) {
             return console.log('ERROR ', err);
         }
