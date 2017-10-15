@@ -9,6 +9,8 @@ const CourseSearchTable = (props) => {
     props.courses.forEach((row) => {
         rows.push(<CourseSearchRow key={row.id} rowData={row}/>)
     });
+    if (rows.length === 0) return null;
+
     return (
         <table className="courseSearchTable">
             <thead>
