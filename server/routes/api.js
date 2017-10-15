@@ -15,10 +15,9 @@ router.get('/', (req, res) => {
 
 router.use('/users', users);
 
-router.get('/subjects', (req, res) => {
+router.get('/courses', (req, res) => {
     let q = req.query.q;
-    q = q != undefined ?  req.query.q.toLowerCase() : "";
-    q = '%' + q + '%';
+    q = '%' + (q ? req.query.q.toLowerCase() : "") + '%';
 
     pool.query('SELECT *, TO_CHAR(cancellation_date, \'DD-MM-YYYY\') AS cancellation_date FROM SUBJECTS WHERE LOWER(title) LIKE $1', [q], (err, result) => {
         if (err) {
