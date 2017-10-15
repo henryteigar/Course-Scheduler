@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { getCourses } from '../../../../actions/CourseSearchStoreAction'
+import CourseSearchStore from '../../../../stores/CourseSearchStore'
 import MainSearchBox from '../../../../components/MainSearchBox/MainSearchBox';
 import CourseSearchTable from "../../../../components/CourseSearchTable/CourseSearchTable";
 import Button from "../../../../components/Button/Button";
@@ -10,30 +12,9 @@ class SearchArea extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            courses: [
-                {
-                    "id": 1,
-                    "title": "Kõrgem matemaatika II",
-                    "credits": 6,
-                    "schedule": "E, K, N",
-                    "responsibleLecturer": "Tiina Kraav",
-                    "currentAttendants": 36,
-                    "maxAttendants": 40,
-                    "cancellationDeadline": "19.09.2017"
-                },
-                {
-                    "id": 2,
-                    "title": "Tarkvaraprojekt",
-                    "credits": 6,
-                    "schedule": "K, N",
-                    "responsibleLecturer": "Marlon Gerardo Dumas Menjivar",
-                    "currentAttendants": 73,
-                    "maxAttendants": 100,
-                    "cancellationDeadline": "20.09.2017"
-                }
-            ]
+            courses: []
         }
-        this.handleClick = this.handleClick.bind(this);
+        SearchArea.handleClick = SearchArea.handleClick.bind(this);
     }
     render() {
         return (
@@ -42,15 +23,15 @@ class SearchArea extends Component {
                 <hr />
                 <MainSearchBox />
                 <div className="searchButton">
-                    <Button class="big-blue" name="Otsi" clickHandler={this.handleClick}/>
+                    <Button class="big-blue" name="Otsi" clickHandler={SearchArea.handleClick}/>
                 </div>
                 <CourseSearchTable courses={this.state.courses}/>
             </div>
         )
     }
 
-    handleClick() {
-        console.log("CLICK!!")
+    static handleClick() {
+        this.setState({courses: CourseSearchStore.getCourses()});
     }
 }
 
