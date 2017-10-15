@@ -20,7 +20,7 @@ router.get('/subjects', (req, res) => {
     q = q != undefined ?  req.query.q.toLowerCase() : "";
     q = '%' + q + '%';
 
-    pool.query('SELECT * FROM SUBJECTS WHERE LOWER(title) LIKE $1', [q], (err, result) => {
+    pool.query('SELECT *, TO_CHAR(cancellation_date, \'DD-MM-YYYY\') AS cancellation_date FROM SUBJECTS WHERE LOWER(title) LIKE $1', [q], (err, result) => {
         if (err) {
             return console.log('ERROR ', err);
         }
