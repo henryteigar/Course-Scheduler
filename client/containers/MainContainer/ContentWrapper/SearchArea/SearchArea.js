@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
-import { getCourses } from '../../../../actions/CourseSearchStoreAction'
-import CourseSearchStore from '../../../../stores/CourseSearchStore'
+import courseSearchStore from '../../../../stores/CourseSearchStore'
 import MainSearchBox from '../../../../components/MainSearchBox/MainSearchBox';
 import CourseSearchTable from "../../../../components/CourseSearchTable/CourseSearchTable";
 import Button from "../../../../components/Button/Button";
@@ -12,10 +12,35 @@ class SearchArea extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            courses: []
-        }
+            courses: [],
+            query: ''
+        };
         SearchArea.handleClick = SearchArea.handleClick.bind(this);
     }
+
+    static handleClick() {
+        const myApi = axios.create({
+            baseURL: 'http://localhost:3000/',
+            timeout: 10000,
+            withCredentials: true,
+            transformRequest: [(data) => JSON.stringify(data)],
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'access-control-allow-origin': '*'
+            }
+        });
+
+        myApi.get('api/courses')
+            .then( (response) => {
+                console.log(response);
+            })
+            .catch( (error) => {
+                console.log(error);
+            });
+        this.setState({courses: courseSearchStore.getCourses(this.state.query)});
+    }
+
     render() {
         return (
             <div className="searchArea">
@@ -28,10 +53,6 @@ class SearchArea extends Component {
                 <CourseSearchTable courses={this.state.courses}/>
             </div>
         )
-    }
-
-    static handleClick() {
-        this.setState({courses: CourseSearchStore.getCourses()});
     }
 }
 

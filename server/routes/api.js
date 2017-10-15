@@ -17,12 +17,16 @@ router.use('/users', users);
 
 router.get('/courses', (req, res) => {
     let q = req.query.q;
-    q = '%' + (q ? req.query.q.toLowerCase() : "") + '%';
+    q = (q === undefined) ? "%%" : ((q === '') ? '' : '%' + req.query.q.toLowerCase() + '%');
 
     pool.query('SELECT *, TO_CHAR(cancellation_date, \'DD-MM-YYYY\') AS cancellation_date FROM SUBJECTS WHERE LOWER(title) LIKE $1', [q], (err, result) => {
         if (err) {
             return console.log('ERROR ', err);
         }
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Content-Type', 'application/json');
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
         res.send(result.rows);
     });
 });

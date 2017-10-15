@@ -2,30 +2,28 @@ import AppDispatcher from '../dispatcher/AppDispatcher';
 import { SearchConstants } from '../constants/SearchConstants';
 import { EventEmitter } from 'events';
 
-let courseSearch = {
-    courses: [
-        {
-            "id": 1,
-            "title": "Kõrgem matemaatika II",
-            "credits": 6,
-            "schedule": "E, K, N",
-            "responsibleLecturer": "Tiina Kraav",
-            "currentAttendants": 36,
-            "maxAttendants": 40,
-            "cancellationDeadline": "19.09.2017"
-        },
-        {
-            "id": 2,
-            "title": "Tarkvaraprojekt",
-            "credits": 6,
-            "schedule": "K, N",
-            "responsibleLecturer": "Marlon Gerardo Dumas Menjivar",
-            "currentAttendants": 73,
-            "maxAttendants": 100,
-            "cancellationDeadline": "20.09.2017"
-        }
-    ]
-};
+let courses = [
+    {
+        "id": 1,
+        "title": "Kõrgem matemaatika II",
+        "credits": 6,
+        "schedule": "E, K, N",
+        "responsibleLecturer": "Tiina Kraav",
+        "currentAttendants": 36,
+        "maxAttendants": 40,
+        "cancellationDeadline": "19.09.2017"
+    },
+    {
+        "id": 2,
+        "title": "Tarkvaraprojekt",
+        "credits": 6,
+        "schedule": "K, N",
+        "responsibleLecturer": "Marlon Gerardo Dumas Menjivar",
+        "currentAttendants": 73,
+        "maxAttendants": 100,
+        "cancellationDeadline": "20.09.2017"
+    }
+];
 
 class CourseSearchStoreClass extends EventEmitter {
     addChangeListener(cb) {
@@ -36,12 +34,13 @@ class CourseSearchStoreClass extends EventEmitter {
         this.removeListener(SearchConstants.SEARCH_COURSES, cb);
     }
 
-    getCourses() {
-        return courseSearch.courses;
+    getCourses (query) {
+        return courses;
     }
 
-    setCourses(data) {
-        courseSearch.courses = data.courses;
+    setCourses (data) {
+        // Todo GET Request to with query to API
+        courses = [];
     }
 }
 
@@ -51,9 +50,11 @@ AppDispatcher.register((payload) => {
     const action = payload.action;
 
     switch (action.actionType) {
-        case SearchConstants.LOAD_COURSES:
-            this.setCourses(action.data);
-            this.emit(SearchConstants.SEARCH_COURSES);
+        case SearchConstants.GET_COURSES:
+            console.log("GET_COURSES - STORE");
+            console.log(action);
+            setCourses(action.data);
+            courseSearchStore.emit(SearchConstants.SEARCH_COURSES);
             break;
     }
 
