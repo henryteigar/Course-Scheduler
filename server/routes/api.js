@@ -23,10 +23,6 @@ router.get('/courses', (req, res) => {
         if (err) {
             return console.log('ERROR ', err);
         }
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.setHeader('Content-Type', 'application/json');
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-
         res.send(result.rows);
     });
 });

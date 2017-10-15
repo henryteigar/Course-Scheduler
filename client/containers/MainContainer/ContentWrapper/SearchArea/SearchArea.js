@@ -26,8 +26,7 @@ class SearchArea extends Component {
             transformRequest: [(data) => JSON.stringify(data)],
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'access-control-allow-origin': '*'
+                'Content-Type': 'application/json'
             }
         });
 
