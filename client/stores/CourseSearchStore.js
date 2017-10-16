@@ -16,7 +16,7 @@ class CourseSearchStore extends EventEmitter {
 
     fetchCourses(query) {
         const myApi = axios.create({
-            baseURL: 'http://localhost:3000/',
+            baseURL: 'http://course-scheduler.me:3000/', //TODO teha config fail
             timeout: 10000,
             withCredentials: true,
             transformRequest: [(data) => JSON.stringify(data)],
