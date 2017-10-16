@@ -35,6 +35,12 @@ class SearchArea extends Component {
         SearchActions.searchCourses(this.state.query);
     }
 
+    static handleKeyPress(e) {
+        if (e.key === 'Enter') {
+            SearchArea.handleClick();
+        }
+    }
+
     render() {
         return (
             <div className="searchArea">
@@ -42,7 +48,7 @@ class SearchArea extends Component {
                 <hr/>
                 <MainSearchBox updateQuery={this.updateQuery.bind(this)}/>
                 <div className="searchButton">
-                    <Button class="big-blue" name="Otsi" clickHandler={SearchArea.handleClick}/>
+                    <Button class="big-blue" name="Otsi" clickHandler={SearchArea.handleClick} />
                 </div>
                 <CourseSearchTable courses={this.state.courses}/>
             </div>

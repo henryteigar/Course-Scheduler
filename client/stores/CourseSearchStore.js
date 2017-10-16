@@ -25,7 +25,6 @@ class CourseSearchStore extends EventEmitter {
                 'Content-Type': 'application/json'
             }
         });
-        console.log(query)
         myApi.get('api/courses?q=' + query).then((response) => {
             let courses = [];
             response.data.forEach((data) => {
