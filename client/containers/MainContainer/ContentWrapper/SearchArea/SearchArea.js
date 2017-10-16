@@ -1,51 +1,46 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, {Component} from 'react';
 
-import courseSearchStore from '../../../../stores/CourseSearchStore'
-import MainSearchBox from '../../../../components/MainSearchBox/MainSearchBox';
+import * as SearchActions from '../../../../actions/CourseSearchAction';
+import SearchStore from '../../../../stores/CourseSearchStore';
+import MainSearchBox from './MainSearchBox/MainSearchBox';
 import CourseSearchTable from "../../../../components/CourseSearchTable/CourseSearchTable";
 import Button from "../../../../components/Button/Button";
 
 import '../../../../css/components/search-area.scss';
 
 class SearchArea extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            courses: [],
+            courses: SearchStore.getAll(),
             query: ''
         };
         SearchArea.handleClick = SearchArea.handleClick.bind(this);
     }
 
-    static handleClick() {
-        const myApi = axios.create({
-            baseURL: 'http://localhost:3000/',
-            timeout: 10000,
-            withCredentials: true,
-            transformRequest: [(data) => JSON.stringify(data)],
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        });
+    updateQuery(query) {
+        this.setState({query});
+    }
 
-        myApi.get('api/courses')
-            .then( (response) => {
-                console.log(response);
+    componentWillMount() {
+        SearchStore.on("change", () => {
+            this.setState({
+                courses: SearchStore.getAll()
             })
-            .catch( (error) => {
-                console.log(error);
-            });
-        this.setState({courses: courseSearchStore.getCourses(this.state.query)});
+        });
+    }
+
+    static handleClick() {
+        SearchActions.searchCourses(this.state.query);
     }
 
     render() {
         return (
             <div className="searchArea">
                 <h2>Ainete lisamine</h2>
-                <hr />
-                <MainSearchBox />
+                <hr/>
+                <MainSearchBox updateQuery={this.updateQuery.bind(this)}/>
                 <div className="searchButton">
                     <Button class="big-blue" name="Otsi" clickHandler={SearchArea.handleClick}/>
                 </div>

@@ -1,65 +1,65 @@
-import AppDispatcher from '../dispatcher/AppDispatcher';
-import { SearchConstants } from '../constants/SearchConstants';
-import { EventEmitter } from 'events';
+import dispatcher from '../dispatcher/Dispatcher';
+import {SearchConstants} from '../constants/SearchConstants';
+import {EventEmitter} from 'events';
+import axios from 'axios';
 
-let courses = [
-    {
-        "id": 1,
-        "title": "Kõrgem matemaatika II",
-        "credits": 6,
-        "schedule": "E, K, N",
-        "responsibleLecturer": "Tiina Kraav",
-        "currentAttendants": 36,
-        "maxAttendants": 40,
-        "cancellationDeadline": "19.09.2017"
-    },
-    {
-        "id": 2,
-        "title": "Tarkvaraprojekt",
-        "credits": 6,
-        "schedule": "K, N",
-        "responsibleLecturer": "Marlon Gerardo Dumas Menjivar",
-        "currentAttendants": 73,
-        "maxAttendants": 100,
-        "cancellationDeadline": "20.09.2017"
-    }
-];
 
-class CourseSearchStoreClass extends EventEmitter {
-    addChangeListener(cb) {
-        this.on(SearchConstants.SEARCH_COURSES, cb);
+class CourseSearchStore extends EventEmitter {
+    constructor() {
+        super();
+        this.courses = [];
     }
 
-    removeChangeListener(cb) {
-        this.removeListener(SearchConstants.SEARCH_COURSES, cb);
+    getAll() {
+        return this.courses;
     }
 
-    getCourses (query) {
-        return courses;
-    }
+    fetchCourses(query) {
+        const myApi = axios.create({
+            baseURL: 'http://localhost:3000/',
+            timeout: 10000,
+            withCredentials: true,
+            transformRequest: [(data) => JSON.stringify(data)],
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+        console.log(query)
+        myApi.get('api/courses?q=' + query).then((response) => {
+            let courses = [];
+            response.data.forEach((data) => {
+                let course = {
+                    "id": data.id,
+                    "title": data.title,
+                    "credits": data.credit,
+                    "schedule": data.occurrences,
+                    "responsibleLecturer": data.lecturers.split(", ")[0],
+                    "currentAttendants": data.nr_of_registered,
+                    "maxAttendants": data.max_registrations,
+                    "cancellationDeadline": "19.09.2017"
+                };
+                courses.push(course);
+            });
 
-    setCourses (data) {
-        // Todo GET Request to with query to API
-        courses = [];
-    }
+            this.courses = courses;
+            this.emit("change");
+        })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        this.emit("change");
+    };
+
 }
 
-const courseSearchStore = new CourseSearchStoreClass();
-
-AppDispatcher.register((payload) => {
-    const action = payload.action;
-
-    switch (action.actionType) {
-        case SearchConstants.GET_COURSES:
-            console.log("GET_COURSES - STORE");
-            console.log(action);
-            setCourses(action.data);
-            courseSearchStore.emit(SearchConstants.SEARCH_COURSES);
-            break;
+dispatcher.register((action) => {
+    switch (action.type) {
+        case SearchConstants.SEARCH_COURSES:
+            courseSearchStore.fetchCourses(action.query);
     }
-
-    return true;
-
 });
 
+const courseSearchStore = new CourseSearchStore();
 export default courseSearchStore;
