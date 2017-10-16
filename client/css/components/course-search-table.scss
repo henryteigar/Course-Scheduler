@@ -17,6 +17,7 @@ table.courseSearchTable {
         border: 1px solid $table-border-primary;
         td {
             padding: 10px 0 10px 10px;
+            min-width: 50px;
         }
 
         &:nth-child(odd) {

@@ -2,12 +2,13 @@ const express     = require('express');
 const app         = express();
 const bodyParser  = require('body-parser');
 const path        = require('path');
-
-const api = require('./routes/api');
+const cors        = require('cors');
+const api         = require('./routes/api');
 
 
 // MIDDLEWARE
 // =======================================
+app.use(cors({credentials: true, origin: 'http://localhost:8080'}));
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(bodyParser.json());
 app.use('/api', api.router);
