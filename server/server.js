@@ -8,7 +8,13 @@ const api         = require('./routes/api');
 
 // MIDDLEWARE
 // =======================================
-app.use(cors({credentials: true, origin: 'http://localhost:8080'}));
+app.use(cors({credentials: true, origin: [
+    'http://localhost:3000',
+    'http://localhost:8080',
+    'http://course-scheduler.me',
+    'http://course-scheduler.me:3000',
+    'https://course-scheduler.me'
+]}));
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(bodyParser.json());
 app.use('/api', api.router);
