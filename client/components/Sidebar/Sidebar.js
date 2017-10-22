@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import 'client/css/components/sidebar.scss'
+import 'client/components/Sidebar/sidebar.scss'
 
 const Sidebar = (props) => {
     return (

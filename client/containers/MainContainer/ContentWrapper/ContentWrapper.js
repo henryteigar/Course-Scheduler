@@ -3,7 +3,7 @@ import FlashMessage from 'client/components/FlashMessage/FlashMessage'
 import InfoBoxContainer from './InfoBoxContainer/InfoBoxContainer'
 import SearchArea from './SearchArea/SearchArea'
 
-import 'client/css/components/content-wrapper.scss';
+import 'client/containers/MainContainer/ContentWrapper/content-wrapper.scss';
 
 class ContentWrapper extends Component {
     constructor() {

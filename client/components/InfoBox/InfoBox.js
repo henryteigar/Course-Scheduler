@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import 'client/css/components/info-box.scss';
+import 'client/components/InfoBox/info-box.scss';
 
 const InfoBox = (props) => {
     return (

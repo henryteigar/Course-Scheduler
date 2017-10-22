@@ -1,13 +1,16 @@
-@import "../variables";
+@import "../../containers/variables";
 
-.big-blue {
-    background: $blue-primary;
+.big {
     border: 0;
     border-radius: 3px;
-    color: white;
     height: 32px;
     outline: none;
     width: 100%;
+}
+
+.blue {
+    background: $blue-primary;
+    color: white;
 
     &:hover {
         background: $blue-primary-hover;
@@ -16,4 +19,9 @@
     &:active {
         background: $blue-primary-clicked;
     }
+}
+
+.green {
+    background: $green-primary;
+    color: white;
 }

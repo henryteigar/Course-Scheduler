@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import InfoBox from 'client/components/InfoBox/InfoBox'
-import 'client/css/components/info-box-container.scss';
+import 'client/containers/MainContainer/ContentWrapper/InfoBoxContainer/info-box-container.scss';
 
 class InfoBoxContainer extends Component {
     constructor() {
