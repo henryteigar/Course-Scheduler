@@ -2,14 +2,14 @@ const express = require('express');
 const router = express.Router();
 const { Pool } = require('pg');
 
-const connectionString = 'postgresql://postgres:postgres@207.154.242.61:5432/course-scheduler';
+require('dotenv').config();
+
 const pool = new Pool({
-    connectionString: connectionString,
+    connectionString: process.env.DB_CONNECTION_STRING
 });
 
 router.get('/', (req, res) => {
-
-    pool.query('SELECT * FROM USERS', (err, result) => {
+   pool.query('SELECT * FROM USERS', (err, result) => {
         if (err) {
             return console.log('ERROR ', err);
         }
