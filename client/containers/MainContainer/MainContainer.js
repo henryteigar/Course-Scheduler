@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Header from './Header/Header'
 import ContentWrapper from './ContentWrapper/ContentWrapper'
 
-import '../../css/components/main-container.scss';
+import 'client/css/components/main-container.scss';
 
 class MainContainer extends Component {
     render() {

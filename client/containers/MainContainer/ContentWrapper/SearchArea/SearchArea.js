@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 
-import * as SearchActions from '../../../../actions/CourseSearchAction';
-import SearchStore from '../../../../stores/CourseSearchStore';
+import * as SearchActions from 'client/actions/CourseSearchAction';
+import SearchStore from 'client/stores/CourseSearchStore';
 import MainSearchBox from './MainSearchBox/MainSearchBox';
-import CourseSearchTable from "../../../../components/CourseSearchTable/CourseSearchTable";
-import Button from "../../../../components/Button/Button";
+import CourseSearchTable from "client/components/CourseSearchTable/CourseSearchTable";
+import Button from "client/components/Button/Button";
 
-import '../../../../css/components/search-area.scss';
+import 'client/css/components/search-area.scss';
 
 class SearchArea extends Component {
 

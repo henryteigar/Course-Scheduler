@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import Profile from '../../../components/Profile/Profile';
+import Profile from 'client/components/Profile/Profile';
 
-import '../../../css/components/header.scss'
+import 'client/css/components/header.scss'
 
 class Header extends Component {
     constructor () {

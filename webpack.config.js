@@ -9,6 +9,11 @@ module.exports = {
         filename: 'bundle.js',
         publicPath: '/build',
     },
+    resolve: {
+        alias: {
+            client: path.resolve(__dirname, 'client/')
+        }
+    },
     module: {
         loaders: [
             {

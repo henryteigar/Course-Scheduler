@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../css/components/flash-message.scss';
+import 'client/css/components/flash-message.scss';
 
 const FlashMessage = (props) => {
     return (

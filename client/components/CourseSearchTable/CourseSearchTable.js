@@ -2,7 +2,7 @@ import React from 'react';
 
 import CourseSearchRow from './CourseSearchRow';
 
-import '../../css/components/course-search-table.scss'
+import 'client/css/components/course-search-table.scss'
 
 const CourseSearchTable = (props) => {
     let rows = [];

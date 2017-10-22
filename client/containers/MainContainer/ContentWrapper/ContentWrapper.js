@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import FlashMessage from '../../../components/FlashMessage/FlashMessage'
+import FlashMessage from 'client/components/FlashMessage/FlashMessage'
 import InfoBoxContainer from './InfoBoxContainer/InfoBoxContainer'
 import SearchArea from './SearchArea/SearchArea'
 
-import '../../../css/components/content-wrapper.scss';
+import 'client/css/components/content-wrapper.scss';
 
 class ContentWrapper extends Component {
     constructor() {
