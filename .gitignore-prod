@@ -3,3 +3,5 @@ client/*
 scripts
 !client/build
 !client/index.html
+!client/images
+!client/fonts
