@@ -36,7 +36,7 @@ class CourseSearchStore extends EventEmitter {
                     "responsibleLecturer": data.lecturers.split(", ")[0],
                     "currentAttendants": data.nr_of_registered,
                     "maxAttendants": data.max_registrations,
-                    "cancellationDeadline": "19.09.2017"
+                    "cancellationDeadline": data.cancellation_date
                 };
                 courses.push(course);
             });

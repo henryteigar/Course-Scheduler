@@ -19,7 +19,7 @@ router.get('/courses', (req, res) => {
     let q = req.query.q;
     q = (q === undefined || q == '*') ? "%%" : ((q === '') ? '' : '%' + req.query.q.toLowerCase() + '%');
 
-    pool.query('SELECT *, TO_CHAR(cancellation_date, \'DD-MM-YYYY\') AS cancellation_date FROM SUBJECTS WHERE LOWER(title) LIKE $1', [q], (err, result) => {
+    pool.query('SELECT *, TO_CHAR(cancellation_date, \'DD.MM.YYYY\') AS cancellation_date FROM SUBJECTS WHERE LOWER(title) LIKE $1', [q], (err, result) => {
         if (err) {
             return console.log('ERROR ', err);
         }
