@@ -4,7 +4,7 @@
     background: white;
     border: 1px solid $table-border-primary;
     display: inline-block;
-    font-family: HelveticaNeue, sans-serif;
+    font-family: HelveticaNeue-Light, sans-serif;
     height: 65px;
     margin: 0 5px 0 5px;
     width: 350px;
@@ -28,7 +28,7 @@
         transform: translateY(-50%);
 
         .content-value {
-            font: 25px HelveticaNeue, sans-serif;
+            font-size: 25px;
 
             span {
                 font-size: 16px;
