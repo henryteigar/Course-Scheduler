@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Sidebar from '../components/Sidebar/Sidebar';
 import MainContainer from './MainContainer/MainContainer';
 
-import './main.scss'
+import '../css/main.scss'
 
 class App extends Component {
     render() {
