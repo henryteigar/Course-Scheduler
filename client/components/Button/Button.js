@@ -1,6 +1,6 @@
 import React from 'react';
 
-import 'client/css/components/button.scss'
+import 'client/components/Button/button.scss'
 
 const Button = (props) => {
     return (

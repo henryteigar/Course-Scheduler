@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Profile from 'client/components/Profile/Profile';
 
-import 'client/css/components/header.scss'
+import 'client/containers/MainContainer/Header/header.scss'
 
 class Header extends Component {
     constructor () {

@@ -2,25 +2,23 @@ import React, {Component} from 'react';
 
 import * as SearchActions from 'client/actions/CourseSearchAction';
 import SearchStore from 'client/stores/CourseSearchStore';
-import MainSearchBox from './MainSearchBox/MainSearchBox';
+import SearchBox from '../../../../components/SearchBox/SearchBox';
 import CourseSearchTable from "client/components/CourseSearchTable/CourseSearchTable";
 import Button from "client/components/Button/Button";
 
-import 'client/css/components/search-area.scss';
+import 'client/containers/MainContainer/ContentWrapper/SearchArea/search-area.scss';
 
 class SearchArea extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
             courses: SearchStore.getAll(),
             query: ''
         };
-        SearchArea.handleClick = SearchArea.handleClick.bind(this);
     }
 
-    updateQuery(query) {
-        this.setState({query});
+    updateQuery(e) {
+        this.setState({"query": e.target.value});
     }
 
     componentWillMount() {
@@ -31,13 +29,13 @@ class SearchArea extends Component {
         });
     }
 
-    static handleClick() {
+    handleClick() {
         SearchActions.searchCourses(this.state.query);
     }
 
-    static handleKeyPress(e) {
+    handleKeyPress(e) {
         if (e.key === 'Enter') {
-            SearchArea.handleClick();
+            this.handleClick();
         }
     }
 
@@ -46,9 +44,10 @@ class SearchArea extends Component {
             <div className="searchArea">
                 <h2>Ainete lisamine</h2>
                 <hr/>
-                <MainSearchBox updateQuery={this.updateQuery.bind(this)}/>
+                <SearchBox updateQuery={this.updateQuery.bind(this)}
+                           handleKeyPress={this.handleKeyPress.bind(this)}/>
                 <div className="searchButton">
-                    <Button class="big-blue" name="Otsi" clickHandler={SearchArea.handleClick} />
+                    <Button class="big blue" name="Otsi" clickHandler={this.handleClick.bind(this)}/>
                 </div>
                 <CourseSearchTable courses={this.state.courses}/>
             </div>
