@@ -20,10 +20,10 @@ table.courseSearchTable {
 
         td {
             padding: 10px 0 10px 10px;
-        }
 
-        td:not(:first-child) {
-            min-width: 50px;
+            &:not(:first-child) {
+                min-width: 50px;
+            }
         }
 
         &:nth-child(odd) {
