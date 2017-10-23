@@ -1,0 +1,32 @@
+@import "../../css/variables";
+
+li.tab {
+    align-items: center;
+    background: $table-background;
+    border: 1px solid $table-border-primary;
+    border-left-width: 0;
+    color: $blue-font-dark;
+    cursor: pointer;
+    display: inline-flex;
+    height: 32px;
+    padding: 0 15px;
+
+    &:last-child {
+        border-bottom-right-radius: 3px;
+        border-top-right-radius: 3px;
+    }
+
+    &:hover {
+        background: $table-border-primary;
+    }
+}
+
+li.active {
+    background: $green-primary;
+    border-color: $green-primary;
+    color: white;
+
+    &:hover, &:active, &:focus {
+        background: $green-primary;
+    }
+}

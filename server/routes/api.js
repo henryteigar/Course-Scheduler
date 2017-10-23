@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Pool } = require('pg');
+const {Pool} = require('pg');
 require('dotenv').config();
 const users = require('./users.js');
 
@@ -17,7 +17,9 @@ router.use('/users', users);
 
 router.get('/courses', (req, res) => {
     let q = req.query.q;
-    q = (q === undefined || q == '*') ? "%%" : ((q === '') ? '' : '%' + req.query.q.toLowerCase() + '%');
+    let filter = req.query.filter;
+    console.log("Filter --> " + filter);
+    q = (q === undefined || q === '*') ? "%%" : ((q === '') ? '' : '%' + req.query.q.toLowerCase() + '%');
 
     pool.query('SELECT *, TO_CHAR(cancellation_date, \'DD.MM.YYYY\') AS cancellation_date FROM SUBJECTS WHERE LOWER(title) LIKE $1', [q], (err, result) => {
         if (err) {

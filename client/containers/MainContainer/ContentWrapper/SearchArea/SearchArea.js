@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 
-import * as SearchActions from 'client/actions/CourseSearchAction';
-import SearchStore from 'client/stores/CourseSearchStore';
-import SearchBox from '../../../../components/SearchBox/SearchBox';
 import CourseSearchTable from "client/components/CourseSearchTable/CourseSearchTable";
+import SearchBox from '../../../../components/SearchBox/SearchBox';
 import Button from "client/components/Button/Button";
+import Tabs from "../../../../components/Tabs/Tabs";
+
+import * as CourseSearchAction from 'client/actions/CourseSearchAction';
+import CourseSearchStore from 'client/stores/CourseSearchStore';
 
 import 'client/containers/MainContainer/ContentWrapper/SearchArea/search-area.scss';
 
@@ -12,8 +14,15 @@ class SearchArea extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            courses: SearchStore.getAll(),
-            query: ''
+            courses: CourseSearchStore.getAll(),
+            query: '',
+            filters: {
+                yldotsing: "Üldotsing",
+                isiklikud: "Isiklik",
+                kohustuslikud: "Kohustuslikud",
+                valik: "Valik",
+            },
+            selectedFilter: "yldotsing"
         };
     }
 
@@ -22,20 +31,24 @@ class SearchArea extends Component {
     }
 
     componentWillMount() {
-        SearchStore.on("change", () => {
+        CourseSearchStore.on("change", () => {
             this.setState({
-                courses: SearchStore.getAll()
+                courses: CourseSearchStore.getAll()
             })
         });
     }
 
-    handleClick() {
-        SearchActions.searchCourses(this.state.query);
+    updateSearchResult() {
+        CourseSearchAction.searchCourses(this.state.query);
     }
 
-    handleKeyPress(e) {
+    changeFilterHandler(tab) {
+        CourseSearchAction.changeCoursesSearchFilter(tab);
+    }
+
+    keyPressHandler(e) {
         if (e.key === 'Enter') {
-            this.handleClick();
+            this.updateSearchResult();
         }
     }
 
@@ -44,10 +57,13 @@ class SearchArea extends Component {
             <div className="searchArea">
                 <h2>Ainete lisamine</h2>
                 <hr/>
-                <SearchBox updateQuery={this.updateQuery.bind(this)}
-                           handleKeyPress={this.handleKeyPress.bind(this)}/>
+                <SearchBox changeHandler={this.updateQuery.bind(this)}
+                           keyPressHandler={this.keyPressHandler.bind(this)}
+                           class="mainSearchBox"/>
+                <Tabs tabs={this.state.filters} activeTab={this.state.selectedFilter}
+                      changeTabHandler={this.changeFilterHandler.bind(this)}/>
                 <div className="searchButton">
-                    <Button class="big blue" name="Otsi" clickHandler={this.handleClick.bind(this)}/>
+                    <Button class="big blue" name="Otsi" clickHandler={this.updateSearchResult.bind(this)}/>
                 </div>
                 <CourseSearchTable courses={this.state.courses}/>
             </div>

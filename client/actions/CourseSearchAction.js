@@ -7,3 +7,10 @@ export function searchCourses(query) {
         query: query
     });
 }
+
+export function changeCoursesSearchFilter(filter) {
+    dispatcher.dispatch({
+        type: SearchConstants.CHANGE_SEARCH_FILTER,
+        filter: filter
+    });
+}
