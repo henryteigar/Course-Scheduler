@@ -9,12 +9,14 @@ class Tabs extends Component {
         super();
         this.state = {
             tabs: props.tabs,
-            activeTab: props.activeTab
+            activeTab: props.activeTab,
+            changeTabHandler: props.changeTabHandler
         };
     }
 
-    handleClick(activeTab) {
+    tabClickHandler(activeTab) {
         this.setState({activeTab});
+        this.state.changeTabHandler(activeTab);
     }
 
     render() {
@@ -22,7 +24,7 @@ class Tabs extends Component {
         for (let key in this.state.tabs) {
             tabs.push(<Tab key={key} value={key} text={this.state.tabs[key]}
                            activeTab={this.state.activeTab}
-                           clickHandler={this.handleClick.bind(this)}/>)
+                           clickHandler={this.tabClickHandler.bind(this)}/>)
         }
         if (tabs.length === 0) return null;
 

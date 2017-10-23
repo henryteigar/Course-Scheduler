@@ -38,13 +38,17 @@ class SearchArea extends Component {
         });
     }
 
-    handleClick() {
+    updateSearchResult() {
         CourseSearchAction.searchCourses(this.state.query);
     }
 
-    handleKeyPress(e) {
+    changeFilterHandler() {
+        CourseSearchAction.changeCoursesSearchFilter();
+    }
+
+    keyPressHandler(e) {
         if (e.key === 'Enter') {
-            this.handleClick();
+            this.updateSearchResult();
         }
     }
 
@@ -54,11 +58,12 @@ class SearchArea extends Component {
                 <h2>Ainete lisamine</h2>
                 <hr/>
                 <SearchBox changeHandler={this.updateQuery.bind(this)}
-                           keyPressHandler={this.handleKeyPress.bind(this)}
+                           keyPressHandler={this.keyPressHandler.bind(this)}
                            class="mainSearchBox"/>
-                <Tabs tabs={this.state.filters} activeTab={this.state.selectedFilter}/>
+                <Tabs tabs={this.state.filters} activeTab={this.state.selectedFilter}
+                      changeTabHandler={this.changeFilterHandler.bind(this)}/>
                 <div className="searchButton">
-                    <Button class="big blue" name="Otsi" clickHandler={this.handleClick.bind(this)}/>
+                    <Button class="big blue" name="Otsi" clickHandler={this.updateSearchResult.bind(this)}/>
                 </div>
                 <CourseSearchTable courses={this.state.courses}/>
             </div>

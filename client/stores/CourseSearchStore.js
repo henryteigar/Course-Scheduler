@@ -3,15 +3,20 @@ import {SearchConstants} from '../constants/SearchConstants';
 import {EventEmitter} from 'events';
 import axios from 'axios';
 
-
 class CourseSearchStore extends EventEmitter {
     constructor() {
         super();
         this.courses = [];
+        this.filter = undefined;
     }
 
     getAll() {
         return this.courses;
+    }
+
+    setFilter(filter) {
+        this.filter = filter;
+        this.emit("change");
     }
 
     fetchCourses(query) {
@@ -57,6 +62,10 @@ dispatcher.register((action) => {
     switch (action.type) {
         case SearchConstants.SEARCH_COURSES:
             courseSearchStore.fetchCourses(action.query);
+            break;
+        case SearchConstants.CHANGE_SEARCH_FILTER:
+            courseSearchStore.setFilter(action.filter);
+            break;
     }
 });
 
