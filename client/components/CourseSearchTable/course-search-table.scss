@@ -10,13 +10,19 @@ table.courseSearchTable {
     th {
         color: $blue-font-dark;
         font-size: 14px;
+        font-family: HelveticaNeue-Bold, sans-serif;
         padding: 4px 0 10px 10px;
     }
 
+
     tbody tr {
         border: 1px solid $table-border-primary;
+
         td {
             padding: 10px 0 10px 10px;
+        }
+
+        td:not(:first-child) {
             min-width: 50px;
         }
 
