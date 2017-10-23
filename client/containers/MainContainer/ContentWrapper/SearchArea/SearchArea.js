@@ -42,8 +42,8 @@ class SearchArea extends Component {
         CourseSearchAction.searchCourses(this.state.query);
     }
 
-    changeFilterHandler() {
-        CourseSearchAction.changeCoursesSearchFilter();
+    changeFilterHandler(tab) {
+        CourseSearchAction.changeCoursesSearchFilter(tab);
     }
 
     keyPressHandler(e) {

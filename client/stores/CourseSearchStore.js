@@ -20,20 +20,23 @@ class CourseSearchStore extends EventEmitter {
     }
 
     fetchCourses(query) {
-        const myApi = axios.create({
+        let myApi = axios.create({
             baseURL: process.env.API_BASE_URL,
             timeout: 10000,
             withCredentials: true,
-            transformRequest: [(data) => JSON.stringify(data)],
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
         });
-        myApi.get('courses?q=' + query).then((response) => {
+
+        let uri = 'courses?q=' + query;
+        if (this.filter && this.filter !== "yldotsing") uri += '&filter=' + this.filter;
+
+        myApi.get(uri).then((response) => {
             let courses = [];
             response.data.forEach((data) => {
-                let course = {
+                courses.push({
                     "id": data.id,
                     "title": data.title,
                     "credits": data.credit,
@@ -42,8 +45,7 @@ class CourseSearchStore extends EventEmitter {
                     "currentAttendants": data.nr_of_registered,
                     "maxAttendants": data.max_registrations,
                     "cancellationDeadline": data.cancellation_date
-                };
-                courses.push(course);
+                });
             });
 
             this.courses = courses;
