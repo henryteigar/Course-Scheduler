@@ -4,9 +4,9 @@ import 'client/components/SearchBox/search-box.scss';
 
 const SearchBox = (props) => {
     return (
-        <input className="searchBox"
-               onChange={props.updateQuery}
-               onKeyPress={props.handleKeyPress}
+        <input className={props.class}
+               onChange={props.changeHandler}
+               onKeyPress={props.keyPressHandler}
                placeholder="Otsi aine koodi, nime, teaduskonda..."/>
     )
 };

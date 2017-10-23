@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import 'client/components/Sidebar/sidebar.scss'
 
