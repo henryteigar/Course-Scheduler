@@ -9,14 +9,20 @@ class Tabs extends Component {
         super();
         this.state = {
             tabs: props.tabs,
-            selectedTab: props.selectedTab
+            activeTab: props.activeTab
         };
+    }
+
+    handleClick(activeTab) {
+        this.setState({activeTab});
     }
 
     render() {
         let tabs = [];
         for (let key in this.state.tabs) {
-            tabs.push(<Tab key={key} text={this.state.tabs[key]}/>)
+            tabs.push(<Tab key={key} value={key} text={this.state.tabs[key]}
+                           activeTab={this.state.activeTab}
+                           clickHandler={this.handleClick.bind(this)}/>)
         }
         if (tabs.length === 0) return null;
 
