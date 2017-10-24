@@ -20,8 +20,10 @@ router.get('/courses', (req, res) => {
     let filter = req.query.filter;
     console.log("Filter --> " + filter);
     q = (q === undefined || q === '*') ? "%%" : ((q === '') ? '' : '%' + req.query.q.toLowerCase() + '%');
+    let filterStatement = (filter === undefined) ? "" : " AND subject_type LIKE $2";
+    let parameters = (filter === undefined) ? [q] : [q].concat("%" + filter + "%");
 
-    pool.query('SELECT *, TO_CHAR(cancellation_date, \'DD.MM.YYYY\') AS cancellation_date FROM SUBJECTS WHERE LOWER(title) LIKE $1', [q], (err, result) => {
+    pool.query('SELECT *, TO_CHAR(cancellation_date, \'DD.MM.YYYY\') AS cancellation_date FROM subjects WHERE LOWER(title) LIKE $1' + filterStatement, parameters, (err, result) => {
         if (err) {
             return console.log('ERROR ', err);
         }
