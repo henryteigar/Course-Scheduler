@@ -9,7 +9,7 @@ class ContentWrapper extends Component {
     constructor() {
         super();
         this.state = {
-            flashMessage: "Registreerimine järgmise semestri ainetele algab 15.mail"
+            flashMessage: "Registration for the next semester's courses starts on May 15"
         }
     }
     render() {

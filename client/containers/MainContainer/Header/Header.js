@@ -15,9 +15,9 @@ class Header extends Component {
     render () {
         return (
             <header className="header">
-                <h1>Ainetele registreerumine</h1>
+                <h1>Registration for courses</h1>
                 <Profile name={this.state.name} studentId={this.state.studentId} />
-                <input placeholder="Otsi..."/>
+                <input placeholder="Search..."/>
             </header>
         )
     }

@@ -15,14 +15,15 @@ class SearchArea extends Component {
         super(props);
         this.state = {
             courses: CourseSearchStore.getAll(),
+            inputPlaceholder: "Search course name, code, instute etc...",
             query: '',
             filters: {
-                yldotsing: "Üldotsing",
-                isiklik: "Isiklik",
-                kohustuslik: "Kohustuslikud",
-                valik: "Valik",
+                yldotsing: "All",
+                kohustuslik: "Obligatory courses",
+                //isiklik: "Personal", TODO left out for demo resons
+                valik: "Elective courses",
             },
-            selectedFilter: "yldotsing"
+            initialFilter: "yldotsing"
         };
     }
 
@@ -43,7 +44,15 @@ class SearchArea extends Component {
     }
 
     changeFilterHandler(tab) {
+        this.clearSearchResults();
         CourseSearchAction.changeCoursesSearchFilter(tab);
+
+        if (tab == "yldotsing") {
+            this.setState({inputPlaceholder: "Search course name, code, instute etc..."});
+        } else {
+            this.setState({inputPlaceholder: "Filter results..."});
+            CourseSearchAction.searchCourses(this.state.query);
+        }
     }
 
     keyPressHandler(e) {
@@ -52,18 +61,25 @@ class SearchArea extends Component {
         }
     }
 
+    clearSearchResults() {
+        this.setState({query: ""});
+        CourseSearchAction.clearResults();
+    }
+
     render() {
         return (
             <div className="searchArea">
-                <h2>Ainete lisamine</h2>
+                <h2>Add courses</h2>
                 <hr/>
                 <SearchBox changeHandler={this.updateQuery.bind(this)}
                            keyPressHandler={this.keyPressHandler.bind(this)}
-                           class="mainSearchBox"/>
-                <Tabs tabs={this.state.filters} activeTab={this.state.selectedFilter}
+                           placeholder={this.state.inputPlaceholder}
+                           class="mainSearchBox"
+                           value={this.state.query}/>
+                <Tabs tabs={this.state.filters} activeTab={this.state.initialFilter}
                       changeTabHandler={this.changeFilterHandler.bind(this)}/>
                 <div className="searchButton">
-                    <Button class="big blue" name="Otsi" clickHandler={this.updateSearchResult.bind(this)}/>
+                    <Button class="big blue" name="Search" clickHandler={this.updateSearchResult.bind(this)}/>
                 </div>
                 <CourseSearchTable courses={this.state.courses}/>
             </div>
