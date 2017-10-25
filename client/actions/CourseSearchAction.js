@@ -8,6 +8,12 @@ export function searchCourses(query) {
     });
 }
 
+export function clearResults() {
+    dispatcher.dispatch({
+        type: SearchConstants.CLEAR_RESULTS
+    });
+}
+
 export function changeCoursesSearchFilter(filter) {
     dispatcher.dispatch({
         type: SearchConstants.CHANGE_SEARCH_FILTER,

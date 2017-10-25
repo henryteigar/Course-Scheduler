@@ -14,6 +14,11 @@ class CourseSearchStore extends EventEmitter {
         return this.courses;
     }
 
+    clearAll() {
+        this.courses = [];
+        this.emit("change");
+    }
+
     setFilter(filter) {
         this.filter = filter;
         this.emit("change");
@@ -67,6 +72,9 @@ dispatcher.register((action) => {
             break;
         case SearchConstants.CHANGE_SEARCH_FILTER:
             courseSearchStore.setFilter(action.filter);
+            break;
+        case SearchConstants.CLEAR_RESULTS:
+            courseSearchStore.clearAll();
             break;
     }
 });

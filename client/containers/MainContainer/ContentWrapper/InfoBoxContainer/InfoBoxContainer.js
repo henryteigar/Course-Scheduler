@@ -8,16 +8,16 @@ class InfoBoxContainer extends Component {
         this.state = {
             infoBox: [
                 {
-                    value: "128/120",
-                    description: "Oled võtnud soovituslikust mahust"
+                    value: "108/120",
+                    description: "ECTS taken from recommended amount"
                 },
                 {
                     value: "6/12",
-                    description: "Oled võtnud valikaineid"
+                    description: "ECTS taken from elective courses"
                 },
                 {
-                    value: "9/15",
-                    description: "Oled võtnud vabaaineid"
+                    value: "4/9",
+                    description: "ECTS taken from optional courses"
                 }
             ]
         }

@@ -16,12 +16,12 @@ const CourseSearchTable = (props) => {
             <thead>
                 <tr>
                     <th></th>
-                    <th>Aine nimi</th>
-                    <th>Maht</th>
-                    <th>Toimumised</th>
-                    <th>Õppejõud</th>
-                    <th>Reg. isikud</th>
-                    <th>Tühistamise kp</th>
+                    <th>Course name</th>
+                    <th>Credits</th>
+                    <th>Schedule</th>
+                    <th>Lecturer</th>
+                    <th>Reg. persons</th>
+                    <th>Cancellation date</th>
                 </tr>
             </thead>
             <tbody>{rows}</tbody>
