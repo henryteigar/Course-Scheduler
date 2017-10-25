@@ -18,8 +18,8 @@ class SearchArea extends Component {
             query: '',
             filters: {
                 yldotsing: "Üldotsing",
-                isiklikud: "Isiklik",
-                kohustuslikud: "Kohustuslikud",
+                isiklik: "Isiklik",
+                kohustuslik: "Kohustuslikud",
                 valik: "Valik",
             },
             selectedFilter: "yldotsing"
