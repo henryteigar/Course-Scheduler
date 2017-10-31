@@ -6,12 +6,19 @@
     padding-left: 15px;
     margin-bottom: 10px;
 
+    .icon {
+        display: inline-block;
+        float: left;
+        width: 18px;
+        margin-right: 10px;
+        height: 41px;
+    }
+
     p {
         color: $yellow-text;
         line-height: 41px;
 
         &:before {
-            content: "!";
             margin-right: 10px;
         }
     }

@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
 
 
+
 /* reset styles */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp,
@@ -40,6 +41,11 @@ h2 {
     display: inline-block;
     line-height: 35px;
     margin-left: 15px;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+th {
     font-size: 14px;
     font-weight: normal;
 }
