@@ -1,13 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const {Pool} = require('pg');
-require('dotenv').config();
+const db = require('../db/init.js')
 const users = require('./users.js');
 
-
-const pool = new Pool({
-    connectionString: process.env.DB_CONNECTION_STRING
-});
 
 router.get('/', (req, res) => {
     res.send("This is our API")
@@ -42,7 +37,7 @@ router.get('/courses', (req, res) => {
         parameters.push('%' + input_filter + '%');
     }
 
-    pool.query(query, parameters, (err, result) => {
+    db.query(query, parameters, (err, result) => {
         if (err) {
             return console.log('ERROR ', err);
         }
