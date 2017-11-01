@@ -1,0 +1,27 @@
+@import '../../css/variables';
+
+.loginContainer {
+    background: $blue-primary;
+    float: left;
+    height: 100%;
+    width: 100%;
+
+    .logo{
+        left:50%;
+        margin-top: 170px;
+        margin-left: -60px;
+        position: absolute;
+        width: 115px;
+    }
+
+    p{
+        left:50%;
+        color: white;
+        font-weight: bold;
+        font-size: 17px;
+        margin:-165px 0 0 -140px;
+        position: absolute;
+        top:50%;
+    }
+
+}
