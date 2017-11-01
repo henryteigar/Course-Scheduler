@@ -1,0 +1,31 @@
+@import '../../../css/variables';
+
+.loginBoard {
+    background: white;
+    border-radius: 3px;
+    height: 270px;
+    left: 50%;
+    margin: -100px 0 0 -145px;
+    position: absolute;
+    top: 50%;
+    width: 290px;
+
+    p {
+        color: $blue-font-dark;
+        size: 13px;
+
+        &:before {
+            margin-right: 15px;
+        }
+    }
+
+    .logInButton {
+        height: 34px;
+        left: 15px;
+        margin: -50px 0 0 0;
+        position: absolute;
+        top: 100%;
+        width: 260px;
+    }
+
+}
