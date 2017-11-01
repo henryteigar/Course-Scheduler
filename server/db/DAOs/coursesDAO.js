@@ -1,11 +1,11 @@
 module.exports = {
     getCourses: function (input_query, input_filter) {
         //SQLQuery and parameters
-        let query = "SELECT *, TO_CHAR(cancellation_date, 'DD.MM.YYYY') AS cancellation_date FROM subjects WHERE 1=1";
+        let query = "SELECT * FROM v_courses WHERE 1=1";
         let parameters = [];
 
         if (input_query !== undefined && input_query !== '*' && input_query !== '') {
-            query += " AND LOWER(title) LIKE $" + (parameters.length + 1);
+            query += " AND LOWER(course_name) LIKE $" + (parameters.length + 1);
             parameters.push('%' + input_query.toLowerCase() + '%')
         }
 
