@@ -11,12 +11,14 @@
     width: 290px;
 
     p {
+        right: 30px;
+        font-weight: normal;
         color: $blue-font-dark;
-        size: 13px;
+        margin: -120px 0 0 -130px;
+        font-size: 13px;
+        position: absolute;
+        top:50%;
 
-        &:before {
-            margin-right: 15px;
-        }
     }
 
     .logInButton {
