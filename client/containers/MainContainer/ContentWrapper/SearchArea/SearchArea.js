@@ -15,7 +15,7 @@ class SearchArea extends Component {
         super(props);
         this.state = {
             courses: CourseSearchStore.getAll(),
-            inputPlaceholder: "Search course name, code, instute etc...",
+            inputPlaceholder: "Search course name, code, institute etc...",
             query: '',
             filters: {
                 yldotsing: "All",
