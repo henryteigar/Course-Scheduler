@@ -7,6 +7,7 @@ cache:
   directories:
   - node_modules
 before_install:
+- npm rebuild node-sass
 - bash scripts/before_install.sh
 script:
 - npm run prod
