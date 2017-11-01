@@ -42,13 +42,12 @@ class CourseSearchStore extends EventEmitter {
             let courses = [];
             response.data.forEach((data) => {
                 courses.push({
-                    "id": data.id,
-                    "title": data.title,
-                    "credits": data.credit,
-                    "schedule": data.occurrences,
-                    "responsibleLecturer": data.lecturers.split(", ")[0],
-                    "currentAttendants": data.nr_of_registered,
-                    "maxAttendants": data.max_registrations,
+                    //"id": data.id,
+                    "courseName": data.course_name,
+                    "credits": data.credits,
+                    "schedule": data.schedule,
+                    "lecturer": data.lecturer,
+                    "regPersons": data.reg_persons,
                     "cancellationDeadline": data.cancellation_date
                 });
             });
