@@ -11,14 +11,20 @@
     width: 290px;
 
     p {
-        right: 30px;
-        font-weight: normal;
         color: $blue-font-dark;
-        margin: -120px 0 0 -130px;
         font-size: 13px;
+        font-weight: normal;
+        margin: -120px 0 0 -130px;
         position: absolute;
+        right: 30px;
         top:50%;
+    }
 
+    .userName_input {
+        left: 50%;
+        margin: 0 0 0 -130px;
+        position: absolute;
+        top: 50%;
     }
 
     .logInButton {
