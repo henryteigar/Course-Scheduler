@@ -1,0 +1,15 @@
+@import "../../css/variables";
+
+.checkbox {
+    width: 17px;
+    height: 17px;
+    background: white;
+    border: 2px solid $gray-font-primary-light;
+    border-radius: 2px;
+}
+
+input[type=checkbox] {
+    visibility: hidden;
+}
+
+
