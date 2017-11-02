@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'client/containers/LoginContainer/login-container.scss';
-import InputfieldContainer from 'client/containers/LoginContainer/InputfieldContainer/LoginBoard';
+import InputfieldContainer from 'client/containers/LoginContainer/InputFieldContainer/LoginBoard';
 
 class LoginContainer extends Component {
     render() {
