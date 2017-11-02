@@ -13,24 +13,43 @@
     p {
         color: $blue-font-dark;
         font-size: 13px;
-        font-weight: normal;
-        margin: -120px 0 0 -127px;
         position: absolute;
         right: 30px;
         top:50%;
     }
+
+    .sign_in_message{
+        font-weight: bolder;
+        margin: -120px 0 0 -127px;
+    }
+
     .input{
         left: 50%;
         position: absolute;
         top: 50%;
         width: 100%;
     }
+
     .userName_input {
         margin: -70px 0 0 -130px;
     }
 
     .passWord_input {
         margin: -25px 0 0 -130px;
+    }
+
+    .checkBox_container {
+        left: 50%;
+        margin:30px 0 0 -127px;
+        position: absolute;
+        top:50%;
+        width: 80%;
+
+        .remember_me_message{
+            font-weight: bolder;
+            margin: -7px 0 0 -90px;
+            width: 100%;
+        }
     }
 
     .logInButton {
