@@ -14,17 +14,23 @@
         color: $blue-font-dark;
         font-size: 13px;
         font-weight: normal;
-        margin: -120px 0 0 -130px;
+        margin: -120px 0 0 -127px;
         position: absolute;
         right: 30px;
         top:50%;
     }
-
-    .userName_input {
+    .input{
         left: 50%;
-        margin: 0 0 0 -130px;
         position: absolute;
         top: 50%;
+        width: 100%;
+    }
+    .userName_input {
+        margin: -70px 0 0 -130px;
+    }
+
+    .passWord_input {
+        margin: -25px 0 0 -130px;
     }
 
     .logInButton {
