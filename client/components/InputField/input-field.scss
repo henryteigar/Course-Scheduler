@@ -1,15 +1,11 @@
 @import '../../css/variables';
 
-
-
-.userName_input_field {
-    border-top: 5px solid $gray-font-primary-light;
-    box-sizing: border-box;
-
-
-
-}
-.password_input_field{
-
-
+.input_field {
+    border: none;
+    border-bottom: 1px solid $input-bottom-border;
+    color: $gray-font-primary;
+    height: 30px;
+    outline: none;
+    padding: 0 4px;
+    width: 88%;
 }
