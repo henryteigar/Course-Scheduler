@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import 'client/containers/LoginContainer/InputfieldContainer/loginboard.scss';
+import 'client/containers/LoginContainer/LoginBoardContainer/loginboard.scss';
 import Button from "client/components/Button/Button";
 import InputField from "client/components/InputField/InputField";
 
