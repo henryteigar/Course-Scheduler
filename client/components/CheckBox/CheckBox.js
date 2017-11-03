@@ -15,9 +15,11 @@ class CheckBox extends Component {
 
     render() {
         return (
-            <div className="checkbox">
-                <input type="checkbox" className="checkbox" id="checkboxInput" onChange={this.changeState()}/>
-            </div>
+            <label className="checkbox_container">
+                <input type="checkbox" onChange={this.changeState()}/>
+                    <span className="checkmark"/>
+            </label>
+
         );
     }
 }
