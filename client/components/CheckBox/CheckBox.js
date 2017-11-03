@@ -17,7 +17,7 @@ class CheckBox extends Component {
         return (
             <label className="checkbox_container">
                 <input type="checkbox" onChange={this.changeState()}/>
-                    <span className="checkmark"/>
+                    <span className="check_mark"/>
             </label>
 
         );

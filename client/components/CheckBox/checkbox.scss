@@ -1,56 +1,44 @@
 @import "../../css/variables";
 
 .checkbox_container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
     cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+    display: block;
 }
 
 .checkbox_container input {
-    position: absolute;
     opacity: 0;
+    position: absolute;
 }
 
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 17px;
-    width: 17px;
+.check_mark {
+    background-color: white;
     border: 2px solid $gray-font-primary;
     border-radius: 2px;
-    background-color: white;
+    height: 17px;
+    position: absolute;
+    width: 17px;
+
 }
-.checkbox_container input:checked ~ .checkmark {
+
+.checkbox_container input:checked ~ .check_mark {
     background-color: $green-primary;
     border-color: $green-primary;
 }
 
-.checkmark:after {
+.check_mark:after {
     content: "";
     position: absolute;
-    display: none;
 }
 
-.checkbox_container input:checked ~ .checkmark:after {
-    display: block;
-}
-
-.checkbox_container .checkmark:after {
-    left: 3px;
-    top: 0;
-    width: 4px;
-    height: 8px;
+.checkbox_container .check_mark:after {
     border: solid white;
     border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
+    height: 8px;
+    left: 3px;
+    top: 0;
     transform: rotate(45deg);
+    width: 4px;
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
 }
 
