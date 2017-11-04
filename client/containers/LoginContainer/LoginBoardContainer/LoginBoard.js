@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import 'client/containers/LoginContainer/LoginBoardContainer/loginboard.scss';
+import 'client/containers/LoginContainer/LoginBoardContainer/login-board.scss';
 import Button from "client/components/Button/Button";
 import InputField from "client/components/InputField/InputField";
 import CheckBox from "client/components/CheckBox/CheckBox";
 
-class InputfieldContainer extends Component {
+class LoginBoard extends Component {
     render() {
         return (
             <div className="loginBoard">
@@ -34,4 +34,4 @@ class InputfieldContainer extends Component {
         )
     }
 }
-export default InputfieldContainer;
+export default LoginBoard;
