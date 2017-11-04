@@ -3,8 +3,14 @@ import 'client/containers/LoginContainer/LoginBoardContainer/login-board.scss';
 import Button from "client/components/Button/Button";
 import InputField from "client/components/InputField/InputField";
 import CheckBox from "client/components/CheckBox/CheckBox";
+import { withRouter } from 'react-router-dom';
 
 class LoginBoard extends Component {
+
+    handleClick() {
+        this.props.history.push("/");
+    }
+
     render() {
         return (
             <div className="loginBoard">
@@ -28,10 +34,10 @@ class LoginBoard extends Component {
                     <p className="remember_me_message">Remember me</p>
                 </div>
                 <div className="logInButton">
-                    <Button class="big green" name="Sign in"/>
+                    <Button clickHandler={() => this.handleClick()} class="big green" name="Sign in"/>
                 </div>
             </div>
         )
     }
 }
-export default LoginBoard;
+export default withRouter(LoginBoard);
