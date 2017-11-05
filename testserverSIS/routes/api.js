@@ -8,12 +8,10 @@ router.get('/', (req, res) => {
 });
 
 router.get('/login/:username&:password', (req, res) => {
-    console.log("Tuli päring")
     let name = req.params.username;
     let pass = req.params.password;
 
     if (name === "test" && pass === "test123") {
-        console.log('Õiged andmed')
         var token = randomString.generate(5);
         res.status(200).json({ token });
     }

@@ -4,6 +4,7 @@ const users = require('./users.js');
 const db = require('../db/init.js')
 const courses= require("../db/DAOs/coursesDAO.js");
 const request = require('request');
+const jwt = require('jsonwebtoken');
 
 
 router.get('/', (req, res) => {
@@ -29,10 +30,12 @@ router.get('/login/:username&:password', (req, res) => {
         //console.log('error:', error); // Print the error if one occurred
         //console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
         //console.log('body:', JSON.parse(body));
-        var info  = JSON.parse(body);
-        console.log(info.token);
-        res.send(body);
-
+        if (!error && response.statusCode == 200) {
+            var sessiontoken = JSON.parse(body).token;
+            //genereerime JWT tokeni
+            var jwtToken = jwt.sign({username: name, session: sessiontoken}, 'secret');
+            res.status(200).json({jwtToken});
+        }
     })
 
 });
