@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack --config webpack.config.js & node server/server.js",
-    "dev": "concurrently --kill-others \"webpack-dev-server --config webpack.config.js --content-base client\" \"nodemon server/server.js\"",
+    "dev": "concurrently --kill-others \"webpack-dev-server --config webpack.config.js --content-base client\" \"nodemon server/server.js\" \"nodemon testserverSIS/testserver.js\"",
     "prod": "webpack --config webpack.config.js && npm run pm2-start",
     "pm2-stop": "pm2 stop server/server.js",
     "pm2-start": "pm2 kill && pm2  start  server/server.js"
@@ -20,7 +20,9 @@
     "dotenv-webpack": "^1.5.4",
     "express": "^4.15.4",
     "pg": "^7.1.2",
-    "pm2": "^2.7.1"
+    "pm2": "^2.7.1",
+    "randomstring": "^1.1.5",
+    "request": "^2.83.0"
   },
   "devDependencies": {
     "axios": "^0.16.2",
