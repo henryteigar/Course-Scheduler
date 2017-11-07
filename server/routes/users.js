@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db/init.js');
+const auth = require('../lib/auth.js');
 
-router.get('/', (req, res) => {
+
+router.get('/', auth.mustBeLoggedIn, (req, res) => {
    db.query('SELECT * FROM USERS', (err, result) => {
         if (err) {
             return console.log('ERROR ', err);
