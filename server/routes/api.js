@@ -32,8 +32,7 @@ router.post('/login', (req, res) => {
                 let oisToken = body.token;
                 let internalToken = jwt.sign({
                     username: username,
-                    token: oisToken}, process.env.JWT_SECRET);
-
+                    sessionKey: oisToken}, process.env.JWT_SECRET);
                 res.status(200).json({jwt: internalToken});
             } else {
                 res.status(response.statusCode).send()
