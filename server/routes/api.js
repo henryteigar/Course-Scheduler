@@ -1,43 +1,47 @@
 const express = require('express');
 const router = express.Router();
 const users = require('./users.js');
-const db = require('../db/init.js')
+const db = require('../db/init.js');
 const courses= require("../db/DAOs/coursesDAO.js");
 const request = require('request');
 const jwt = require('jsonwebtoken');
-
+require('dotenv').config();
+const remoteApiUrl = process.env[process.env.REMOTE_SERVER];
 
 router.get('/', (req, res) => {
     res.send("This is our API")
 });
 
-router.get('/login/:username&:password', (req, res) => {
-    let name = req.params.username;
-    let pass = req.params.password;
+router.post('/login', (req, res) => {
+    let username = req.body.username;
+    let password = req.body.password;
 
-    if (!name) {
-        res.status(400).send('Username required');
-        return;
+    let options = {
+        method: 'post',
+        body: {
+            username: username,
+            password: password
+        },
+        json: true,
+        url: remoteApiUrl + '/login'
+    };
+
+    if (username && password) {
+        request.post(options, function (error, response, body) {
+            if (response.statusCode == 200) {
+                let oisToken = body.token;
+                let internalToken = jwt.sign({
+                    username: username,
+                    token: oisToken}, process.env.JWT_SECRET);
+
+                res.status(200).json({jwt: internalToken});
+            } else {
+                res.status(response.statusCode).send()
+            }
+        })
+    } else {
+        res.status(400).send();
     }
-    if (!pass) {
-        res.status(400).send('Password required');
-        return;
-    }
-    let a = 'http://localhost:3001/api/login/' + name + '&' + pass
-
-    console.log(a);
-    request(a, function (error, response, body) {
-        //console.log('error:', error); // Print the error if one occurred
-        //console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-        //console.log('body:', JSON.parse(body));
-        if (!error && response.statusCode == 200) {
-            var sessiontoken = JSON.parse(body).token;
-            //genereerime JWT tokeni
-            var jwtToken = jwt.sign({username: name, session: sessiontoken}, 'secret');
-            res.status(200).json({jwtToken});
-        }
-    })
-
 });
 
 router.use('/users', users);
