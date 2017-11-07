@@ -4,9 +4,7 @@ const bodyParser  = require('body-parser');
 const path        = require('path');
 const cors        = require('cors');
 const api         = require('./routes/api');
-
 require('dotenv').config();
-
 
 // MIDDLEWARE
 // =======================================
