@@ -1,0 +1,11 @@
+@import '../../css/variables';
+
+input.underlined-input {
+    border: none;
+    border-bottom: 1px solid $input-bottom-border;
+    box-sizing: border-box;
+    height: 35px;
+    outline: none;
+    padding: 0 6px;
+    width: 100%;
+}

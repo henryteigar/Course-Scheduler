@@ -1,0 +1,22 @@
+@import '../../css/variables';
+
+.loginContainer {
+    background: $blue-primary;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+
+    img {
+        width: 115px;
+        margin: 100px auto 18px auto;
+        position: relative;
+        display: block;
+    }
+
+    h1 {
+        text-align: center;
+        color: white;
+        display: block;
+        margin: 0 auto;
+    }
+}
