@@ -3,17 +3,12 @@
 input.mainSearchBox {
     border: 1px solid $table-border-primary;
     border-radius: 3px 0 0 3px;
-    color: $gray-font-primary;
     font-size: 13px;
     height: 28px;
     margin: 0 0 10px 20px;
     outline: none;
     padding-left: 20px;
     width: 570px;
-
-    &::placeholder {
-        color: $gray-font-primary-light;
-    }
 
     &:focus, &:active, &:hover {
         border: 1px solid $blue-primary;
