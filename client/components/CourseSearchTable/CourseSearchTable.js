@@ -1,18 +1,12 @@
 import React from 'react';
 
-import CourseSearchRow from './CourseSearchRow';
-
-import 'client/components/CourseSearchTable/course-search-table.scss'
+import 'client/components/CourseSearchTable/course-search-table.scss';
 
 const CourseSearchTable = (props) => {
-    let rows = [];
-    props.courses.forEach((row) => {
-        rows.push(<CourseSearchRow key={row.id} rowData={row}/>)
-    });
-    if (rows.length === 0) return null;
+    if (props.courses.length === 0) return null;
 
     return (
-        <table className="courseSearchTable">
+        <table className="course-search-table">
             <thead>
                 <tr>
                     <th></th>
@@ -24,9 +18,21 @@ const CourseSearchTable = (props) => {
                     <th>Cancellation date</th>
                 </tr>
             </thead>
-            <tbody>{rows}</tbody>
+            <tbody>
+                {props.courses.map((row) =>
+                    <tr>
+                        <td><input type="checkbox"/></td>
+                        <td>{row.title}</td>
+                        <td>{row.credits} EAP</td>
+                        <td>{row.schedule}</td>
+                        <td>{row.responsibleLecturer}</td>
+                        <td>{row.currentAttendants}/{row.maxAttendants}</td>
+                        <td>{row.cancellationDeadline}</td>
+                    </tr>
+                )}
+            </tbody>
         </table>
     )
-}
+};
 
 export default CourseSearchTable;
