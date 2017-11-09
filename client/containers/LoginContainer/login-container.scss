@@ -2,28 +2,21 @@
 
 .loginContainer {
     background: $blue-primary;
-    float: left;
+    position: absolute;
     height: 100%;
     width: 100%;
 
-    .logo{
-        left:50%;
-        margin-top: -300px;
-        margin-left: -60px;
-        position: absolute;
-        top:50%;
+    img {
         width: 115px;
-
+        margin: 100px auto 18px auto;
+        position: relative;
+        display: block;
     }
 
-    p{
-        left:50%;
+    h1 {
+        text-align: center;
         color: white;
-        font-weight: bold;
-        font-size: 17px;
-        margin:-165px 0 0 -140px;
-        position: absolute;
-        top:50%;
+        display: block;
+        margin: 0 auto;
     }
-
 }

@@ -1,11 +1,11 @@
 @import '../../css/variables';
 
-.input_field {
+input.underlined-input {
     border: none;
     border-bottom: 1px solid $input-bottom-border;
-    color: $gray-font-primary;
-    height: 30px;
+    box-sizing: border-box;
+    height: 35px;
     outline: none;
-    padding: 0 4px;
-    width: 88%;
+    padding: 0 6px;
+    width: 100%;
 }
