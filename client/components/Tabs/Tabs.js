@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 
-import Tab from "./Tab";
-
 import './tabs.scss';
 
 class Tabs extends Component {
@@ -14,23 +12,24 @@ class Tabs extends Component {
         };
     }
 
-    tabClickHandler(activeTab) {
-        this.setState({activeTab});
-        this.state.changeTabHandler(activeTab);
+    tabClickHandler(e) {
+        let targetTab = e.target.id;
+
+        this.setState({activeTab: targetTab});
+        this.state.changeTabHandler(targetTab);
     }
 
     render() {
-        let tabs = [];
-        for (let key in this.state.tabs) {
-            tabs.push(<Tab key={key} value={key} text={this.state.tabs[key]}
-                           activeTab={this.state.activeTab}
-                           clickHandler={this.tabClickHandler.bind(this)}/>)
-        }
-        if (tabs.length === 0) return null;
+        if (this.state.tabs.length === 0) return null;
 
         return (
             <ul className="tabs">
-                {tabs}
+                {Object.keys(this.state.tabs).map((tabValue) =>
+                    <li onClick={this.tabClickHandler.bind(this)} id={tabValue} key={tabValue}
+                        className={(tabValue === this.state.activeTab) ? `tab active` : `tab`}>
+                        {this.state.tabs[tabValue]}
+                    </li>
+                )}
             </ul>
         )
     }
