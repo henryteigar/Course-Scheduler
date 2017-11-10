@@ -8,7 +8,8 @@
     "dev": "concurrently --kill-others \"webpack-dev-server --config webpack.config.js --content-base client\" \"nodemon server/server.js\" \"nodemon mockServerOIS1/server.js\"",
     "prod": "webpack --config webpack.config.js && npm run pm2-start",
     "pm2-stop": "pm2 stop server/server.js && pm2 stop mockServerOIS1/server.js",
-    "pm2-start": "pm2 kill && pm2 start server/server.js && pm2 start mockServerOIS1/server.js"
+    "pm2-start": "pm2 kill && pm2 start server/server.js && pm2 start mockServerOIS1/server.js",
+    "test": "jasmine-node spec"
   },
   "author": "",
   "license": "ISC",
