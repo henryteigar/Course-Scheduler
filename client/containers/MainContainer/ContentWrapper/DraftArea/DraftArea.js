@@ -5,6 +5,7 @@ import DraftTable from "../../../../components/DraftTable/DraftTable";
 import CourseDraftStore from 'client/stores/CourseDraftStore';
 
 import 'client/containers/MainContainer/ContentWrapper/DraftArea/draft-area.scss';
+import Button from "../../../../components/Button/Button";
 
 class DraftArea extends Component {
 
@@ -26,7 +27,16 @@ class DraftArea extends Component {
     render() {
         let searchResultArea = null;
         if (this.state.courses.length > 0) {
-            searchResultArea = <DraftTable courses={this.state.courses}/>
+            searchResultArea =
+                <div>
+                    <DraftTable courses={this.state.courses}/>
+                    <div className="button-area">
+                        <Button class="small red" name="Remove from draft"/>
+                    </div>
+                    <div className="button-area">
+                        <Button class="small blue" name="Put courses to schedule"/>
+                    </div>
+                </div>
         }
         return (
             <div className="draft-area">
