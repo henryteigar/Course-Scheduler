@@ -5,6 +5,7 @@ import MainContainer from './MainContainer/MainContainer';
 import '../css/main.scss';
 
 class App extends Component {
+
     render() {
         return (
             <div>
