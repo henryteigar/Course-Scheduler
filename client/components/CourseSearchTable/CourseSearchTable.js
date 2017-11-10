@@ -1,15 +1,14 @@
 import React from 'react';
 
-import 'client/components/CourseSearchTable/course-search-table.scss';
+import './course-search-table.scss';
+import CheckBox from "../CheckBox/CheckBox";
 
 const CourseSearchTable = (props) => {
-    if (props.courses.length === 0) return null;
-
     return (
-        <table className="course-search-table">
+        <table>
             <thead>
                 <tr>
-                    <th></th>
+                    <th/>
                     <th>Course name</th>
                     <th>Credits</th>
                     <th>Schedule</th>
@@ -19,15 +18,18 @@ const CourseSearchTable = (props) => {
                 </tr>
             </thead>
             <tbody>
-                {props.courses.map((row) =>
-                    <tr key={row.title}>
-                        <td><input type="checkbox"/></td>
-                        <td>{row.title}</td>
-                        <td>{row.credits} EAP</td>
-                        <td>{row.schedule}</td>
-                        <td>{row.responsibleLecturer}</td>
-                        <td>{row.currentAttendants}/{row.maxAttendants}</td>
-                        <td>{row.cancellationDeadline}</td>
+                {props.courses.map((course) =>
+                    <tr key={course.title}>
+                        {!props.draftedCourses.includes(course)?
+                            <td>
+                                <CheckBox changeHandler={props.changeHandler} value={course} classes="blue small"/>
+                            </td>:<td/>}
+                        <td>{course.title}</td>
+                        <td>{course.credits} EAP</td>
+                        <td>{course.schedule}</td>
+                        <td>{course.responsibleLecturer}</td>
+                        <td>{course.currentAttendants}/{course.maxAttendants}</td>
+                        <td>{course.cancellationDeadline}</td>
                     </tr>
                 )}
             </tbody>

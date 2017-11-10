@@ -1,13 +1,41 @@
 @import '../../../../css/variables';
 
-.searchArea {
+.search-area {
     background: white;
     border: 1px solid $table-border-primary;
     margin-bottom: 10px;
 
-    .searchButton {
+    .search-button {
         float: right;
         margin-right: 10px;
         width: 95px;
     }
+
+    .search-result {
+        position: relative;
+
+        .result-table {
+            display: inline-block;
+            width: 735px;
+        }
+
+        .buttons-area {
+            bottom: 23px;
+            display: inline-block;
+            float: right;
+            padding: 0 10px;
+            position: absolute;
+            width: 333px;
+
+            * {
+                margin-top: 10px;
+            }
+        }
+    }
+
+    .detailed-search-toggle-button {
+        margin: 0 10px 10px 10px;
+        text-align: right;
+    }
 }
+

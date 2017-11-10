@@ -8,9 +8,9 @@ export function searchCourses(query) {
     });
 }
 
-export function clearResults() {
+export function clearSearchResult() {
     dispatcher.dispatch({
-        type: SearchConstants.CLEAR_RESULTS
+        type: SearchConstants.CLEAR_SEARCH_RESULTS
     });
 }
 

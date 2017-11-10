@@ -1,0 +1,30 @@
+@import "../../css/variables";
+
+.collapsible-text-button {
+    background: transparent;
+    border: none;
+    color: $blue-primary;
+    cursor: pointer;
+    font: inherit;
+    height: auto;
+    line-height: normal;
+    margin: 0;
+    outline: none;
+    overflow: visible;
+    padding: 0;
+    width: auto;
+
+    .icon {
+        height: 10px;
+        margin: 0 5px 0 0;
+        width: 10px;
+    }
+
+    .icon-collapsed {
+        transform: rotate(0deg);
+    }
+
+    .icon-opened {
+        transform: rotate(90deg);
+    }
+}

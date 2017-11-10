@@ -1,38 +1,64 @@
 @import "../../css/variables";
 
-.big {
-    border: 0;
-    border-radius: 2px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: bold;
-    height: 34px;
-    outline: none;
-    width: 100%;
-
-    &:hover {
-        background: $green-primary-hover;
+button {
+    &.big {
+        border: 0;
+        border-radius: 2px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: normal;
+        height: 34px;
+        outline: none;
+        width: 100%;
     }
 
-    &:active {
-        background: $green-primary-clicked;
-    }
-}
-
-.blue {
-    background: $blue-primary;
-    color: white;
-
-    &:hover {
-        background: $blue-primary-hover;
+    &.small {
+        border: 0;
+        border-radius: 2px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 300;
+        height: 27px;
+        outline: none;
+        width: 100%;
     }
 
-    &:active {
-        background: $blue-primary-clicked;
-    }
-}
+    &.blue {
+        background: $blue-primary;
+        color: white;
 
-.green {
-    background: $green-primary;
-    color: white;
+        &:hover {
+            background: $blue-primary-hover;
+        }
+
+        &:active {
+            background: $blue-primary-clicked;
+        }
+    }
+
+    &.green {
+        background: $green-primary;
+        color: white;
+
+        &:hover {
+            background: $green-primary-hover;
+        }
+
+        &:active {
+            background: $green-primary-clicked;
+        }
+    }
+
+    &.red {
+        background: $red-primary;
+        color: white;
+
+        &:hover {
+            background: $red-light-hover;
+        }
+
+        &:active {
+            background: $red-primary-clicked;
+        }
+    }
 }

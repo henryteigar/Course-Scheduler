@@ -73,7 +73,7 @@ dispatcher.register((action) => {
         case SearchConstants.CHANGE_SEARCH_FILTER:
             courseSearchStore.setFilter(action.filter);
             break;
-        case SearchConstants.CLEAR_RESULTS:
+        case SearchConstants.CLEAR_SEARCH_RESULTS:
             courseSearchStore.clearAll();
             break;
     }
