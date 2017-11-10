@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 
 import DraftTable from "../../../../components/DraftTable/DraftTable";
+import Button from "../../../../components/Button/Button";
 
 import * as CourseDraftAction from 'client/actions/CourseDraftAction';
 import CourseDraftStore from 'client/stores/CourseDraftStore';
 
 import 'client/containers/MainContainer/ContentWrapper/DraftArea/draft-area.scss';
-import Button from "../../../../components/Button/Button";
 
 class DraftArea extends Component {
 
