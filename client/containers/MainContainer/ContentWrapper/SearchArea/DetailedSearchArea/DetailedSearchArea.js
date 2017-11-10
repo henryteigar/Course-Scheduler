@@ -24,9 +24,15 @@ class DetailedSearchArea extends Component {
                     <CollapsibleTextButton name="Detailed search" collapsed={this.state.isCollapsed}
                                            clickHandler={this.toggleDetailedSearch.bind(this)}/>
                 </div>
-                <div className="content">
-                    <DropdownSelectBox name="a"/>
-                    <DropdownSelectBox name="b"/>
+                <div className="content">  {/*Currently pointless*/}
+                    <DropdownSelectBox />
+                    <DropdownSelectBox />
+                    <DropdownSelectBox />
+                    <DropdownSelectBox />
+                    <DropdownSelectBox />
+                    <DropdownSelectBox />
+                    <DropdownSelectBox />
+                    <DropdownSelectBox />
                 </div>
 
             </div>

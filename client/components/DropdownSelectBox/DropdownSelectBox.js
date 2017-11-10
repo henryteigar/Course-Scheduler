@@ -7,9 +7,27 @@ class DropdownSelectBox extends Component {
     constructor() {
         super();
         this.state = {
-            selectedValue: null,
-            isCollapsed: true
-        }
+            selectedEl: null,
+            isCollapsed: true,
+            name: {
+                id: "institute",
+                name: "Faculty/Department"
+            },
+            values: [
+                {
+                    id: 1,
+                    name: "valik1"
+                },
+                {
+                    id: 2,
+                    name: "valik2"
+                },
+                {
+                    id: 3,
+                    name: "valik3"
+                }
+            ]
+        };
         this.setWrapperRef = this.setWrapperRef.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
     }
@@ -18,9 +36,10 @@ class DropdownSelectBox extends Component {
         this.setState({isCollapsed: !this.state.isCollapsed})
     }
 
+
     handleClickOutside(e) {
         if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-            //alert('You clicked outside of ' + this.props.name);
+            this.setState({isCollapsed: true});
         }
     }
 
@@ -36,14 +55,26 @@ class DropdownSelectBox extends Component {
         this.wrapperRef = node;
     }
 
+    onItemClickHandler(selectedEl) {
+        this.setState({selectedEl});
+        this.setState({isCollapsed: true});
+    }
 
     render() {
         return (
             <div className="dropdown-select-box" ref={this.setWrapperRef}>
-                <button onClick={this.toggleCollapse.bind(this)}>Selected item</button>
+                <label>{this.state.name.name}</label>
+                <button onClick={this.toggleCollapse.bind(this)}>
+                    <span>{this.state.selectedEl != null ? this.state.selectedEl.name : "Select option..."}</span>
+                    <div className="toggle-btn">
+                        <Ionicon className="icon" color="#385A7C"
+                                 icon="ion-chevron-down"/>
+                    </div>
+                </button>
                 <ul className={this.state.isCollapsed ? "collapsed" : ""}>
-                    <li>Option 1</li>
-                    <li>Option 2</li>
+                    {this.state.values.map((el) =>
+                        <li className={el == this.state.selectedEl ? "selected" : ""} onClick={(e) => this.onItemClickHandler(el)} key={el.id}>{el.name}</li>
+                    )}
                 </ul>
             </div>
         );

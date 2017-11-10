@@ -1,33 +1,95 @@
+@import "../../css/variables";
+
 .dropdown-select-box {
+
     display: inline-block;
-    background: red;
+    width: 200px;
+
+    margin-bottom: 10px;
+    position: relative;
+
+
+    label {
+        color: $gray-font-primary-medium;
+        display: inline-block;
+        margin-bottom: 5px;
+    }
 
     button {
-
-        background-color: #4CAF50;
-        border: none;
-        color: white;
+        background: white;
+        border: 1px solid $table-border-primary;
+        color: $blue-primary;
         cursor: pointer;
+        display: block;
         font-size: 12px;
-        height: 40px;
-        width: 200px;
+        height: 33px;
+        margin-right: 10px;
         outline: none;
+        padding: 0 0 0 10px;
+        position: relative;
+        text-align: left;
+        width: 100%;
+        border-radius: 2px;
 
+        span {
+            display: inline-block;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
 
+        .toggle-btn {
+            border-left: 1px solid $table-border-primary;
+            float: right;
+            height: 100%;
+            padding: 0;
+            position: relative;
+            width: 31px;
+
+            .icon {
+                display: block;
+                height: 10px;
+                margin: 0 auto;
+                position: relative;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+
+        &:hover .toggle-btn {
+            background: $table-background;
+        }
     }
 
     ul {
-        background: gray;
         display: block;
-        position: relative;
-        width: 200px;
+        list-style: none;
+        position: absolute;
+        width: 100%;
+        z-index: 1;
 
         &.collapsed {
             display: none;
         }
 
         li {
-            height: 40px;
+            border: 1px solid $table-border-primary;
+            border-top: none;
+            color: $blue-primary;
+            cursor: pointer;
+            line-height: 33px;
+            padding-left: 10px;
+            vertical-align: middle;
+            background: white;
+
+            &:hover {
+                background: $table-background;
+            }
+
+            &.selected {
+                background: $table-background;
+                font-weight: 500;
+            }
         }
     }
 }

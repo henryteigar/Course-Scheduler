@@ -1,14 +1,15 @@
 .detailed-search-area {
-    margin: 0 10px 10px 10px;
+    margin: 0 0 10px 0;
     max-height: 15px;
     overflow: hidden;
     position: relative;
-    transition: max-height 0.55s;
+    transition: max-height 0.35s;
     z-index: 1;
 
     &.opened {
         max-height: 400px;
-        transition: max-height 0.55s;
+        height: 300px;
+        transition: max-height 0.35s;
     }
 
     .toggle-button {
@@ -16,6 +17,5 @@
     }
 
     .content {
-        margin-bottom: 25px;
     }
 }
