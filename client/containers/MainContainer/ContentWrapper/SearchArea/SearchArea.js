@@ -6,8 +6,8 @@ import Button from "client/components/Button/Button";
 import Tabs from "../../../../components/Tabs/Tabs";
 
 import * as CourseSearchAction from 'client/actions/CourseSearchAction';
+import * as CourseDraftAction from 'client/actions/CourseDraftAction';
 import CourseSearchStore from 'client/stores/CourseSearchStore';
-
 
 import './search-area.scss';
 import CollapsibleTextButton from "client/components/CollapsibleTextButton/CollapsibleTextButton";
@@ -31,10 +31,6 @@ class SearchArea extends Component {
         };
     }
 
-    updateQuery(e) {
-        this.setState({"query": e.target.value});
-    }
-
     componentWillMount() {
         CourseSearchStore.on("change", () => {
             this.setState({
@@ -43,15 +39,24 @@ class SearchArea extends Component {
         });
     }
 
+    updateQuery(e) {
+        this.setState({query: e.target.value});
+    }
+
     updateSearchResult() {
         CourseSearchAction.searchCourses(this.state.query);
     }
 
-    changeFilterHandler(tab) {
-        this.clearSearchResults();
+    clearSearchResult() {
+        this.setState({query: ""});
+        CourseSearchAction.clearSearchResult();
+    }
+
+    filterChangeHandler(tab) {
+        this.clearSearchResult();
         CourseSearchAction.changeCoursesSearchFilter(tab);
 
-        if (tab == "yldotsing") {
+        if (tab === "yldotsing") {
             this.setState({inputPlaceholder: "Search course name, code, institute etc..."});
         } else {
             this.setState({inputPlaceholder: "Filter results..."});
@@ -65,13 +70,19 @@ class SearchArea extends Component {
         }
     }
 
-    clearSearchResults() {
-        this.setState({query: ""});
-        CourseSearchAction.clearResults();
+    toggleCourse(course) {
+        let courses = this.state.selectedCourses;
+
+        if (courses.includes(course)) {
+            courses = courses.filter(el => el !== course);
+        } else {
+            courses.push(course);
+        }
+        this.setState({selectedCourses: courses});
     }
 
-    checkCourse(e) {
-        console.log(e);
+    addToDraft() {
+        CourseDraftAction.addToDraft(this.state.selectedCourses)
     }
 
     toggleDetailedSearch() {
@@ -84,11 +95,11 @@ class SearchArea extends Component {
             searchResultArea =
                 <div className="search-result">
                     <div className="result-table">
-                        <CourseSearchTable changeHandler={this.checkCourse.bind(this)} courses={this.state.courses}/>
+                        <CourseSearchTable changeHandler={this.toggleCourse.bind(this)} courses={this.state.courses}/>
                     </div>
                     <div className="buttons-area">
                         <Button class="big blue" name="Register to chosen courses"/>
-                        <Button class="big green" name="Add to draft"/>
+                        <Button clickHandler={this.addToDraft.bind(this)} class="big green" name="Add to draft"/>
                     </div>
                 </div>
         }
@@ -102,14 +113,17 @@ class SearchArea extends Component {
                            placeholder={this.state.inputPlaceholder}
                            class="mainSearchBox"
                            value={this.state.query}/>
+
                 <Tabs tabs={this.state.filters} activeTab={this.state.initialFilter}
-                      changeTabHandler={this.changeFilterHandler.bind(this)}/>
+                      changeTabHandler={this.filterChangeHandler.bind(this)}/>
+
                 <div className="search-button">
                     <Button class="big blue" name="Search" clickHandler={this.updateSearchResult.bind(this)}/>
                 </div>
 
                 <div className="detailed-search-toggle-button">
-                    <CollapsibleTextButton name="Ava detailotsing" collapsed={this.state.isDetailedSearchCollapsed} clickHandler={this.toggleDetailedSearch.bind(this)}/>
+                    <CollapsibleTextButton name="Ava detailotsing" collapsed={this.state.isDetailedSearchCollapsed}
+                                           clickHandler={this.toggleDetailedSearch.bind(this)}/>
                 </div>
 
                 {searchResultArea}
