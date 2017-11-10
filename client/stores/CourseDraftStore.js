@@ -1,15 +1,20 @@
 import dispatcher from '../dispatcher/Dispatcher';
-import {DraftConstants, SearchConstants} from '../constants/DraftConstants';
+import {DraftConstants} from '../constants/DraftConstants';
 import {EventEmitter} from 'events';
 
 class CourseDraftStore extends EventEmitter {
+
     constructor() {
         super();
         this.draftedCourses = [];
     }
 
     addToDraft(courses) {
-        this.draftedCourses = courses;
+        courses.forEach((course) => {
+            if (!this.draftedCourses.includes(course)) {
+                this.draftedCourses.push(course);
+            }
+        });
         this.emit("change");
     }
 
@@ -25,7 +30,6 @@ dispatcher.register((action) => {
             break;
     }
 });
-
 
 const courseDraftStore = new CourseDraftStore();
 export default courseDraftStore;
