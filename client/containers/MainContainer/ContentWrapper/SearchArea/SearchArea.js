@@ -8,7 +8,9 @@ import Tabs from "../../../../components/Tabs/Tabs";
 import * as CourseSearchAction from 'client/actions/CourseSearchAction';
 import CourseSearchStore from 'client/stores/CourseSearchStore';
 
+
 import './search-area.scss';
+import CollapsibleTextButton from "client/components/CollapsibleTextButton/CollapsibleTextButton";
 
 class SearchArea extends Component {
     constructor(props) {
@@ -24,7 +26,8 @@ class SearchArea extends Component {
                 valik: "Elective courses",
             },
             initialFilter: "yldotsing",
-            selectedCourses: []
+            selectedCourses: [],
+            isDetailedSearchCollapsed: true
         };
     }
 
@@ -71,6 +74,10 @@ class SearchArea extends Component {
         console.log(e);
     }
 
+    toggleDetailedSearch() {
+        this.setState({isDetailedSearchCollapsed: !this.state.isDetailedSearchCollapsed})
+    }
+
     render() {
         let searchResultArea = null;
         if (this.state.courses.length > 0) {
@@ -100,6 +107,7 @@ class SearchArea extends Component {
                 <div className="search-button">
                     <Button class="big blue" name="Search" clickHandler={this.updateSearchResult.bind(this)}/>
                 </div>
+                <CollapsibleTextButton name="Ava detailotsing" collapsed={this.state.isDetailedSearchCollapsed} clickHandler={this.toggleDetailedSearch.bind(this)}/>
                 {searchResultArea}
             </div>
         )
