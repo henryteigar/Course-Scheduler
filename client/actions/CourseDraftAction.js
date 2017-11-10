@@ -7,3 +7,10 @@ export function addToDraft(courses) {
         courses: courses
     });
 }
+
+export function removeFromDraft(courses) {
+    dispatcher.dispatch({
+        type: DraftConstants.REMOVE_FROM_DRAFT,
+        courses: courses
+    });
+}

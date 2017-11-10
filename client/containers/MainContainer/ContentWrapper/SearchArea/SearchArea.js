@@ -37,9 +37,15 @@ class SearchArea extends Component {
     componentWillMount() {
         CourseSearchStore.on("change", () => {
             this.setState({
-                courses: CourseSearchStore.getAll()
+                courses: CourseSearchStore.getAll(),
             })
         });
+        CourseDraftStore.on("change", () => {
+            this.setState({
+                draftedCourses: CourseDraftStore.getAll(),
+                selectedCourses: []
+            })
+        })
     }
 
     updateQuery(e) {
