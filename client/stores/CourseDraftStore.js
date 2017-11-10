@@ -30,11 +30,11 @@ dispatcher.register((action) => {
     switch (action.type) {
         case DraftConstants.ADD_TO_DRAFT:
             courseDraftStore.addToDraft(action.courses);
-            this.emit("change");
+            courseDraftStore.emit("change");
             break;
         case DraftConstants.REMOVE_FROM_DRAFT:
             courseDraftStore.removeFromDraft(action.courses);
-            this.emit("change");
+            courseDraftStore.emit("change");
             break;
     }
 });

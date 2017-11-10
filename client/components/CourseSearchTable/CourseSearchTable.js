@@ -8,7 +8,7 @@ const CourseSearchTable = (props) => {
         <table>
             <thead>
                 <tr>
-                    <th></th>
+                    <th/>
                     <th>Course name</th>
                     <th>Credits</th>
                     <th>Schedule</th>
@@ -23,7 +23,7 @@ const CourseSearchTable = (props) => {
                         {!props.draftedCourses.includes(course)?
                             <td>
                                 <CheckBox changeHandler={props.changeHandler} value={course} classes="blue small"/>
-                            </td>:<td></td>}
+                            </td>:<td/>}
                         <td>{course.title}</td>
                         <td>{course.credits} EAP</td>
                         <td>{course.schedule}</td>
