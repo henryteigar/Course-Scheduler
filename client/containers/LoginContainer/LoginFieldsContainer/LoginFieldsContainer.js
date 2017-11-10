@@ -34,8 +34,8 @@ class LoginFieldsContainer extends Component {
                 </div>
 
                 <div className="checkbox-container">
-                    <CheckBox changeHandler={this.changeHandler.bind(this)}/>
-                    <span className="description">Remember me</span>
+                    <label><CheckBox changeHandler={this.changeHandler.bind(this)} classes="green medium"/>
+                    <span className="description">Remember me</span></label>
                 </div>
 
                 <div className="button">
