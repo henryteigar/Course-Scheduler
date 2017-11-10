@@ -1,6 +1,7 @@
 import React from 'react';
 
-import 'client/components/CourseSearchTable/course-search-table.scss';
+import './course-search-table.scss';
+import CheckBox from "../CheckBox/CheckBox";
 
 const CourseSearchTable = (props) => {
     return (
@@ -19,7 +20,7 @@ const CourseSearchTable = (props) => {
             <tbody>
                 {props.courses.map((row) =>
                     <tr key={row.title}>
-                        <td><input type="checkbox"/></td>
+                        <td><CheckBox changeHandler={props.changeHandler} value={row}/></td>
                         <td>{row.title}</td>
                         <td>{row.credits} EAP</td>
                         <td>{row.schedule}</td>

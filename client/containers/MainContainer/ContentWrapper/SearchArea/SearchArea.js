@@ -8,7 +8,7 @@ import Tabs from "../../../../components/Tabs/Tabs";
 import * as CourseSearchAction from 'client/actions/CourseSearchAction';
 import CourseSearchStore from 'client/stores/CourseSearchStore';
 
-import 'client/containers/MainContainer/ContentWrapper/SearchArea/search-area.scss';
+import './search-area.scss';
 
 class SearchArea extends Component {
     constructor(props) {
@@ -23,7 +23,8 @@ class SearchArea extends Component {
                 //isiklik: "Personal", TODO left out for demo resons
                 valik: "Elective courses",
             },
-            initialFilter: "yldotsing"
+            initialFilter: "yldotsing",
+            selectedCourses: []
         };
     }
 
@@ -66,12 +67,16 @@ class SearchArea extends Component {
         CourseSearchAction.clearResults();
     }
 
+    checkCourse(e) {
+        console.log(e);
+    }
+
     render() {
         let searchResultArea = null;
         if (this.state.courses.length > 0) {
             searchResultArea =
                 <div className="search-result">
-                    <div className="result-table"><CourseSearchTable courses={this.state.courses}/></div>
+                    <div className="result-table"><CourseSearchTable changeHandler={this.checkCourse.bind(this)} courses={this.state.courses}/></div>
                     <div className="buttons-area">
                         <Button class="big blue" name="Register to chosen courses"/>
                         <Button class="big green" name="Add to draft"/>
