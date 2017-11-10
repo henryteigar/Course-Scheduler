@@ -48,7 +48,7 @@ class SearchArea extends Component {
         CourseSearchAction.changeCoursesSearchFilter(tab);
 
         if (tab == "yldotsing") {
-            this.setState({inputPlaceholder: "Search course name, code, instute etc..."});
+            this.setState({inputPlaceholder: "Search course name, code, institute etc..."});
         } else {
             this.setState({inputPlaceholder: "Filter results..."});
             CourseSearchAction.searchCourses(this.state.query);
