@@ -3,6 +3,7 @@ import FlashMessage from 'client/components/FlashMessage/FlashMessage'
 import InfoBoxContainer from './InfoBoxContainer/InfoBoxContainer'
 import SearchArea from './SearchArea/SearchArea'
 import DraftArea from './DraftArea/DraftArea'
+import RegisteredCoursesArea from './RegisteredCoursesArea/RegisteredCoursesArea'
 
 import 'client/containers/MainContainer/ContentWrapper/content-wrapper.scss';
 
@@ -22,6 +23,7 @@ class ContentWrapper extends Component {
                 <InfoBoxContainer />
                 <SearchArea />
                 <DraftArea />
+                <RegisteredCoursesArea />
             </div>
         )
     }
