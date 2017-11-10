@@ -107,8 +107,13 @@ class SearchArea extends Component {
                 <div className="search-button">
                     <Button class="big blue" name="Search" clickHandler={this.updateSearchResult.bind(this)}/>
                 </div>
-                <CollapsibleTextButton name="Ava detailotsing" collapsed={this.state.isDetailedSearchCollapsed} clickHandler={this.toggleDetailedSearch.bind(this)}/>
+
+                <div className="detailed-search-toggle-button">
+                    <CollapsibleTextButton name="Ava detailotsing" collapsed={this.state.isDetailedSearchCollapsed} clickHandler={this.toggleDetailedSearch.bind(this)}/>
+                </div>
+
                 {searchResultArea}
+
             </div>
         )
     }
