@@ -4,9 +4,11 @@ import DraftTable from "../../../../components/DraftTable/DraftTable";
 import Button from "../../../../components/Button/Button";
 
 import * as CourseDraftAction from 'client/actions/CourseDraftAction';
+import * as RegisteredCoursesAction from 'client/actions/RegisteredCoursesAction';
 import CourseDraftStore from 'client/stores/CourseDraftStore';
 
 import 'client/containers/MainContainer/ContentWrapper/DraftArea/draft-area.scss';
+import RegisteredCoursesArea from "../RegisteredCoursesArea/RegisteredCoursesArea";
 
 class DraftArea extends Component {
 
@@ -43,6 +45,10 @@ class DraftArea extends Component {
         this.setState({courses: CourseDraftStore.getAll()});
     }
 
+    addToRegisteredCourses() {
+        RegisteredCoursesAction.addToRegisteredCourses(this.state.selectedCourses);
+    }
+
     getResultArea() {
         let searchResultArea = null;
         if (this.state.courses.length > 0) {
@@ -54,7 +60,8 @@ class DraftArea extends Component {
                                 clickHandler={this.removeFromDraft.bind(this)}/>
                     </div>
                     <div className="button-area">
-                        <Button class="small blue" name="Put courses to schedule"/>
+                        <Button class="small blue" name="Put courses to schedule"
+                                clickHandler={this.addToRegisteredCourses.bind(this)}/>
                     </div>
                 </div>
         }
