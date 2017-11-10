@@ -18,13 +18,16 @@
         height: 10px;
         margin: 0 5px 0 0;
         width: 10px;
+        transition: transform 0.1s;
+
+        &.collapsed {
+            transform: rotate(0deg);
+        }
+
+        &.opened {
+            transform: rotate(-90deg);
+        }
     }
 
-    .icon-collapsed {
-        transform: rotate(0deg);
-    }
 
-    .icon-opened {
-        transform: rotate(90deg);
-    }
 }

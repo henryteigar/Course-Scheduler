@@ -3,7 +3,9 @@ import React, {Component} from 'react';
 import CourseSearchTable from "client/components/CourseSearchTable/CourseSearchTable";
 import SearchBox from '../../../../components/SearchBox/SearchBox';
 import Button from "client/components/Button/Button";
+import CollapsibleTextButton from "client/components/CollapsibleTextButton/CollapsibleTextButton";
 import Tabs from "../../../../components/Tabs/Tabs";
+import DetailedSearchArea from "client/containers/MainContainer/ContentWrapper/SearchArea/DetailedSearchArea/DetailedSearchArea"
 
 import * as CourseSearchAction from 'client/actions/CourseSearchAction';
 import * as CourseDraftAction from 'client/actions/CourseDraftAction';
@@ -13,7 +15,6 @@ import CourseDraftStore from 'client/stores/CourseDraftStore';
 import RegisteredCoursesStore from 'client/stores/RegisteredCoursesStore';
 
 import './search-area.scss';
-import CollapsibleTextButton from "client/components/CollapsibleTextButton/CollapsibleTextButton";
 
 class SearchArea extends Component {
 
@@ -32,8 +33,7 @@ class SearchArea extends Component {
                 valik: "Elective courses",
             },
             initialFilter: "yldotsing",
-            selectedCourses: [],
-            isDetailedSearchCollapsed: true
+            selectedCourses: []
         };
     }
 
@@ -152,11 +152,8 @@ class SearchArea extends Component {
                     <Button class="big blue" name="Search" clickHandler={this.updateSearchResult.bind(this)} />
                 </div>
 
-                <div className="detailed-search-toggle-button">
-                    <CollapsibleTextButton name="Ava detailotsing" collapsed={this.state.isDetailedSearchCollapsed}
-                                           clickHandler={this.toggleDetailedSearch.bind(this)} />
-                </div>
-
+                <DetailedSearchArea />
+                
                 {searchResultArea}
 
             </div>

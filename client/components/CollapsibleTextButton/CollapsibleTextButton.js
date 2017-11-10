@@ -8,7 +8,7 @@ class CollapsibleTextButton extends Component {
     render() {
         return (
             <button className="collapsible-text-button" onClick={this.props.clickHandler}>
-                <Ionicon className={this.props.collapsed ? "icon icon-collapsed" : "icon icon-opened"} color="#385A7C"
+                <Ionicon className={"icon" + (this.props.collapsed ? " collapsed" : " opened")} color="#385A7C"
                          icon="ion-chevron-left"/>
                 {this.props.name}
             </button>
