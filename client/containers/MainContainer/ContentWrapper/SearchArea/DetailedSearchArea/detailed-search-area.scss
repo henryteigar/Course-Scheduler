@@ -1,13 +1,21 @@
 .detailed-search-area {
     margin: 0 10px 10px 10px;
+    max-height: 15px;
+    overflow: hidden;
     position: relative;
-    text-align: right;
+    transition: max-height 0.55s;
     z-index: 1;
-    min-height: 0;
-    transition: min-height 0.3s;
 
     &.opened {
-        transition: min-height 0.15s;
-        min-height: 200px;
+        max-height: 400px;
+        transition: max-height 0.55s;
+    }
+
+    .toggle-button {
+        text-align: right;
+    }
+
+    .content {
+        margin-bottom: 25px;
     }
 }

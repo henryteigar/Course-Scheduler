@@ -1,0 +1,33 @@
+.dropdown-select-box {
+    display: inline-block;
+    background: red;
+
+    button {
+
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-size: 12px;
+        height: 40px;
+        width: 200px;
+        outline: none;
+
+
+    }
+
+    ul {
+        background: gray;
+        display: block;
+        position: relative;
+        width: 200px;
+
+        &.collapsed {
+            display: none;
+        }
+
+        li {
+            height: 40px;
+        }
+    }
+}

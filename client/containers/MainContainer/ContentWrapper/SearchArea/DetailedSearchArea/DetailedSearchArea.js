@@ -3,12 +3,13 @@ import React, { Component } from 'react';
 import CollapsibleTextButton from "client/components/CollapsibleTextButton/CollapsibleTextButton";
 
 import './detailed-search-area.scss';
+import DropdownSelectBox from "../../../../../components/DropdownSelectBox/DropdownSelectBox";
 
 class DetailedSearchArea extends Component {
     constructor() {
         super();
         this.state = {
-            isCollapsed: true
+            isCollapsed: false
         }
     }
 
@@ -19,8 +20,15 @@ class DetailedSearchArea extends Component {
     render() {
         return (
             <div className={"detailed-search-area" + (this.state.isCollapsed ? "" : " opened")}>
-                <CollapsibleTextButton name="Detailed search" collapsed={this.state.isCollapsed}
-                                       clickHandler={this.toggleDetailedSearch.bind(this)}/>
+                <div className="toggle-button">
+                    <CollapsibleTextButton name="Detailed search" collapsed={this.state.isCollapsed}
+                                           clickHandler={this.toggleDetailedSearch.bind(this)}/>
+                </div>
+                <div className="content">
+                    <DropdownSelectBox name="a"/>
+                    <DropdownSelectBox name="b"/>
+                </div>
+
             </div>
         )
     }

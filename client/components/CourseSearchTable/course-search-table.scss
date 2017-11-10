@@ -1,5 +1,37 @@
 @import "../../css/variables";
 
-table td:not(:first-child) {
-    min-width: 50px;
+
+
+
+table.course-search-table {
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    margin-left: -1px;
+    text-align: left;
+    width: 100%;
+
+    table td:not(:first-child) {
+        min-width: 50px;
+    }
+
+    thead th {
+        color: $blue-font-dark;
+        padding: 4px 0 10px 10px;
+    }
+
+    tbody tr {
+        border: 1px solid $table-border-primary;
+
+        td {
+            padding: 10px 0 10px 10px;
+
+            &:not(:first-child) {
+                min-width: 50px;
+            }
+        }
+
+        &:nth-child(odd) {
+            background: $table-background;
+        }
+    }
 }
