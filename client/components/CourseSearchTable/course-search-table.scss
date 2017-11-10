@@ -5,7 +5,7 @@ table.course-search-table {
     margin-bottom: 20px;
     margin-left: -1px;
     text-align: left;
-    width: 735px;
+    width: 100%;
 
     thead th {
         color: $blue-font-dark;
@@ -16,7 +16,7 @@ table.course-search-table {
         border: 1px solid $table-border-primary;
 
         td {
-            padding: 10px 0 10px 10px;
+            padding: 9px 0 9px 10px;
 
             &:not(:first-child) {
                 min-width: 50px;

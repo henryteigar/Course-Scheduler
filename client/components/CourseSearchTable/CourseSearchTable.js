@@ -3,8 +3,6 @@ import React from 'react';
 import 'client/components/CourseSearchTable/course-search-table.scss';
 
 const CourseSearchTable = (props) => {
-    if (props.courses.length === 0) return null;
-
     return (
         <table className="course-search-table">
             <thead>

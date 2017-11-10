@@ -31,7 +31,11 @@ li.active {
     border-color: $green-primary;
     color: white;
 
-    &:hover, &:active, &:focus {
-        background: $green-primary;
+    &:hover {
+        background: $green-primary-hover;
+    }
+
+    &:active {
+        background: $green-primary-clicked;
     }
 }

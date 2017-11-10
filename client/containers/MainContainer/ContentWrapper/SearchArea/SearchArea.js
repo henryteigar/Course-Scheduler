@@ -67,8 +67,20 @@ class SearchArea extends Component {
     }
 
     render() {
+        let searchResultArea = null;
+        if (this.state.courses.length > 0) {
+            searchResultArea =
+                <div className="search-result">
+                    <div className="result-table"><CourseSearchTable courses={this.state.courses}/></div>
+                    <div className="buttons-area">
+                        <Button class="big blue" name="Register to chosen courses"/>
+                        <Button class="big green" name="Add to draft"/>
+                    </div>
+                </div>
+        }
+
         return (
-            <div className="searchArea">
+            <div className="search-area">
                 <h2>Add courses</h2>
                 <hr/>
                 <SearchBox changeHandler={this.updateQuery.bind(this)}
@@ -78,10 +90,10 @@ class SearchArea extends Component {
                            value={this.state.query}/>
                 <Tabs tabs={this.state.filters} activeTab={this.state.initialFilter}
                       changeTabHandler={this.changeFilterHandler.bind(this)}/>
-                <div className="searchButton">
+                <div className="search-button">
                     <Button class="big blue" name="Search" clickHandler={this.updateSearchResult.bind(this)}/>
                 </div>
-                <CourseSearchTable courses={this.state.courses}/>
+                {searchResultArea}
             </div>
         )
     }
