@@ -8,6 +8,7 @@ cache:
   - node_modules
 before_install:
 - bash scripts/before_install.sh
+- npm install newman
 script:
 - npm run prod
 - newman run spec/test.json
