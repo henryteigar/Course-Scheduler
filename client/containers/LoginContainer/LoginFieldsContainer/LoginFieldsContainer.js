@@ -6,9 +6,19 @@ import CheckBox from "client/components/CheckBox/CheckBox";
 import {withRouter} from 'react-router-dom';
 
 class LoginFieldsContainer extends Component {
+    constructor() {
+        super();
+        this.state = {
+            rememberMe: false
+        }
+    }
 
     handleClick() {
         this.props.history.push("/");
+    }
+
+    changeHandler() {
+        this.setState({rememberMe: !this.state.rememberMe})
     }
 
     render() {
@@ -24,12 +34,12 @@ class LoginFieldsContainer extends Component {
                 </div>
 
                 <div className="checkbox-container">
-                    <CheckBox/>
+                    <CheckBox changeHandler={this.changeHandler.bind(this)}/>
                     <span className="description">Remember me</span>
                 </div>
 
                 <div className="button">
-                    <Button clickHandler={() => this.handleClick()} class="big green" name="Sign in"/>
+                    <Button clickHandler={this.handleClick.bind(this)} class="big green" name="Sign in"/>
                 </div>
             </div>
         )
