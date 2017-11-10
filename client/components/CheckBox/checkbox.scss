@@ -3,41 +3,62 @@
 .checkbox_container {
     cursor: pointer;
     display: block;
-}
-
-.checkbox_container input {
-    opacity: 0;
-    position: absolute;
-}
-
-.check_mark {
-    background-color: white;
-    border: 2px solid $gray-font-primary;
-    border-radius: 2px;
-    height: 17px;
-    position: absolute;
     width: 17px;
 
-}
+    input {
+        opacity: 0;
+        position: absolute;
 
-.checkbox_container input:checked ~ .check_mark {
-    background-color: $green-primary;
-    border-color: $green-primary;
-}
+        &:checked {
+            & ~ .green {
+                background-color: $green-primary;
+                border-color: $green-primary;
+            }
 
-.check_mark:after {
-    content: "";
-    position: absolute;
-}
+            & ~ .blue {
+                background-color: $blue-primary;
+                border-color: $blue-primary;
+            }
+        }
+    }
 
-.checkbox_container .check_mark:after {
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    height: 8px;
-    left: 3px;
-    top: 0;
-    transform: rotate(45deg);
-    width: 4px;
-    -ms-transform: rotate(45deg);
-}
+    .check_mark {
+        background-color: white;
+        border-radius: 2px;
+        position: absolute;
 
+        &:after {
+            border: solid white;
+            content: "";
+            height: 8px;
+            position: absolute;
+            top: 0;
+            transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+        }
+
+        &.small {
+            border: 1px solid $gray-font-primary-light;
+            height: 15px;
+            width: 15px;
+
+            &:after {
+                border-width: 0 2px 2px 0;
+                left: 4px;
+                width: 3px;
+            }
+        }
+
+        &.medium {
+            border: 2px solid $gray-font-primary;
+            height: 17px;
+            width: 17px;
+
+            &:after {
+                border-width: 0 3px 3px 0;
+                left: 3px;
+                width: 4px;
+            }
+        }
+    }
+}

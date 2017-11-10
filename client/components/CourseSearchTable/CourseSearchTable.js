@@ -20,7 +20,7 @@ const CourseSearchTable = (props) => {
             <tbody>
                 {props.courses.map((row) =>
                     <tr key={row.title}>
-                        <td><CheckBox changeHandler={props.changeHandler} value={row}/></td>
+                        <td><CheckBox changeHandler={props.changeHandler} value={row} classes="blue small"/></td>
                         <td>{row.title}</td>
                         <td>{row.credits} EAP</td>
                         <td>{row.schedule}</td>

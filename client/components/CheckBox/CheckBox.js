@@ -6,7 +6,7 @@ class CheckBox extends Component {
         super(props);
         this.state = {
             changeHandler: props.changeHandler,
-            value: props.value
+            value: props.value,
         }
     }
 
@@ -16,9 +16,8 @@ class CheckBox extends Component {
         return (
             <label className="checkbox_container">
                 <input type="checkbox" onChange={changeHandler}/>
-                    <span className="check_mark"/>
+                <span className={"check_mark " + this.props.classes}/>
             </label>
-
         );
     }
 }
