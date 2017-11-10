@@ -7,7 +7,7 @@ const CourseSearchTable = (props) => {
         <table>
             <thead>
             <tr>
-                <th></th>
+                <th/>
                 <th>Course name</th>
                 <th>Credits</th>
                 <th>Reg. persons</th>

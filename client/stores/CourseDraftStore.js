@@ -15,7 +15,10 @@ class CourseDraftStore extends EventEmitter {
                 this.draftedCourses.push(course);
             }
         });
-        this.emit("change");
+    }
+
+    removeFromDraft(courses) {
+        this.draftedCourses = this.draftedCourses.filter((el) => !courses.includes(el));
     }
 
     getAll() {
@@ -27,6 +30,11 @@ dispatcher.register((action) => {
     switch (action.type) {
         case DraftConstants.ADD_TO_DRAFT:
             courseDraftStore.addToDraft(action.courses);
+            this.emit("change");
+            break;
+        case DraftConstants.REMOVE_FROM_DRAFT:
+            courseDraftStore.removeFromDraft(action.courses);
+            this.emit("change");
             break;
     }
 });

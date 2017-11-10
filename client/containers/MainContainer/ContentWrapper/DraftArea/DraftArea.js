@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import DraftTable from "../../../../components/DraftTable/DraftTable";
 
+import * as CourseDraftAction from 'client/actions/CourseDraftAction';
 import CourseDraftStore from 'client/stores/CourseDraftStore';
 
 import 'client/containers/MainContainer/ContentWrapper/DraftArea/draft-area.scss';
@@ -12,16 +13,34 @@ class DraftArea extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            courses: []
+            courses: [],
+            selectedCourses: []
         }
     }
 
     componentWillMount() {
         CourseDraftStore.on("change", () => {
             this.setState({
-                courses: CourseDraftStore.getAll()
+                courses: CourseDraftStore.getAll(),
+                selectedCourses: []
             })
         });
+    }
+
+    toggleCourse(course) {
+        let courses = this.state.selectedCourses;
+
+        if (courses.includes(course)) {
+            courses = courses.filter(el => el !== course);
+        } else {
+            courses.push(course);
+        }
+        this.setState({selectedCourses: courses});
+    }
+
+    removeFromDraft() {
+        CourseDraftAction.removeFromDraft(this.state.selectedCourses);
+        this.setState({courses: CourseDraftStore.getAll()});
     }
 
     render() {
@@ -29,9 +48,10 @@ class DraftArea extends Component {
         if (this.state.courses.length > 0) {
             searchResultArea =
                 <div>
-                    <DraftTable courses={this.state.courses}/>
+                    <DraftTable courses={this.state.courses} changeHandler={this.toggleCourse.bind(this)}/>
                     <div className="button-area">
-                        <Button class="small red" name="Remove from draft"/>
+                        <Button class="small red" name="Remove from draft"
+                                clickHandler={this.removeFromDraft.bind(this)}/>
                     </div>
                     <div className="button-area">
                         <Button class="small blue" name="Put courses to schedule"/>
