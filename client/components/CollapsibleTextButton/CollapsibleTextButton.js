@@ -4,10 +4,6 @@ import './collapsible-text-button.scss'
 import Ionicon from 'react-ionicons'
 
 class CollapsibleTextButton extends Component {
-    constructor(props) {
-        console.log(props.collapsed)
-        super();
-    }
 
     render() {
         return (
