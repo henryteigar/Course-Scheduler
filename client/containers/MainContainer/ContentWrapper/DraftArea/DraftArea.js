@@ -43,7 +43,7 @@ class DraftArea extends Component {
         this.setState({courses: CourseDraftStore.getAll()});
     }
 
-    render() {
+    getResultArea() {
         let searchResultArea = null;
         if (this.state.courses.length > 0) {
             searchResultArea =
@@ -58,11 +58,15 @@ class DraftArea extends Component {
                     </div>
                 </div>
         }
+        return searchResultArea;
+    }
+
+    render() {
         return (
             <div className="draft-area">
                 <h2>Courses in draft</h2>
                 <hr/>
-                {searchResultArea}
+                {this.getResultArea()}
             </div>
         )
     }
