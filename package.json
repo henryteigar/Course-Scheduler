@@ -25,7 +25,8 @@
     "pg": "^7.1.2",
     "pm2": "^2.7.1",
     "request": "^2.83.0",
-    "jsonwebtoken": "^8.1.0"
+    "jsonwebtoken": "^8.1.0",
+    "testcafe": "^0.18.3"
   },
   "devDependencies": {
     "axios": "^0.16.2",

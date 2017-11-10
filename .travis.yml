@@ -10,6 +10,6 @@ before_install:
 - bash scripts/before_install.sh
 script:
 - npm run prod
-- npm test
+- newman run spec/test.json
 after_success:
 - bash scripts/deploy.sh
