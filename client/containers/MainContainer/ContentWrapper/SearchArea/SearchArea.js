@@ -8,14 +8,17 @@ import Tabs from "../../../../components/Tabs/Tabs";
 import * as CourseSearchAction from 'client/actions/CourseSearchAction';
 import * as CourseDraftAction from 'client/actions/CourseDraftAction';
 import CourseSearchStore from 'client/stores/CourseSearchStore';
+import CourseDraftStore from 'client/stores/CourseDraftStore';
 
 import './search-area.scss';
 import CollapsibleTextButton from "client/components/CollapsibleTextButton/CollapsibleTextButton";
 
 class SearchArea extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
+            draftedCourses: CourseDraftStore.getAll(),
             courses: CourseSearchStore.getAll(),
             inputPlaceholder: "Search course name, code, institute etc...",
             query: '',
@@ -82,7 +85,8 @@ class SearchArea extends Component {
     }
 
     addToDraft() {
-        CourseDraftAction.addToDraft(this.state.selectedCourses)
+        CourseDraftAction.addToDraft(this.state.selectedCourses);
+        this.setState({draftedCourses: CourseDraftStore.getAll()})
     }
 
     toggleDetailedSearch() {
@@ -95,7 +99,8 @@ class SearchArea extends Component {
             searchResultArea =
                 <div className="search-result">
                     <div className="result-table">
-                        <CourseSearchTable changeHandler={this.toggleCourse.bind(this)} courses={this.state.courses}/>
+                        <CourseSearchTable changeHandler={this.toggleCourse.bind(this)}
+                                           courses={this.state.courses} draftedCourses={this.state.draftedCourses}/>
                     </div>
                     <div className="buttons-area">
                         <Button class="big blue" name="Register to chosen courses"/>
