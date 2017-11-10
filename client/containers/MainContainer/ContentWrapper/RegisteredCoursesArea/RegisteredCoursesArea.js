@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 
+import RegisteredCoursesStore from 'client/stores/RegisteredCoursesStore';
+
 import 'client/containers/MainContainer/ContentWrapper/RegisteredCoursesArea/registered-courses-area.scss';
 
 class RegisteredCoursesArea extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            courses: []
+            courses: RegisteredCoursesStore.getAll()
         }
     }
 
