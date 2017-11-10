@@ -5,18 +5,10 @@
     border-radius: 2px;
     cursor: pointer;
     font-size: 13px;
-    font-weight: bold;
+    font-weight: normal;
     height: 34px;
     outline: none;
     width: 100%;
-
-    &:hover {
-        background: $green-primary-hover;
-    }
-
-    &:active {
-        background: $green-primary-clicked;
-    }
 }
 
 .blue {
@@ -35,4 +27,12 @@
 .green {
     background: $green-primary;
     color: white;
+
+    &:hover {
+        background: $green-primary-hover;
+    }
+
+    &:active {
+        background: $green-primary-clicked;
+    }
 }
