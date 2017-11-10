@@ -18,7 +18,7 @@
 							"script": {
 								"type": "text/javascript",
 								"exec": [
-									"pm.test(\"TESTING COURSE\", function () {",
+									"pm.test(\"Test 1. -> all subject information\", function () {",
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData).to.eql([",
 									"    {",
@@ -38,12 +38,12 @@
 									"]);",
 									"});",
 									"",
-									"pm.test(\"TESTING COURSE ID\", function () {",
+									"pm.test(\"Test 2. -> Subject id\", function () {",
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData[0].id).to.eql(3);",
 									"});",
 									"",
-									"pm.test(\"TESTING COURSE NAME\", function () {",
+									"pm.test(\"Test 3. -> Subject name\", function () {",
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData[0].title).to.eql(\"Tehisintellekt\");",
 									"});"

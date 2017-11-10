@@ -11,6 +11,7 @@ before_install:
 - npm install newman
 script:
 - npm run prod
-- newman run spec/test.json
+- newman run spec/course-test.json
+- newman run spec/user-test.json
 after_success:
 - bash scripts/deploy.sh
