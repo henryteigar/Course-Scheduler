@@ -76,7 +76,9 @@ class SearchArea extends Component {
         if (this.state.courses.length > 0) {
             searchResultArea =
                 <div className="search-result">
-                    <div className="result-table"><CourseSearchTable changeHandler={this.checkCourse.bind(this)} courses={this.state.courses}/></div>
+                    <div className="result-table">
+                        <CourseSearchTable changeHandler={this.checkCourse.bind(this)} courses={this.state.courses}/>
+                    </div>
                     <div className="buttons-area">
                         <Button class="big blue" name="Register to chosen courses"/>
                         <Button class="big green" name="Add to draft"/>
