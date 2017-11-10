@@ -5,7 +5,7 @@ import CheckBox from "../CheckBox/CheckBox";
 
 const CourseSearchTable = (props) => {
     return (
-        <table className="course-search-table">
+        <table>
             <thead>
                 <tr>
                     <th></th>
