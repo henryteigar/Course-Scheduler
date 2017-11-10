@@ -10,5 +10,6 @@ before_install:
 - bash scripts/before_install.sh
 script:
 - npm run prod
+- jasmine-node spec
 after_success:
 - bash scripts/deploy.sh
