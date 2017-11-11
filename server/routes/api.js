@@ -28,7 +28,7 @@ router.post('/login', (req, res) => {
 
     if (username && password) {
         request.post(options, function (error, response, body) {
-            if (response.statusCode == 200) {
+            if (response.statusCode === 200) {
                 let oisToken = body.token;
                 let internalToken = jwt.sign({
                     username: username,
@@ -43,7 +43,7 @@ router.post('/login', (req, res) => {
     }
 });
 
-router.use('/users', users);
+router.use('/user', users);
 
 router.get('/courses', (req, res) => {
 
