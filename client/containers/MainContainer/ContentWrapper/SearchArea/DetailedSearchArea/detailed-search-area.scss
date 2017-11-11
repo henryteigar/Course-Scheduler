@@ -18,11 +18,11 @@
 
     @keyframes expand {
         0% { height: 15px; }
-        100% { height: 160px; overflow: visible}
+        100% { height: 170px; overflow: visible}
     }
 
     @keyframes collapse {
-        0% { height: 160px; }
+        0% { height: 170px; }
         100% { height: 15px }
     }
 
