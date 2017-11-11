@@ -19,7 +19,27 @@ router.get('/', (req, res) => {
     };
     request.get(options, function (error, response, body) {
         if (response.statusCode === 200) {
-            res.status(200).send(body);
+            let j = body;
+            console.log(j);
+            let a = j.map((json) => {return {
+                id: json.id,
+                course_name_est: json.name_est,
+                course_name_eng: json.name_eng,
+                credits: json.credits,
+                reg_persons: json.registered_attendants + "/" + json.limit_of_attendants,
+                cancellation_date: json.cancellation_date.slice(0,10).split("-").reverse().join('.'),
+                lecturer: json.lecturers.responsible[0].name,
+                schedule_est: json.occurrences.map((ele) => {return (ele.time.map((el) => {return el.day}))}).join()
+                    .split(",").filter((item, pos, self) => {return self.indexOf(item) === pos}).sort()
+                    .map((ele) => {return ['E', 'T', 'K', 'N', 'R', 'L', 'P'][['1', '2', '3', '4', '5', '6', '7'].indexOf(ele)]})
+                    .join(","),
+                schedule_eng: json.occurrences.map((ele) => {return (ele.time.map((el) => {return el.day}))}).join()
+                    .split(",").filter((item, pos, self) => {return self.indexOf(item) === pos}).sort()
+                    .map((ele) => {return ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'][['1', '2', '3', '4', '5', '6', '7'].indexOf(ele)]})
+                    .join(",")
+            }});
+
+            res.status(200).send(a);
         } else {
             res.status(response.statusCode).send()
         }

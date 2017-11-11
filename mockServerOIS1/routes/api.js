@@ -22,11 +22,9 @@ router.get('/user', (reg, res) => {
 
 router.get('/courses', (req, res) => {
     let sessionKey = req.headers['session-key'];
-    console.log(req.query);
 
     //Input params
     let input_query = req.query.q;
-    let input_filter = req.query.filter;
     let input_faculty = req.query.faculty;
     let input_institute = req.query.institute;
     let input_year = req.query.year;
@@ -36,8 +34,9 @@ router.get('/courses', (req, res) => {
     let input_assessment = req.query.assessment;
     let input_currentlyOpened = req.query.currently_opened;
     let input_ids = req.query.ids;
-    let statement = courses.getCourses(input_query, input_filter, input_faculty, input_institute, input_year, input_semester,
+    let statement = courses.getCourses(input_query, input_faculty, input_institute, input_year, input_semester,
         input_schedule, input_levelOfStudy, input_assessment, input_currentlyOpened, input_ids);
+
     db.query(statement.query_text, statement.parameters, (err, result) => {
         if (err) {
             res.status(400).send(err);
