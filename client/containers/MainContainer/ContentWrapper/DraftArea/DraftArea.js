@@ -12,6 +12,7 @@ class DraftArea extends Component {
 
     constructor(props) {
         super(props);
+        CourseDraftStore.fetchCourses();
         this.state = {
             courses: CourseDraftStore.getAll(),
             selectedCourses: []
@@ -20,6 +21,8 @@ class DraftArea extends Component {
 
     componentWillMount() {
         CourseDraftStore.on("change", () => {
+            console.log(CourseDraftStore.getAll());
+
             this.setState({
                 courses: CourseDraftStore.getAll(),
                 selectedCourses: []
