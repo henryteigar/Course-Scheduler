@@ -21,8 +21,8 @@ router.get('/', (req, res) => {
         if (response.statusCode === 200) {
             let resp = body.map((json) => {return {
                 id: json.id,
-                course_name_est: json.name_est,
-                course_name_eng: json.name_eng,
+                name_est: json.name_est,
+                name_eng: json.name_eng,
                 credits: json.credits,
                 reg_persons: json.registered_attendants + "/" + json.limit_of_attendants,
                 cancellation_date: json.cancellation_date.slice(0,10).split("-").reverse().join('.'),
