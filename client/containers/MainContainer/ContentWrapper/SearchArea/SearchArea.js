@@ -102,7 +102,9 @@ class SearchArea extends Component {
     }
 
     addToRegisteredCourses() {
-        RegisteredCoursesAction.addToRegisteredCourses(this.state.selectedCourses);
+        let courses = this.state.selectedCourses.map((course) => {return {'course': course}});
+
+        RegisteredCoursesAction.addToRegisteredCourses(courses);
         this.setState({
             registeredCourses: RegisteredCoursesStore.getAll(),
             selectedCourses: []

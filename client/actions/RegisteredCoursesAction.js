@@ -6,4 +6,11 @@ export function addToRegisteredCourses(courses) {
         type: RegisteredCoursesConstants.ADD_TO_REGISTERED_COURSES,
         courses: courses
     });
-}
+};
+
+export function fetchRegisteredCourses(courses) {
+    dispatcher.dispatch({
+        type: RegisteredCoursesConstants.FETCH_REGISTERED_COURSES,
+        courses: courses
+    });
+};
