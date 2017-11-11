@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import CollapsibleTextButton from "client/components/CollapsibleTextButton/CollapsibleTextButton";
 
@@ -9,32 +9,43 @@ class DetailedSearchArea extends Component {
     constructor() {
         super();
         this.state = {
-            isCollapsed: false
+            isCollapsed: true,
+            className: "",
+            test: {
+                id: "institute",
+                label: "Faculty/Department",
+                values: [
+                    {
+                        id: 1,
+                        label: "valik1"
+                    },
+                    {
+                        id: 2,
+                        label: "valik2"
+                    },
+                    {
+                        id: 3,
+                        label: "valik3"
+                    }
+                ]
+            }
         }
     }
 
     toggleDetailedSearch() {
-        this.setState({isCollapsed: !this.state.isCollapsed})
+        this.setState({className: this.state.isCollapsed ? "opened" : "closed"});
+        this.setState({isCollapsed: !this.state.isCollapsed});
+
     }
 
     render() {
         return (
-            <div className={"detailed-search-area" + (this.state.isCollapsed ? "" : " opened")}>
+            <div className={"detailed-search-area " + this.state.className}>
                 <div className="toggle-button">
                     <CollapsibleTextButton name="Detailed search" collapsed={this.state.isCollapsed}
                                            clickHandler={this.toggleDetailedSearch.bind(this)}/>
                 </div>
-                <div className="content">  {/*Currently pointless*/}
-                    <DropdownSelectBox />
-                    <DropdownSelectBox />
-                    <DropdownSelectBox />
-                    <DropdownSelectBox />
-                    <DropdownSelectBox />
-                    <DropdownSelectBox />
-                    <DropdownSelectBox />
-                    <DropdownSelectBox />
-                </div>
-
+                <DropdownSelectBox id={this.state.test.id} label={this.state.test.label} values={this.state.test.values}/>
             </div>
         )
     }

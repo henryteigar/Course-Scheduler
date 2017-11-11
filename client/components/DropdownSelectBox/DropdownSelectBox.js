@@ -8,25 +8,7 @@ class DropdownSelectBox extends Component {
         super();
         this.state = {
             selectedEl: null,
-            isCollapsed: true,
-            name: {
-                id: "institute",
-                name: "Faculty/Department"
-            },
-            values: [
-                {
-                    id: 1,
-                    name: "valik1"
-                },
-                {
-                    id: 2,
-                    name: "valik2"
-                },
-                {
-                    id: 3,
-                    name: "valik3"
-                }
-            ]
+            isCollapsed: true
         };
         this.setWrapperRef = this.setWrapperRef.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
@@ -63,7 +45,7 @@ class DropdownSelectBox extends Component {
     render() {
         return (
             <div className="dropdown-select-box" ref={this.setWrapperRef}>
-                <label>{this.state.name.name}</label>
+                <label>{this.props.label}</label>
                 <button onClick={this.toggleCollapse.bind(this)}>
                     <span>{this.state.selectedEl != null ? this.state.selectedEl.name : "Select option..."}</span>
                     <div className="toggle-btn">
@@ -72,8 +54,8 @@ class DropdownSelectBox extends Component {
                     </div>
                 </button>
                 <ul className={this.state.isCollapsed ? "collapsed" : ""}>
-                    {this.state.values.map((el) =>
-                        <li className={el == this.state.selectedEl ? "selected" : ""} onClick={(e) => this.onItemClickHandler(el)} key={el.id}>{el.name}</li>
+                    {this.props.values.map((el) =>
+                        <li className={el == this.state.selectedEl ? "selected" : ""} onClick={(e) => this.onItemClickHandler(el)} key={el.id}>{el.label}</li>
                     )}
                 </ul>
             </div>

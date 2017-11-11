@@ -3,11 +3,9 @@
 .dropdown-select-box {
 
     display: inline-block;
-    width: 200px;
-
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     position: relative;
-
+    width: 200px;
 
     label {
         color: $gray-font-primary-medium;
@@ -18,6 +16,7 @@
     button {
         background: white;
         border: 1px solid $table-border-primary;
+        border-radius: 2px;
         color: $blue-primary;
         cursor: pointer;
         display: block;
@@ -29,7 +28,6 @@
         position: relative;
         text-align: left;
         width: 100%;
-        border-radius: 2px;
 
         span {
             display: inline-block;
@@ -66,13 +64,14 @@
         list-style: none;
         position: absolute;
         width: 100%;
-        z-index: 1;
+        z-index: 2;
 
         &.collapsed {
             display: none;
         }
 
         li {
+            background: white;
             border: 1px solid $table-border-primary;
             border-top: none;
             color: $blue-primary;
@@ -80,7 +79,6 @@
             line-height: 33px;
             padding-left: 10px;
             vertical-align: middle;
-            background: white;
 
             &:hover {
                 background: $table-background;

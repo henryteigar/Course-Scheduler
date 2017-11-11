@@ -149,11 +149,11 @@ class SearchArea extends Component {
                       changeTabHandler={this.filterChangeHandler.bind(this)} />
 
                 <div className="search-button">
-                    <Button class="big blue" name="Search" clickHandler={this.updateSearchResult.bind(this)} />
+                    <Button class="big blue" name="Search" clickHandler={this.updateSearchResult.bind(this)}/>
                 </div>
 
-                <DetailedSearchArea />
-                
+                <DetailedSearchArea/>
+
                 {searchResultArea}
 
             </div>
