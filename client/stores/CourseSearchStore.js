@@ -7,7 +7,8 @@ class CourseSearchStore extends EventEmitter {
     constructor() {
         super();
         this.courses = [];
-        this.filter = undefined;
+        this.filter = null;
+        this.detailedFilters = [];
     }
 
     getAll() {
@@ -24,6 +25,11 @@ class CourseSearchStore extends EventEmitter {
         this.emit("change");
     }
 
+    setDetailedFilters(filters) {
+        this.detailedFilters = filters;
+        this.emit("change")
+    }
+
     fetchCourses(query) {
         let myApi = axios.create({
             baseURL: process.env.API_BASE_URL,
@@ -36,7 +42,14 @@ class CourseSearchStore extends EventEmitter {
         });
 
         let uri = 'courses?q=' + query;
-        if (this.filter && this.filter !== "yldotsing") uri += '&filter=' + this.filter;
+        if (this.filter && this.filter !== "all") uri += '&filter=' + this.filter;
+        this.detailedFilters.forEach((filter) => {
+           if (filter.selectedEl != null) {
+               uri += '&' + filter.id + '=' + filter.selectedEl.id
+           }
+        });
+
+        console.log(uri);
 
         myApi.get(uri).then((response) => {
             let courses = [];
@@ -71,6 +84,9 @@ dispatcher.register((action) => {
             break;
         case SearchConstants.CHANGE_SEARCH_FILTER:
             courseSearchStore.setFilter(action.filter);
+            break;
+        case SearchConstants.CHANGE_DETAILED_SEARCH_FILTERS:
+            courseSearchStore.setDetailedFilters(action.filters);
             break;
         case SearchConstants.CLEAR_SEARCH_RESULTS:
             courseSearchStore.clearAll();

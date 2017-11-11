@@ -12,6 +12,8 @@
     }
 
     .search-result {
+        margin-top: -25px;
+        min-height: 131px;
         position: relative;
 
         .result-table {
@@ -31,11 +33,6 @@
                 margin-top: 10px;
             }
         }
-    }
-
-    .detailed-search-toggle-button {
-        margin: 0 10px 10px 10px;
-        text-align: right;
     }
 }
 

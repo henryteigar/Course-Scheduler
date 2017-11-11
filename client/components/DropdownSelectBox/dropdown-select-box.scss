@@ -1,0 +1,104 @@
+@import "../../css/variables";
+
+.dropdown-select-box {
+
+    display: inline-block;
+    margin-bottom: 15px;
+    position: relative;
+
+    &.large {
+        width: 341px;
+    }
+
+    &.medium {
+        width: 274px;
+    }
+
+    &.small {
+        width: 150px;
+    }
+
+    label {
+        color: $gray-font-primary-medium;
+        display: inline-block;
+        margin-bottom: 5px;
+    }
+
+    button {
+        background: white;
+        border: 1px solid $table-border-primary;
+        border-radius: 2px;
+        color: $blue-primary;
+        cursor: pointer;
+        display: block;
+        font-size: 12px;
+        height: 33px;
+        outline: none;
+        padding: 0 0 0 10px;
+        position: relative;
+        text-align: left;
+        width: 100%;
+
+        span {
+            display: inline-block;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .toggle-btn {
+            border-left: 1px solid $table-border-primary;
+            float: right;
+            height: 100%;
+            padding: 0;
+            position: relative;
+            width: 31px;
+            background: white;
+
+            .icon {
+                display: block;
+                height: 10px;
+                margin: 0 auto;
+                position: relative;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+
+        &:hover .toggle-btn {
+            background: $table-background;
+        }
+    }
+
+    ul {
+        display: block;
+        list-style: none;
+        position: absolute;
+        width: 100%;
+        z-index: 2;
+
+        &.collapsed {
+            display: none;
+        }
+
+        li {
+            background: white;
+            border: 1px solid $table-border-primary;
+            border-top: none;
+            color: $blue-primary;
+            cursor: pointer;
+            line-height: 33px;
+            padding-left: 10px;
+            vertical-align: middle;
+
+            &:hover {
+                background: $table-background;
+            }
+
+            &.selected {
+                background: $table-background;
+                font-weight: 500;
+            }
+        }
+    }
+}

@@ -1,0 +1,43 @@
+.detailed-search-area {
+    margin: 0 0 10px 0;
+    height: 15px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    padding: 0 10px;
+
+
+    &.opened {
+        animation:expand 0.2s forwards;
+
+    }
+
+    &.closed {
+        animation:collapse 0.2s forwards;
+    }
+
+    @keyframes expand {
+        0% { height: 15px; }
+        100% { height: 160px; overflow: visible}
+    }
+
+    @keyframes collapse {
+        0% { height: 160px; }
+        100% { height: 15px }
+    }
+
+
+    .toggle-button {
+        text-align: right;
+    }
+
+    .filter-area {
+        margin-left: -6px;
+        margin-right: -6px;
+
+        .dropdown-select-box{
+            margin: 10px 6px 0 6px;
+        }
+    }
+
+}
