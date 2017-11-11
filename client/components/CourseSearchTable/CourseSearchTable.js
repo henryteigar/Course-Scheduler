@@ -20,7 +20,7 @@ const CourseSearchTable = (props) => {
             <tbody>
             {props.courses.map((course) =>
                 <tr key={course.id}>
-                    {!props.disabledCourses.includes(course) ?
+                    {!props.disabledCoursesIds.includes(course.id) ?
                         <td>
                             <CheckBox changeHandler={props.changeHandler} value={course} classes="blue small" />
                         </td> : <td />}

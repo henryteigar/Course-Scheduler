@@ -93,7 +93,9 @@ class SearchArea extends Component {
     }
 
     addToDraft() {
-        CourseDraftAction.addToDraft(this.state.selectedCourses);
+        let courses = this.state.selectedCourses.map((course) => {return {'course': course}});
+
+        CourseDraftAction.addToDraft(courses);
         this.setState({
             draftedCourses: CourseDraftStore.getAll(),
             selectedCourses: []
@@ -108,13 +110,9 @@ class SearchArea extends Component {
         });
     }
 
-    toggleDetailedSearch() {
-        this.setState({isDetailedSearchCollapsed: !this.state.isDetailedSearchCollapsed});
-    }
-
-    getDisabledCourses() {
-        return this.state.registeredCourses.map((registeredCourse) => registeredCourse.course)
-            .concat(this.state.draftedCourses.map((draftedCourse) => draftedCourse.course));
+    getDisabledCoursesIds() {
+        return this.state.registeredCourses.map((registeredCourse) => registeredCourse.course.id)
+            .concat(this.state.draftedCourses.map((draftedCourse) => draftedCourse.course.id));
     }
 
     render() {
@@ -125,7 +123,7 @@ class SearchArea extends Component {
                     <div className="result-table">
                         <CourseSearchTable changeHandler={this.toggleCourse.bind(this)}
                                            courses={this.state.courses}
-                                           disabledCourses={this.getDisabledCourses()} />
+                                           disabledCoursesIds={this.getDisabledCoursesIds()} />
                     </div>
                     <div className="buttons-area">
                         <Button clickHandler={this.addToRegisteredCourses.bind(this)}
