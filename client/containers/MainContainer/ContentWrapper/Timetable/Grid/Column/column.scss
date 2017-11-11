@@ -1,0 +1,21 @@
+@import "../../../../../../css/variables";
+
+.column {
+    float: left;
+    position: relative;
+    width: 20%;
+
+    label {
+        display: block;
+        height: 30px;
+        text-align: center;
+    }
+
+    .day-area {
+        border-bottom: 1px solid $table-border-primary;
+        border-top: 1px solid $table-border-primary;
+        display: block;
+        height: 360px;
+        position: relative;
+    }
+}

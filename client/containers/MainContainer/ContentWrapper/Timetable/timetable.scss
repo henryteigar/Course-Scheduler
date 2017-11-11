@@ -1,0 +1,15 @@
+@import "../../../../css/variables";
+
+.timetable {
+    background: white;
+    border: 1px solid $table-border-primary;
+    margin-bottom: 10px;
+    float: left;
+    width: 100%;
+
+    .register-btn {
+        width: 200px;
+        float: right;
+        margin: 5px 10px 10px 10px;
+    }
+}

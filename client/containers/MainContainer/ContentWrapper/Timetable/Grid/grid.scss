@@ -1,0 +1,12 @@
+@import "../../../../../css/variables";
+
+.grid {
+    float: right;
+    margin: 5px 5px 5px 5px;
+    position: relative;
+    width: 977px;
+
+    .column:not(:first-child) .day-area {
+        border-left: 1px solid $table-border-primary;
+    }
+}
