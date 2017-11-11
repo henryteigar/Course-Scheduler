@@ -63,7 +63,24 @@ module.exports = {
         return {
             query_text: query,
             parameters: parameters
-        }
-    }
+        };
+    },
 
+
+    getRegisteredCourses: function (user_id) {
+        //SQLQuery and parameters
+        let query = "SELECT\n" +
+            "      ois1.users.id AS user_id,\n" +
+            "      (SELECT ARRAY_AGG(ROW_TO_JSON(obj)) FROM (SELECT * FROM ois1.v_courses, ois1.registered_courses\n" +
+            "                                        WHERE ois1.v_courses.id = ois1.registered_courses.course_id" +
+            "                                         AND ois1.registered_courses.user_id = $1) obj) AS course\n" +
+            "FROM ois1.users\n" +
+            "WHERE ois1.users.id = $1";
+        let parameters = [user_id];
+
+        return {
+            query_text: query,
+            parameters: parameters
+        };
+    }
 };

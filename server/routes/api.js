@@ -19,6 +19,6 @@ router.use('/drafts', drafts);
 
 router.use('/courses', courses);
 
-//router.use('/registered-courses', registeredCourses);
+router.use('/registered-courses', registeredCourses);
 
 module.exports.router = router;
