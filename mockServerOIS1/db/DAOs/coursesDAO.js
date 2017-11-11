@@ -12,6 +12,16 @@ module.exports = {
 
         if (input_faculty !== undefined) {
             query += " AND EXISTS (SELECT 1 FROM course_faculty cofa WHERE cofa.course_id = id AND cofa.id = $" + (parameters.length + 1) + ")";
+            parameters.push('%' + input_query.toLowerCase() + '%')
+        }
+
+        /*if (input_filter !== undefined) {
+            query += " AND subject_type LIKE $" + (parameters.length + 1);
+            parameters.push('%' + input_filter + '%');
+        }*/
+
+        if (input_faculty !== undefined) {
+            query += " AND faculty = $" + (parameters.length + 1);
             parameters.push('%' + input_faculty + '%');
         }
 
