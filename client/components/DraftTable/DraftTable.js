@@ -11,15 +11,19 @@ const DraftTable = (props) => {
                 <th>Course name</th>
                 <th>Credits</th>
                 <th>Reg. persons</th>
+                <th>Preferences</th>
+                <th>Preferences</th>
             </tr>
             </thead>
             <tbody>
             {props.courses.map((draftedCourse) =>
                 <tr key={draftedCourse.course.id}>
                     <td><CheckBox changeHandler={props.changeHandler} value={draftedCourse} classes="blue small" /></td>
-                    <td>{draftedCourse.course.title}</td>
-                    <td>{draftedCourse.course.credit}</td>
-                    <td>{draftedCourse.course.nr_of_registered}</td>
+                    <td>{draftedCourse.course.course_name}</td>
+                    <td>{draftedCourse.course.credits}</td>
+                    <td>{draftedCourse.course.reg_persons}</td>
+                    <td>{draftedCourse.active_group ? draftedCourse.active_group.name : null}</td>
+                    <td>{draftedCourse.active_group ? draftedCourse.active_lecturer.name : null}</td>
                 </tr>
             )}
             </tbody>

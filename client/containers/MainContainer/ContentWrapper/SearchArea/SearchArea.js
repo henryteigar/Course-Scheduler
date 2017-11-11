@@ -113,7 +113,8 @@ class SearchArea extends Component {
     }
 
     getDisabledCourses() {
-        return this.state.draftedCourses.concat(this.state.registeredCourses);
+        return this.state.registeredCourses.map((registeredCourse) => registeredCourse.course)
+            .concat(this.state.draftedCourses.map((draftedCourse) => draftedCourse.course));
     }
 
     render() {
