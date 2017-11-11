@@ -7,8 +7,10 @@ import Tabs from "../../../../components/Tabs/Tabs";
 
 import * as CourseSearchAction from 'client/actions/CourseSearchAction';
 import * as CourseDraftAction from 'client/actions/CourseDraftAction';
+import * as RegisteredCoursesAction from 'client/actions/RegisteredCoursesAction';
 import CourseSearchStore from 'client/stores/CourseSearchStore';
 import CourseDraftStore from 'client/stores/CourseDraftStore';
+import RegisteredCoursesStore from 'client/stores/RegisteredCoursesStore';
 
 import './search-area.scss';
 import CollapsibleTextButton from "client/components/CollapsibleTextButton/CollapsibleTextButton";
@@ -19,6 +21,7 @@ class SearchArea extends Component {
         super(props);
         this.state = {
             draftedCourses: CourseDraftStore.getAll(),
+            registeredCourses: RegisteredCoursesStore.getAll(),
             courses: CourseSearchStore.getAll(),
             inputPlaceholder: "Search course name, code, institute etc...",
             query: '',
@@ -92,11 +95,23 @@ class SearchArea extends Component {
 
     addToDraft() {
         CourseDraftAction.addToDraft(this.state.selectedCourses);
-        this.setState({draftedCourses: CourseDraftStore.getAll()})
+        this.setState({draftedCourses: CourseDraftStore.getAll()});
+    }
+
+    addToRegisteredCourses() {
+        RegisteredCoursesAction.addToRegisteredCourses(this.state.selectedCourses);
+        this.setState({
+            registeredCourses: RegisteredCoursesStore.getAll(),
+            selectedCourses: []
+        });
     }
 
     toggleDetailedSearch() {
-        this.setState({isDetailedSearchCollapsed: !this.state.isDetailedSearchCollapsed})
+        this.setState({isDetailedSearchCollapsed: !this.state.isDetailedSearchCollapsed});
+    }
+
+    getDisabledCourses() {
+        return this.state.draftedCourses.concat(this.state.registeredCourses);
     }
 
     render() {
@@ -106,11 +121,14 @@ class SearchArea extends Component {
                 <div className="search-result">
                     <div className="result-table">
                         <CourseSearchTable changeHandler={this.toggleCourse.bind(this)}
-                                           courses={this.state.courses} draftedCourses={this.state.draftedCourses}/>
+                                           courses={this.state.courses}
+                                           disabledCourses={this.getDisabledCourses()} />
                     </div>
                     <div className="buttons-area">
-                        <Button class="big blue" name="Register to chosen courses"/>
-                        <Button clickHandler={this.addToDraft.bind(this)} class="big green" name="Add to draft"/>
+                        <Button clickHandler={this.addToRegisteredCourses.bind(this)}
+                                class="big blue" name="Register to chosen courses" />
+                        <Button clickHandler={this.addToDraft.bind(this)}
+                                class="big green" name="Add to draft" />
                     </div>
                 </div>
         }
@@ -118,23 +136,23 @@ class SearchArea extends Component {
         return (
             <div className="search-area">
                 <h2>Add courses</h2>
-                <hr/>
+                <hr />
                 <SearchBox changeHandler={this.updateQuery.bind(this)}
                            keyPressHandler={this.keyPressHandler.bind(this)}
                            placeholder={this.state.inputPlaceholder}
                            class="mainSearchBox"
-                           value={this.state.query}/>
+                           value={this.state.query} />
 
                 <Tabs tabs={this.state.filters} activeTab={this.state.initialFilter}
-                      changeTabHandler={this.filterChangeHandler.bind(this)}/>
+                      changeTabHandler={this.filterChangeHandler.bind(this)} />
 
                 <div className="search-button">
-                    <Button class="big blue" name="Search" clickHandler={this.updateSearchResult.bind(this)}/>
+                    <Button class="big blue" name="Search" clickHandler={this.updateSearchResult.bind(this)} />
                 </div>
 
                 <div className="detailed-search-toggle-button">
                     <CollapsibleTextButton name="Ava detailotsing" collapsed={this.state.isDetailedSearchCollapsed}
-                                           clickHandler={this.toggleDetailedSearch.bind(this)}/>
+                                           clickHandler={this.toggleDetailedSearch.bind(this)} />
                 </div>
 
                 {searchResultArea}
