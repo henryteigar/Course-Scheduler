@@ -46,7 +46,6 @@ class SearchArea extends Component {
         CourseDraftStore.on("change", () => {
             this.setState({
                 draftedCourses: CourseDraftStore.getAll(),
-                selectedCourses: []
             })
         })
     }
@@ -95,7 +94,10 @@ class SearchArea extends Component {
 
     addToDraft() {
         CourseDraftAction.addToDraft(this.state.selectedCourses);
-        this.setState({draftedCourses: CourseDraftStore.getAll()});
+        this.setState({
+            draftedCourses: CourseDraftStore.getAll(),
+            selectedCourses: []
+        });
     }
 
     addToRegisteredCourses() {
