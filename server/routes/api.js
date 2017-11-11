@@ -1,53 +1,64 @@
 const express = require('express');
 const router = express.Router();
-const {Pool} = require('pg');
-require('dotenv').config();
 const users = require('./users.js');
-
-
-const pool = new Pool({
-    connectionString: process.env.DB_CONNECTION_STRING
-});
+const db = require('../db/init.js');
+const courses= require("../db/DAOs/coursesDAO.js");
+const request = require('request');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+const remoteApiUrl = process.env[process.env.REMOTE_SERVER];
 
 router.get('/', (req, res) => {
     res.send("This is our API")
 });
 
-router.use('/users', users);
+router.post('/login', (req, res) => {
+    let username = req.body.username;
+    let password = req.body.password;
 
-/*
-TODO
-* Tuleb kasutusele võtta mingisugune query builder, et saaks lihtsamini querysid ehitada
-* Tuleb backend struktuuti muuta, et ei peaks igas failis sisselogima. Vaatasin, et sisselogimise saab teha automaatseks ENV parameetritega.
-* Loogika tuleb eraldada teistesse failidesse. Enpoint failides kasutada väga vähest loogikat.
-* Küsimuste korral pöördu Henry poole.
- */
+    let options = {
+        method: 'post',
+        body: {
+            username: username,
+            password: password
+        },
+        json: true,
+        url: remoteApiUrl + '/login'
+    };
+
+    if (username && password) {
+        request.post(options, function (error, response, body) {
+            if (response.statusCode === 200) {
+                let oisToken = body.token;
+                let internalToken = jwt.sign({
+                    username: username,
+                    sessionKey: oisToken}, process.env.JWT_SECRET);
+                res.status(200).json({jwt: internalToken});
+            } else {
+                res.status(response.statusCode).send()
+            }
+        })
+    } else {
+        res.status(400).send();
+    }
+});
+
+router.use('/user', users);
+
 router.get('/courses', (req, res) => {
 
     //Input params
     let input_query = req.query.q;
     let input_filter = req.query.filter;
-
-    //SQLQuery and parameters
-    let query = "SELECT *, TO_CHAR(cancellation_date, 'DD.MM.YYYY') AS cancellation_date FROM subjects WHERE 1=1";
-    let parameters = [];
-
-    if (input_query !== undefined && input_query !== '*' && input_query !== '') {
-        query += " AND LOWER(title) LIKE $" + (parameters.length + 1);
-        parameters.push('%' + input_query.toLowerCase() + '%')
-    }
-
-    if (input_filter !== undefined) {
-        query += " AND subject_type LIKE $" + (parameters.length + 1);
-        parameters.push('%' + input_filter + '%');
-    }
-
-    pool.query(query, parameters, (err, result) => {
+    var statement = courses.getCourses(input_query, input_filter);
+    db.query(statement.query_text, statement.parameters, (err, result) => {
         if (err) {
             return console.log('ERROR ', err);
         }
         res.send(result.rows);
     });
+
+
 });
 
 module.exports.router = router;
