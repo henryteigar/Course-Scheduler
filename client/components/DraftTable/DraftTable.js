@@ -2,7 +2,7 @@ import React from 'react';
 
 import CheckBox from "../CheckBox/CheckBox";
 
-const CourseSearchTable = (props) => {
+const DraftTable = (props) => {
     return (
         <table>
             <thead>
@@ -11,15 +11,19 @@ const CourseSearchTable = (props) => {
                 <th>Course name</th>
                 <th>Credits</th>
                 <th>Reg. persons</th>
+                <th>Preferences</th>
+                <th>Preferences</th>
             </tr>
             </thead>
             <tbody>
-            {props.courses.map((course) =>
-                <tr key={course.id}>
-                    <td><CheckBox changeHandler={props.changeHandler} value={course} classes="blue small" /></td>
-                    <td>{course.courseName}</td>
-                    <td>{course.credits} EAP</td>
-                    <td>{course.regPersons}</td>
+            {props.courses.map((draftedCourse) =>
+                <tr key={draftedCourse.course.id}>
+                    <td><CheckBox changeHandler={props.changeHandler} value={draftedCourse} classes="blue small" /></td>
+                    <td>{draftedCourse.course.course_name}</td>
+                    <td>{draftedCourse.course.credits}</td>
+                    <td>{draftedCourse.course.reg_persons}</td>
+                    <td>{draftedCourse.active_group ? draftedCourse.active_group.name : null}</td>
+                    <td>{draftedCourse.active_group ? draftedCourse.active_lecturer.name : null}</td>
                 </tr>
             )}
             </tbody>
@@ -27,4 +31,4 @@ const CourseSearchTable = (props) => {
     )
 };
 
-export default CourseSearchTable;
+export default DraftTable;
