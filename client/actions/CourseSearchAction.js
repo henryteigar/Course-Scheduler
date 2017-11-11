@@ -20,3 +20,10 @@ export function changeCoursesSearchFilter(filter) {
         filter: filter
     });
 }
+
+export function changeCoursesDetailedSearchFilters(filters) {
+    dispatcher.dispatch({
+        type: SearchConstants.CHANGE_DETAILED_SEARCH_FILTERS,
+        filters: filters
+    });
+}

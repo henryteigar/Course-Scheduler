@@ -27,12 +27,12 @@ class SearchArea extends Component {
             inputPlaceholder: "Search course name, code, institute etc...",
             query: '',
             filters: {
-                yldotsing: "All",
-                kohustuslik: "Obligatory courses",
+                all: "All",
+                obligatory: "Obligatory courses",
                 //isiklik: "Personal", TODO left out for demo resons
-                valik: "Elective courses",
+                elective: "Elective courses",
             },
-            initialFilter: "yldotsing",
+            initialFilter: "all",
             selectedCourses: []
         };
     }
@@ -67,7 +67,7 @@ class SearchArea extends Component {
         this.clearSearchResult();
         CourseSearchAction.changeCoursesSearchFilter(tab);
 
-        if (tab === "yldotsing") {
+        if (tab === "all") {
             this.setState({inputPlaceholder: "Search course name, code, institute etc..."});
         } else {
             this.setState({inputPlaceholder: "Filter results..."});

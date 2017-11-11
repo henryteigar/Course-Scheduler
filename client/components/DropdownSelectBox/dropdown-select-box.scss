@@ -5,7 +5,18 @@
     display: inline-block;
     margin-bottom: 15px;
     position: relative;
-    width: 200px;
+
+    &.large {
+        width: 341px;
+    }
+
+    &.medium {
+        width: 274px;
+    }
+
+    &.small {
+        width: 150px;
+    }
 
     label {
         color: $gray-font-primary-medium;
@@ -22,7 +33,6 @@
         display: block;
         font-size: 12px;
         height: 33px;
-        margin-right: 10px;
         outline: none;
         padding: 0 0 0 10px;
         position: relative;

@@ -24,6 +24,10 @@ class CourseSearchStore extends EventEmitter {
         this.emit("change");
     }
 
+    setDetailedFilters(filters) {
+        console.log("setting")
+    }
+
     fetchCourses(query) {
         let myApi = axios.create({
             baseURL: process.env.API_BASE_URL,
@@ -71,6 +75,9 @@ dispatcher.register((action) => {
             break;
         case SearchConstants.CHANGE_SEARCH_FILTER:
             courseSearchStore.setFilter(action.filter);
+            break;
+        case SearchConstants.CHANGE_DETAILED_SEARCH_FILTERS:
+            courseSearchStore.setDetailedFilters(action.filters);
             break;
         case SearchConstants.CLEAR_SEARCH_RESULTS:
             courseSearchStore.clearAll();
