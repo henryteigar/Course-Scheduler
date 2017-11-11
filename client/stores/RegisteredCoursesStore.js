@@ -14,8 +14,11 @@ class RegisteredCoursesStore extends EventEmitter {
     }
 
     addToRegisteredCourses(courses) {
-        // TODO
-        console.log("addToRegisteredCourses")
+        courses.forEach((course) => {
+            if (!this.registeredCourses.includes(course)) {
+                this.registeredCourses.push(course);
+            }
+        });
     }
 }
 
@@ -23,6 +26,7 @@ dispatcher.register((action) => {
     switch (action.type) {
         case RegisteredCoursesConstants.ADD_TO_REGISTERED_COURSES:
             registeredCoursesStore.addToRegisteredCourses(action.courses);
+            registeredCoursesStore.emit("change");
             break;
     }
 });
