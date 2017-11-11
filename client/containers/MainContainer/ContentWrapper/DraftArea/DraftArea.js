@@ -4,11 +4,9 @@ import DraftTable from "../../../../components/DraftTable/DraftTable";
 import Button from "../../../../components/Button/Button";
 
 import * as CourseDraftAction from 'client/actions/CourseDraftAction';
-import * as RegisteredCoursesAction from 'client/actions/RegisteredCoursesAction';
 import CourseDraftStore from 'client/stores/CourseDraftStore';
 
 import 'client/containers/MainContainer/ContentWrapper/DraftArea/draft-area.scss';
-import RegisteredCoursesArea from "../RegisteredCoursesArea/RegisteredCoursesArea";
 
 class DraftArea extends Component {
 
@@ -45,23 +43,18 @@ class DraftArea extends Component {
         this.setState({courses: CourseDraftStore.getAll()});
     }
 
-    addToRegisteredCourses() {
-        RegisteredCoursesAction.addToRegisteredCourses(this.state.selectedCourses);
-    }
-
     getResultArea() {
         let searchResultArea = null;
         if (this.state.courses.length > 0) {
             searchResultArea =
                 <div>
-                    <DraftTable courses={this.state.courses} changeHandler={this.toggleCourse.bind(this)}/>
+                    <DraftTable courses={this.state.courses} changeHandler={this.toggleCourse.bind(this)} />
                     <div className="button-area">
                         <Button class="small red" name="Remove from draft"
-                                clickHandler={this.removeFromDraft.bind(this)}/>
+                                clickHandler={this.removeFromDraft.bind(this)} />
                     </div>
                     <div className="button-area">
-                        <Button class="small blue" name="Put courses to schedule"
-                                clickHandler={this.addToRegisteredCourses.bind(this)}/>
+                        <Button class="small blue" name="Put courses to timetable" />
                     </div>
                 </div>
         }
@@ -72,7 +65,7 @@ class DraftArea extends Component {
         return (
             <div className="draft-area">
                 <h2>Courses in draft</h2>
-                <hr/>
+                <hr />
                 {this.getResultArea()}
             </div>
         )

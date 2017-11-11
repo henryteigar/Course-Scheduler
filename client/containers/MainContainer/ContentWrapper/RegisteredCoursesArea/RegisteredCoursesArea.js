@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import RegisteredCoursesTable from 'client/components/RegisteredCoursesTable/RegisteredCoursesTable'
+
 import RegisteredCoursesStore from 'client/stores/RegisteredCoursesStore';
 
 import 'client/containers/MainContainer/ContentWrapper/RegisteredCoursesArea/registered-courses-area.scss';
@@ -12,11 +14,19 @@ class RegisteredCoursesArea extends Component {
         }
     }
 
-    getRegisteredCourseTable() {
-        return (this.state.courses.length > 0) ? <RegisteredCoursesTable courses={this.state.courses}/> : null;
+    componentWillMount() {
+        RegisteredCoursesStore.on("change", () => {
+            this.setState({
+                courses: RegisteredCoursesStore.getAll(),
+            })
+        });
     }
 
-    render () {
+    getRegisteredCourseTable() {
+        return (this.state.courses.length > 0) ? <RegisteredCoursesTable courses={this.state.courses} /> : null;
+    }
+
+    render() {
         return (
             <div className="registered-courses-area">
                 <h2>Registered courses</h2>
