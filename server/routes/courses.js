@@ -30,11 +30,11 @@ router.get('/', (req, res) => {
                 schedule_est: json.occurrences.map((occ) => {return (occ.time.map((time) => {return time.day}))}).join()
                     .split(",").filter((item, pos, self) => {return self.indexOf(item) === pos}).sort()
                     .map((el) => {return ['E', 'T', 'K', 'N', 'R', 'L', 'P'][['1', '2', '3', '4', '5', '6', '7'].indexOf(el)]})
-                    .join(","),
+                    .join(", "),
                 schedule_eng: json.occurrences.map((occ) => {return (occ.time.map((time) => {return time.day}))}).join()
                     .split(",").filter((item, pos, self) => {return self.indexOf(item) === pos}).sort()
-                    .map((el) => {return ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'][['1', '2', '3', '4', '5', '6', '7'].indexOf(el)]})
-                    .join(",")
+                    .map((el) => {return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][['1', '2', '3', '4', '5', '6', '7'].indexOf(el)]})
+                    .join(", ")
             }});
 
             res.status(200).send(resp);

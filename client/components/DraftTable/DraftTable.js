@@ -3,6 +3,8 @@ import React from 'react';
 import CheckBox from "../CheckBox/CheckBox";
 
 const DraftTable = (props) => {
+    console.log(props.courses);
+
     return (
         <table>
             <thead>
@@ -11,7 +13,6 @@ const DraftTable = (props) => {
                 <th>Course name</th>
                 <th>Credits</th>
                 <th>Reg. persons</th>
-                <th>Preferences</th>
                 <th>Preferences</th>
             </tr>
             </thead>

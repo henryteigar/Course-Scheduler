@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import CourseSearchTable from "client/components/CourseSearchTable/CourseSearchTable";
 import SearchBox from '../../../../components/SearchBox/SearchBox';
 import Button from "client/components/Button/Button";
-import CollapsibleTextButton from "client/components/CollapsibleTextButton/CollapsibleTextButton";
 import Tabs from "../../../../components/Tabs/Tabs";
 import DetailedSearchArea from "client/containers/MainContainer/ContentWrapper/SearchArea/DetailedSearchArea/DetailedSearchArea"
 
