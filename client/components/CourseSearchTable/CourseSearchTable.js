@@ -18,20 +18,20 @@ const CourseSearchTable = (props) => {
             </tr>
             </thead>
             <tbody>
-                {props.courses.map((course) =>
-                    <tr key={course.id}>
-                        {!props.draftedCourses.includes(course)?
-                            <td>
-                                <CheckBox changeHandler={props.changeHandler} value={course} classes="blue small"/>
-                            </td>:<td/>}
-                        <td>{course.courseName}</td>
-                        <td>{course.credits} EAP</td>
-                        <td>{course.schedule}</td>
-                        <td>{course.lecturer}</td>
-                        <td>{course.regPersons}</td>
-                        <td>{course.cancellationDeadline}</td>
-                    </tr>
-                )}
+            {props.courses.map((course) =>
+                <tr key={course.id}>
+                    {!props.disabledCourses.includes(course) ?
+                        <td>
+                            <CheckBox changeHandler={props.changeHandler} value={course} classes="blue small" />
+                        </td> : <td />}
+                    <td>{course.courseName}</td>
+                    <td>{course.credits} EAP</td>
+                    <td>{course.schedule}</td>
+                    <td>{course.lecturer}</td>
+                    <td>{course.regPersons}</td>
+                    <td>{course.cancellationDeadline}</td>
+                </tr>
+            )}
             </tbody>
         </table>
     )

@@ -7,4 +7,9 @@
     margin-bottom: 10px;
     margin-left: 5px;
     width: 530px;
+
+    table {
+        margin-left: -1px;
+        width: calc(100% + 1px);
+    }
 }
