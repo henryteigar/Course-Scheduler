@@ -4,6 +4,7 @@ import InfoBoxContainer from './InfoBoxContainer/InfoBoxContainer'
 import SearchArea from './SearchArea/SearchArea'
 import DraftArea from './DraftArea/DraftArea'
 import RegisteredCoursesArea from './RegisteredCoursesArea/RegisteredCoursesArea'
+import Timetable from './Timetable/Timetable'
 
 import 'client/containers/MainContainer/ContentWrapper/content-wrapper.scss';
 
@@ -24,6 +25,7 @@ class ContentWrapper extends Component {
                 <SearchArea />
                 <DraftArea />
                 <RegisteredCoursesArea />
+                <Timetable />
             </div>
         )
     }
