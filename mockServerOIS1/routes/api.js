@@ -60,7 +60,7 @@ router.get('/registered-courses', (req, res) => {
 
 });
 
-router.post('/register', (req, res) => {
+router.post('/register-courses', (req, res) => {
 
     let sessionKey = req.headers['session-key'];
     let course_id = req.body.course_id;
@@ -78,7 +78,7 @@ router.post('/register', (req, res) => {
     });
 });
 
-router.delete('/register', (req, res) => {
+router.delete('/register-courses', (req, res) => {
 
     let sessionKey = req.headers['session-key'];
     let course_id = req.body.course_id;

@@ -5,7 +5,6 @@ const user = require('./user.js');
 const drafts = require('./drafts.js');
 const courses = require('./courses.js');
 const login = require('./login.js');
-const register = require('./register');
 const registeredCourses = require('./registered-courses.js');
 
 router.get('/', (req, res) => {
@@ -19,8 +18,6 @@ router.use('/login', login);
 router.use('/drafts', drafts);
 
 router.use('/courses', courses);
-
-router.use('/register', register);
 
 router.use('/registered-courses', registeredCourses);
 
