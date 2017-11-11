@@ -1,5 +1,6 @@
 CREATE OR REPLACE VIEW public.v_courses AS
-    SELECT title AS course_name,
+    SELECT id,
+           title AS course_name,
            CONCAT(credit, ' ', 'EAP') AS credits,
            occurrences AS schedule,
            SPLIT_PART(lecturers, ',', 1) AS lecturer,

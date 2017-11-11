@@ -17,9 +17,9 @@ const CourseSearchTable = (props) => {
             {props.courses.map((row) =>
                 <tr key={row.id}>
                     <td><CheckBox changeHandler={props.changeHandler} value={row} classes="blue small"/></td>
-                    <td>{row.title}</td>
-                    <td>{row.credits} EAP</td>
-                    <td>{row.currentAttendants}/{row.maxAttendants}</td>
+                    <td>{row.courseName}</td>
+                    <td>{row.credits}</td>
+                    <td>{row.regPersons}</td>
                 </tr>
             )}
             </tbody>

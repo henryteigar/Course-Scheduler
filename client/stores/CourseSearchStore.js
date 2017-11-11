@@ -42,7 +42,7 @@ class CourseSearchStore extends EventEmitter {
             let courses = [];
             response.data.forEach((data) => {
                 courses.push({
-                    //"id": data.id,
+                    "id": data.id,
                     "courseName": data.course_name,
                     "credits": data.credits,
                     "schedule": data.schedule,
