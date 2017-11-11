@@ -10,16 +10,18 @@ class CourseDraftStore extends EventEmitter {
         this.draftedCourses = [];
     }
 
-    addToDraft(courses) {
-        courses.forEach((course) => {
-            if (!this.draftedCourses.includes(course)) {
-                this.draftedCourses.push(course);
+    addToDraft(coursesToAdd) {
+        let courses = this.draftedCourses.map((course) => course.course);
+
+        coursesToAdd.forEach((courseToAdd) => {
+            if (!courses.includes(courseToAdd.course)) {
+                this.draftedCourses.push({course: courseToAdd});
             }
         });
     }
 
-    removeFromDraft(courses) {
-        this.draftedCourses = this.draftedCourses.filter((el) => !courses.includes(el));
+    removeFromDraft(coursesToRemove) {
+        this.draftedCourses = this.draftedCourses.filter((el) => !coursesToRemove.includes(el));
     }
 
     getAll() {
@@ -50,8 +52,6 @@ class CourseDraftStore extends EventEmitter {
                     "active_lecturer": data.active_lecturer
                 });
             });
-
-            console.log(courses);
 
             this.draftedCourses = courses;
             this.emit("change");

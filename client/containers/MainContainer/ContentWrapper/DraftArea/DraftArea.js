@@ -21,8 +21,6 @@ class DraftArea extends Component {
 
     componentWillMount() {
         CourseDraftStore.on("change", () => {
-            console.log(CourseDraftStore.getAll());
-
             this.setState({
                 courses: CourseDraftStore.getAll(),
                 selectedCourses: []
