@@ -60,6 +60,25 @@ router.get('/registered-courses', (req, res) => {
 
 });
 
+router.post('/register', (req, res) => {
+
+    let sessionKey = req.headers['session-key'];
+    let course_id = req.body.course_id;
+    let group_id = req.body.group_id;
+    db.query('INSERT INTO ois1.registered_courses (user_id, course_id, group_id) ' +
+            'SELECT $1, $2, $3 WHERE NOT EXISTS (SELECT 1 FROM ois1.registered_courses ' +
+            'WHERE course_id = $2 AND user_id = $1)', [sessionKey, course_id, group_id], (err, result) => {
+        if (err) {
+            res.status(500).send();
+        }
+        if (result.rowCount === 0) {
+            res.status(400).send();
+        }
+        res.status(200).send();
+    });
+});
+
+
 router.post('/login', (req, res) => {
     let username = req.body.username;
 
