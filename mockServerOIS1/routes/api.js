@@ -47,12 +47,13 @@ router.get('/courses', (req, res) => {
 });
 
 
-router.get('/registered-courses', (reg, res) => {
-    let sessionKey = reg.headers['session-key'];
-    db.query('SELECT * from ois1.v_users where id = $1', [sessionKey], (err, result) => {
+router.get('/registered-courses', (req, res) => {
 
+    let sessionKey = req.headers['session-key'];
+    let statement = courses.getRegisteredCourses(sessionKey);
+    db.query(statement.query_text, statement.parameters, (err, result) => {
         if (err) {
-            res.status(400).send(err);
+            res.status(500).send(err);
         }
         res.status(200).send(result.rows);
     });
