@@ -1,19 +1,19 @@
 import React, {Component} from 'react';
 
 import DraftTable from "../../../../components/DraftTable/DraftTable";
+import Button from "../../../../components/Button/Button";
 
 import * as CourseDraftAction from 'client/actions/CourseDraftAction';
 import CourseDraftStore from 'client/stores/CourseDraftStore';
 
 import 'client/containers/MainContainer/ContentWrapper/DraftArea/draft-area.scss';
-import Button from "../../../../components/Button/Button";
 
 class DraftArea extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            courses: [],
+            courses: CourseDraftStore.getAll(),
             selectedCourses: []
         }
     }
@@ -43,26 +43,30 @@ class DraftArea extends Component {
         this.setState({courses: CourseDraftStore.getAll()});
     }
 
-    render() {
+    getResultArea() {
         let searchResultArea = null;
         if (this.state.courses.length > 0) {
             searchResultArea =
                 <div>
-                    <DraftTable courses={this.state.courses} changeHandler={this.toggleCourse.bind(this)}/>
+                    <DraftTable courses={this.state.courses} changeHandler={this.toggleCourse.bind(this)} />
                     <div className="button-area">
                         <Button class="small red" name="Remove from draft"
-                                clickHandler={this.removeFromDraft.bind(this)}/>
+                                clickHandler={this.removeFromDraft.bind(this)} />
                     </div>
                     <div className="button-area">
-                        <Button class="small blue" name="Put courses to schedule"/>
+                        <Button class="small blue" name="Put courses to timetable" />
                     </div>
                 </div>
         }
+        return searchResultArea;
+    }
+
+    render() {
         return (
             <div className="draft-area">
                 <h2>Courses in draft</h2>
-                <hr/>
-                {searchResultArea}
+                <hr />
+                {this.getResultArea()}
             </div>
         )
     }

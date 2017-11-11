@@ -3,8 +3,10 @@
 .draft-area {
     background: white;
     border: 1px solid $table-border-primary;
+    float: left;
     margin-bottom: 10px;
-    width: 516px;
+    margin-right: 5px;
+    width: 530px;
 
     table {
         margin-bottom: 0px;

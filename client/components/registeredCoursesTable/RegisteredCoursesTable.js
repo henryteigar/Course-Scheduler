@@ -1,25 +1,23 @@
 import React from 'react';
 
-import CheckBox from "../CheckBox/CheckBox";
-
-const CourseSearchTable = (props) => {
+const RegisteredCoursesTable = (props) => {
     return (
         <table>
             <thead>
             <tr>
-                <th/>
                 <th>Course name</th>
                 <th>Credits</th>
-                <th>Reg. persons</th>
+                <th>Lecturer</th>
+                <th>Cancellation date</th>
             </tr>
             </thead>
             <tbody>
             {props.courses.map((row) =>
                 <tr key={row.id}>
-                    <td><CheckBox changeHandler={props.changeHandler} value={row} classes="blue small"/></td>
                     <td>{row.title}</td>
-                    <td>{row.credits} EAP</td>
-                    <td>{row.currentAttendants}/{row.maxAttendants}</td>
+                    <td>{row.credits}</td>
+                    <td>{row.responsibleLecturer} EAP</td>
+                    <td>{row.cancellationDeadline}</td>
                 </tr>
             )}
             </tbody>
@@ -27,4 +25,4 @@ const CourseSearchTable = (props) => {
     )
 };
 
-export default CourseSearchTable;
+export default RegisteredCoursesTable;
