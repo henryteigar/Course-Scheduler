@@ -14,12 +14,12 @@ const CourseSearchTable = (props) => {
             </tr>
             </thead>
             <tbody>
-            {props.courses.map((row) =>
-                <tr key={row.id}>
-                    <td><CheckBox changeHandler={props.changeHandler} value={row} classes="blue small"/></td>
-                    <td>{row.title}</td>
-                    <td>{row.credits} EAP</td>
-                    <td>{row.currentAttendants}/{row.maxAttendants}</td>
+            {props.courses.map((course) =>
+                <tr key={course.id}>
+                    <td><CheckBox changeHandler={props.changeHandler} value={course} classes="blue small"/></td>
+                    <td>{course.courseName}</td>
+                    <td>{course.credits} EAP</td>
+                    <td>{course.regPersons}</td>
                 </tr>
             )}
             </tbody>
