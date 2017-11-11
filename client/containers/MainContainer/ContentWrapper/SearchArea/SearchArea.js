@@ -117,8 +117,6 @@ class SearchArea extends Component {
     }
 
     render() {
-        console.log(this.state.courses);
-
         let searchResultArea = null;
         if (this.state.courses.length > 0) {
             searchResultArea =
