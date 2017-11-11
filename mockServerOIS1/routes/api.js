@@ -47,16 +47,49 @@ router.get('/courses', (req, res) => {
 });
 
 
-router.get('/registered-courses', (reg, res) => {
-    let sessionKey = reg.headers['session-key'];
-    db.query('SELECT * from ois1.v_users where id = $1', [sessionKey], (err, result) => {
+router.get('/registered-courses', (req, res) => {
 
+    let sessionKey = req.headers['session-key'];
+    let statement = courses.getRegisteredCourses(sessionKey);
+    db.query(statement.query_text, statement.parameters, (err, result) => {
         if (err) {
-            res.status(400).send(err);
+            res.status(500).send(err);
         }
         res.status(200).send(result.rows);
     });
 
+});
+
+router.post('/register-courses', (req, res) => {
+
+    let sessionKey = req.headers['session-key'];
+    let course_id = req.body.course_id;
+    let group_id = req.body.group_id;
+    db.query('INSERT INTO ois1.registered_courses (user_id, course_id, group_id) ' +
+        'SELECT $1, $2, $3 WHERE NOT EXISTS (SELECT 1 FROM ois1.registered_courses ' +
+        'WHERE course_id = $2 AND user_id = $1)', [sessionKey, course_id, group_id], (err, result) => {
+        if (err) {
+            res.status(500).send();
+        }
+        if (result.rowCount === 0) {
+            res.status(400).send();
+        }
+        res.status(200).send();
+    });
+});
+
+router.delete('/register-courses', (req, res) => {
+
+    let sessionKey = req.headers['session-key'];
+    let course_id = req.body.course_id;
+    let group_id = req.body.group_id;
+    db.query('DELETE from ois1.registered_courses ' +
+        'WHERE user_id = $1 AND course_id = $2 AND group_id = $3', [sessionKey, course_id, group_id], (err, result) => {
+        if (err) {
+            res.status(500).send();
+        }
+        res.status(200).send();
+    });
 });
 
 router.post('/login', (req, res) => {
