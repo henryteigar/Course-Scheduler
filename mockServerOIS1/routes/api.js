@@ -88,9 +88,6 @@ router.delete('/register', (req, res) => {
         if (err) {
             res.status(500).send();
         }
-        if (result.rowCount === 0) {
-            res.status(400).send();
-        }
         res.status(200).send();
     });
 });
