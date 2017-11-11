@@ -42,7 +42,7 @@ class DropdownSelectBox extends Component {
         this.setState({isCollapsed: true});
         this.props.clickHandler({
             id: this.props.id,
-            selectedEl: this.state.selectedEl
+            selectedEl: selectedEl
         });
     }
 

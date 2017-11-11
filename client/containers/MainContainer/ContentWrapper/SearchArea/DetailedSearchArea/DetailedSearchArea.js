@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import CollapsibleTextButton from "client/components/CollapsibleTextButton/CollapsibleTextButton";
 import DropdownSelectBox from "client/components/DropdownSelectBox/DropdownSelectBox";
+import * as CourseSearchAction from 'client/actions/CourseSearchAction';
 import * as Utils from 'client/utils/Utils'
 import * as GeneralAction from 'client/actions/GeneralAction';
 
@@ -14,8 +15,11 @@ class DetailedSearchArea extends Component {
             isCollapsed: true,
             className: "",
             filters: GeneralAction.getAllFilters(),
-            selectedFilters: null
-        }
+            selectedFilters: []
+        };
+        this.state.selectedFilters = this.state.filters.map((filter) => {
+            return {id: filter.id, selectedEl: null}
+        });
     }
 
     toggleDetailedSearch() {
@@ -23,10 +27,14 @@ class DetailedSearchArea extends Component {
         this.setState({isCollapsed: !this.state.isCollapsed});
     }
 
-    updateFilterValue(filter) {
-
+    updateFilterValue(selectedFilter) {
+        this.state.selectedFilters.forEach((filter) => {
+            if (selectedFilter.id == filter.id) {
+                filter.selectedEl = selectedFilter.selectedEl
+            }
+        });
+        CourseSearchAction.changeCoursesDetailedSearchFilters(this.state.selectedFilters)
     }
-
 
 
     render() {
@@ -41,7 +49,7 @@ class DetailedSearchArea extends Component {
                         <DropdownSelectBox key={filter.id} id={filter.id} label={filter.label_eng}
                                            values={filter.values}
                                            className={Utils.getDropdownSelectBoxClassNameByFilter(filter)}
-                                           clickHandler={this.updateFilterValue.bind(this)}/>
+                                           clickHandler={this.updateFilterValue.bind(this)} />
                     )}
                 </div>
             </div>

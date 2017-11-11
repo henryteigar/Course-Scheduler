@@ -7,7 +7,8 @@ class CourseSearchStore extends EventEmitter {
     constructor() {
         super();
         this.courses = [];
-        this.filter = undefined;
+        this.filter = null;
+        this.detailedFilters = [];
     }
 
     getAll() {
@@ -25,7 +26,8 @@ class CourseSearchStore extends EventEmitter {
     }
 
     setDetailedFilters(filters) {
-        console.log("setting")
+        this.detailedFilters = filters;
+        this.emit("change")
     }
 
     fetchCourses(query) {
@@ -40,7 +42,14 @@ class CourseSearchStore extends EventEmitter {
         });
 
         let uri = 'courses?q=' + query;
-        if (this.filter && this.filter !== "yldotsing") uri += '&filter=' + this.filter;
+        if (this.filter && this.filter !== "all") uri += '&filter=' + this.filter;
+        this.detailedFilters.forEach((filter) => {
+           if (filter.selectedEl != null) {
+               uri += '&' + filter.id + '=' + filter.selectedEl.id
+           }
+        });
+
+        console.log(uri);
 
         myApi.get(uri).then((response) => {
             let courses = [];
