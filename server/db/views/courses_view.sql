@@ -1,4 +1,4 @@
-CREATE OR REPLACE VIEW v_courses AS
+CREATE OR REPLACE VIEW public.v_courses AS
     SELECT title AS course_name,
            CONCAT(credit, ' ', 'EAP') AS credits,
            occurrences AS schedule,
