@@ -17,8 +17,8 @@ CREATE OR REPLACE VIEW ois1.v_courses AS
             courses.assessment AS assessment,
             courses.limit_of_attendants AS limit_of_attendants,
             courses.registered_attendants AS registered_attendants,
-            (SELECT ARRAY_AGG(ROW_TO_JSON(obj1)) FROM (SELECT occurence.type AS type,
-                              (SELECT ROW_TO_JSON(obj) FROM (SELECT times.id AS id,
+            (SELECT JSON_AGG(ROW_TO_JSON(obj1)) FROM (SELECT occurrence.type AS type,
+                              (SELECT JSON_AGG(ROW_TO_JSON(obj)) FROM (SELECT times.id AS id,
                                                                     times.week AS week,
                                                                     times.day AS day,
                                                                     times.start_time AS start_time,
@@ -27,18 +27,16 @@ CREATE OR REPLACE VIEW ois1.v_courses AS
                                                                     to_char(times.start_time, 'MM')::int AS start_minute,
                                                                     to_char(times.end_time, 'HH')::int AS end_hour,
                                                                     to_char(times.end_time, 'MM')::int AS end_minute
-                                                               FROM ois1.occurrence_time times WHERE
-                                                                        times.id = occurence.time_id) obj) AS time,
-                              occurence.schedule_id AS schedule,
-                              occurence.remarks AS remarks,
-                              occurence.place AS place,
+                                                               FROM ois1.occurrence_time times WHERE times.occurrence_id = occurrence.id) obj) AS time,
+                              occurrence.schedule_id AS schedule,
+                              occurrence.remarks AS remarks,
+                              occurrence.place AS place,
                               (SELECT  ROW_TO_JSON(obj) FROM (SELECT groups.id AS id, groups.name AS name FROM ois1.groups groups
-                                                              WHERE occurence.group_id = groups.id) obj) AS group,
-                              occurence.limit_of_attendants AS limit_of_attendants,
-                              occurence.registered_attendants AS registered_attendants,
+                                                              WHERE occurrence.group_id = groups.id) obj) AS group,
+                              occurrence.limit_of_attendants AS limit_of_attendants,
+                              occurrence.registered_attendants AS registered_attendants,
                               (SELECT ARRAY_AGG(ROW_TO_JSON(obj)) FROM (SELECT lecturer.id AS id, lecturer.name AS name FROM ois1.lecturers lecturer, ois1.occurrence_lecturer o_lecturer
-                                                                WHERE lecturer.id = o_lecturer.lecturer_id AND occurence.id = o_lecturer.occurrence_id) obj) AS lecturers
-
-                       FROM ois1.occurrences occurence
-                       JOIN ois1.course_occurrences cooc ON cooc.occurrence_id = occurence.id AND cooc.course_id = courses.id) obj1) AS occurrences
+                                                                WHERE lecturer.id = o_lecturer.lecturer_id AND occurrence.id = o_lecturer.occurrence_id) obj) AS lecturers
+                       FROM ois1.occurrences occurrence
+                       JOIN ois1.course_occurrences cooc ON cooc.occurrence_id = occurrence.id AND cooc.course_id = courses.id) obj1) AS occurrences
      FROM ois1.courses courses;

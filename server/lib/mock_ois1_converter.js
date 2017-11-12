@@ -17,7 +17,7 @@ function getOccurrenceDays(occurrences, lang) {
 
     let days = lang === 'est' ? est_days : eng_days;
     return occurrences.map((occ) => {
-       return occ.time.day;
+        return occ.time !== null ? (occ.time.map((time) => { return time.day })) : []
     }).join().split(",").filter((item, pos, self) => {
         return self.indexOf(item) === pos
     }).sort().map((el) => {
