@@ -1,0 +1,16 @@
+@import "../../css/variables";
+
+table tbody tr td span {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    padding-right: 10px;
+
+    .remove-icon {
+        position: relative;
+        height: 12px;
+        display: inline-block;
+        width: 100%;
+    }
+}
