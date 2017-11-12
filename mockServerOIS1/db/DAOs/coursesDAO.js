@@ -1,12 +1,17 @@
 module.exports = {
-    getCourses: function (input_query, input_faculty, input_institute, input_year, input_semester,
+    getCourses: function (input_query, input_lang,  input_faculty, input_institute, input_year, input_semester,
                           input_schedule, input_levelOfStudy, input_assessment, input_currentlyOpened, input_ids) {
         //SQLQuery and parameters
         let query = "SELECT * FROM ois1.v_courses WHERE 1=1";
         let parameters = [];
 
         if (input_query !== undefined && input_query !== '*' && input_query !== '') {
-            query += " AND LOWER(name_est) LIKE $" + (parameters.length + 1);
+            let field = 'name_eng';
+            if (input_lang && input_lang.toLowerCase() === 'est') {
+                field = 'name_est';
+            }
+
+            query += " AND LOWER(" + field  + ") LIKE $" + (parameters.length + 1);
             parameters.push('%' + input_query.toLowerCase() + '%')
         }
 

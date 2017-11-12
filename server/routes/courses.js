@@ -4,6 +4,7 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const remoteApiUrl = process.env[process.env.REMOTE_SERVER];
 const request = require('request');
+const mockOis1Converter = require('../lib/mock_ois1_converter');
 
 router.get('/', (req, res) => {
 
@@ -23,39 +24,8 @@ router.get('/', (req, res) => {
             res.status(response.statusCode).send()
         }
 
-        let resp = body.map((json) => {
-
-            return {
-                id: json.id,
-                name_est: json.name_est,
-                name_eng: json.name_eng,
-                credits: json.credits,
-                reg_persons: json.registered_attendants + "/" + json.limit_of_attendants,
-                cancellation_date: json.cancellation_date.slice(0, 10).split("-").reverse().join('.'),
-                lecturer: (json.lecturers && json.lecturers.responsible) ? json.lecturers.responsible[0].name : null,
-                schedule_est: json.occurrences
-                    .map((occ) => {
-                        return (occ.time.map((time) => { return time.day } ))
-                    })
-                    .join().split(",")
-                    .filter((item, pos, self) => {
-                        return self.indexOf(item) === pos
-                    }).sort()
-                    .map((el) => {
-                        return ['E', 'T', 'K', 'N', 'R', 'L', 'P'][['1', '2', '3', '4', '5', '6', '7'].indexOf(el)]
-                    }).join(", "),
-                schedule_eng: json.occurrences
-                    .map((occ) => {
-                        return (occ.time.map((time) => { return time.day } ))
-                    })
-                    .join().split(",")
-                    .filter((item, pos, self) => {
-                        return self.indexOf(item) === pos
-                    }).sort()
-                    .map((el) => {
-                        return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][['1', '2', '3', '4', '5', '6', '7'].indexOf(el)]
-                    }).join(", ")
-            }
+        let resp = body.map((course_json) => {
+            return mockOis1Converter.processCourse(course_json);
         });
 
         res.status(200).send(resp);

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db/init.js');
-const courses = require('./../db/DAOs/coursesDAO.js')
+const courses = require('./../db/DAOs/coursesDAO.js');
 
 
 router.get('/', (req, res) => {
@@ -25,6 +25,7 @@ router.get('/courses', (req, res) => {
 
     //Input params
     let input_query = req.query.q;
+    let input_lang = req.query.lang;
     let input_faculty = req.query.faculty;
     let input_institute = req.query.institute;
     let input_year = req.query.year;
@@ -34,7 +35,7 @@ router.get('/courses', (req, res) => {
     let input_assessment = req.query.assessment;
     let input_currentlyOpened = req.query.currently_opened;
     let input_ids = req.query.ids;
-    let statement = courses.getCourses(input_query, input_faculty, input_institute, input_year, input_semester,
+    let statement = courses.getCourses(input_query, input_lang, input_faculty, input_institute, input_year, input_semester,
         input_schedule, input_levelOfStudy, input_assessment, input_currentlyOpened, input_ids);
 
     db.query(statement.query_text, statement.parameters, (err, result) => {
@@ -51,10 +52,11 @@ router.get('/registered-courses', (req, res) => {
 
     let sessionKey = req.headers['session-key'];
     db.query('SELECT * FROM ois1.v_registered WHERE user_id = $1', [sessionKey], (err, result) => {
-        if (err) {
+        if (err || !result) {
             res.status(500).send(err);
+        } else {
+            res.status(200).send(result.rows);
         }
-        res.status(200).send(result.rows);
     });
 
 });
@@ -70,15 +72,17 @@ router.post('/registered-courses', (req, res) => {
         if (err) {
             res.status(500).send();
         }
-        if (!result || result.rowCount === 0) {
+        else if (!result || result.rowCount === 0) {
             res.status(400).send();
         }
-        res.status(200).send();
+        else {
+            res.status(200).send();
+        }
     });
 });
 
 
-router.delete('/register-courses', (req, res) => {
+router.delete('/registered-courses', (req, res) => {
 
     let sessionKey = req.headers['session-key'];
     let course_id = req.body.course_id;
@@ -87,18 +91,23 @@ router.delete('/register-courses', (req, res) => {
         if (err) {
             res.status(500).send();
         }
-        res.status(200).send();
+        else {
+            res.status(200).send();
+        }
     });
 });
 
 router.post('/login', (req, res) => {
     let username = req.body.username;
+    let password = req.body.password;
 
-    db.query('SELECT id from ois1.users where username = $1', username, (err, result) => {
-        if (err) {
+    db.query('SELECT id AS session_key from ois1.users WHERE username = $1 AND password = $2', [username, password], (err, result) => {
+        if (!result || err || result.rowCount === 0) {
             res.status(404).send();
         }
-        res.status(200).send(result.rows);
+        else {
+            res.status(200).send(result.rows[0]);
+        }
     });
 });
 

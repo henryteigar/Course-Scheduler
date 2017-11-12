@@ -23,10 +23,10 @@ router.post('/', (req, res) => {
     if (username && password) {
         request.post(options, function (error, response, body) {
             if (response.statusCode === 200) {
-                let oisToken = body.token;
+                let oisToken = body.session_key;
                 let internalToken = jwt.sign({
                     username: username,
-                    sessionKey: oisToken
+                    session_key: oisToken
                 }, process.env.JWT_SECRET);
                 res.status(200).json({jwt: internalToken});
             } else {
