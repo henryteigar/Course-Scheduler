@@ -50,8 +50,7 @@ router.get('/courses', (req, res) => {
 router.get('/registered-courses', (req, res) => {
 
     let sessionKey = req.headers['session-key'];
-    let statement = courses.getRegisteredCourses(sessionKey);
-    db.query(statement.query_text, statement.parameters, (err, result) => {
+    db.query('SELECT * FROM ois1.v_registered WHERE user_id = $1', [sessionKey], (err, result) => {
         if (err) {
             res.status(500).send(err);
         }
