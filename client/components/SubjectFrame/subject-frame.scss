@@ -8,6 +8,10 @@
     width: calc(100% - 3px);
     z-index: 1;
 
+    &.draft {
+        opacity: 0.75;
+    }
+
     label {
         height: auto;
         display: inline-block;
@@ -35,7 +39,7 @@
         width: 100%;
         bottom: 0;
 
-        .location {
+        .additional-info {
             float: right;
         }
     }

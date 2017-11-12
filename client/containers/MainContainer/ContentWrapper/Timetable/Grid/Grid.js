@@ -34,7 +34,9 @@ class Grid extends Component {
                         isDraft: isDraft,
                         type: occurrence.type,
                         name: el.name,
-                        time: time
+                        time: time,
+                        group: occurrence.group,
+                        place: occurrence.place
                     }
                 }));
             });

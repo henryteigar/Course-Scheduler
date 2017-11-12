@@ -14,6 +14,11 @@ class Timetable extends Component {
                     name: "Software engineering",
                     occurrences: [{
                         type: "practice",
+                        group: {
+                            "id": 2,
+                            name: "inf7"
+                        },
+                        place: "J.Liivi 2 - 404",
                         time: [{
                             "week": 1,
                             "day": 2,
@@ -31,6 +36,11 @@ class Timetable extends Component {
                         }]
                     }, {
                         type: "lecture",
+                        group: {
+                            "id": 2,
+                            name: "I group"
+                        },
+                        place: "J.Liivi 2 - 404",
                         time: [{
                             "week": 1,
                             "day": 2,
@@ -45,6 +55,11 @@ class Timetable extends Component {
                     name: "Computer programming",
                     occurrences: [{
                         type: "lecture",
+                        group: {
+                            "id": 2,
+                            name: "II group"
+                        },
+                        place: "J.Liivi 2 - 111",
                         time: [{
                             "week": 1,
                             "day": 1,
