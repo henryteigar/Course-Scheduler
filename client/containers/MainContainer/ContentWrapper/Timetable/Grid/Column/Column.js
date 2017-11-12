@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import './column.scss';
+import SubjectFrame from "client/components/SubjectFrame/SubjectFrame";
 
 class Column extends Component {
     constructor() {
@@ -13,8 +14,15 @@ class Column extends Component {
     render() {
         return (
             <div className="column">
-                <label>Esmaspäev</label>
-                <div className="day-area"></div>
+                <label>{this.props.name}</label>
+                <div className="day-area">
+                    {[...Array(10)].map((x, i) => <hr key={i}/>)}
+                    {this.props.occurrences.map((occurrence, i) =>
+                        <SubjectFrame key={i} occurrence={occurrence} />
+                    )}
+
+
+                </div>
             </div>
         )
     }
