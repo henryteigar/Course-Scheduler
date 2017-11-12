@@ -16,42 +16,42 @@ module.exports = {
         }
 
         if (input_faculty !== undefined) {
-            query += " AND EXISTS (SELECT 1 FROM ois1.course_faculty cofa WHERE cofa.course_id = id AND cofa.id = $" + (parameters.length + 1) + ")";
+            query += " AND EXISTS (SELECT 1 FROM ois1.course_faculty cofa WHERE cofa.course_id = ois1.v_courses.id AND cofa.id = $" + (parameters.length + 1) + ")";
             parameters.push('%' + input_faculty + '%');
         }
 
         if (input_institute !== undefined) {
-            query += " AND EXISTS (SELECT 1 FROM ois1.course_institute coin WHERE coin.course_id = id AND coin.id = $" + (parameters.length + 1) + ")";
+            query += " AND EXISTS (SELECT 1 FROM ois1.course_institute coin WHERE coin.course_id = ois1.v_courses.id AND coin.id = $" + (parameters.length + 1) + ")";
             parameters.push('%' + input_institute + '%');
         }
 
         if (input_year !== undefined) {
-            query += " AND EXISTS (SELECT 1 FROM ois1.course_academic_year coac WHERE coac.course_id = id AND coac.id = $" + (parameters.length + 1) + ")";
+            query += " AND EXISTS (SELECT 1 FROM ois1.course_academic_year coac WHERE coac.course_id = ois1.v_courses.id AND coac.id = $" + (parameters.length + 1) + ")";
             parameters.push('%' + input_year + '%');
         }
 
         if (input_semester !== undefined) {
-            query += " AND EXISTS (SELECT 1 FROM ois1.course_semester cose WHERE cose.course_id = id AND cose.id = $" + (parameters.length + 1) + ")";
+            query += " AND EXISTS (SELECT 1 FROM ois1.course_semester cose WHERE cose.course_id = ois1.v_courses.id AND cose.id = $" + (parameters.length + 1) + ")";
             parameters.push('%' + input_semester + '%');
         }
 
         if (input_schedule !== undefined) {
-            query += " AND EXISTS (SELECT 1 FROM ois1.course_schedule cosc WHERE cosc.course_id = id AND cosc.id = $" + (parameters.length + 1) + ")";
+            query += " AND EXISTS (SELECT 1 FROM ois1.course_schedule cosc WHERE cosc.course_id = ois1.v_courses.id AND cosc.id = $" + (parameters.length + 1) + ")";
             parameters.push('%' + input_schedule + '%');
         }
 
         if (input_levelOfStudy !== undefined) {
-            query += " AND EXISTS (SELECT 1 FROM course_level_of_study cole WHERE cole.course_id = id AND cole.id = $" + (parameters.length + 1) + ")";
+            query += " AND EXISTS (SELECT 1 FROM course_level_of_study cole WHERE cole.course_id = ois1.v_courses.id AND cole.id = $" + (parameters.length + 1) + ")";
             parameters.push('%' + input_levelOfStudy + '%');
         }
 
         if (input_assessment !== undefined) {
-            query += " AND EXISTS (SELECT 1 FROM ois1.course_assessment coas WHERE coas.course_id = id AND coas.id = $" + (parameters.length + 1) + ")";
+            query += " AND EXISTS (SELECT 1 FROM ois1.course_assessment coas WHERE coas.course_id = ois1.v_courses.id AND coas.id = $" + (parameters.length + 1) + ")";
             parameters.push('%' + input_assessment + '%');
         }
 
         if (input_currentlyOpened !== undefined) {
-            query += " AND EXISTS (SELECT 1 FROM ois1.course_currently_opened cocu WHERE cocu.course_id = id AND cocu.id = $" + (parameters.length + 1) + ")";
+            query += " AND EXISTS (SELECT 1 FROM ois1.course_currently_opened cocu WHERE cocu.course_id = ois1.v_courses.id AND cocu.id = $" + (parameters.length + 1) + ")";
             parameters.push('%' + input_currentlyOpened + '%');
         }
 
@@ -59,7 +59,7 @@ module.exports = {
             let listOfIds = input_ids.split(",");
             query += " AND (";
             for (let i = 0; i < listOfIds.length; i++) {
-                query += " OR id = $" + (parameters.length + 1);
+                query += " OR ois1.v_courses.id = $" + (parameters.length + 1);
                 parameters.push('%' + listOfIds[i] + '%');
             }
             query += " )";

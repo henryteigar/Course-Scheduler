@@ -42,7 +42,9 @@ router.get('/courses', (req, res) => {
         if (err) {
             res.status(400).send();
         }
-        res.status(200).send(result ? result.rows : null);
+        else {
+            res.status(200).send(result ? result.rows : null);
+        }
     });
 
 });

@@ -26,8 +26,9 @@ router.get('/', (req, res) => {
 
             if (error) {
                 res.status(400).send(error);
-            } else {
-                res.status(200).send(body[0].to_json)
+            }
+            else {
+                res.status(200).send(body[0]);
             }
 
         });
