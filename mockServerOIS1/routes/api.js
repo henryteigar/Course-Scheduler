@@ -77,7 +77,8 @@ router.post('/registered-courses', (req, res) => {
     });
 });
 
-router.delete('/registered-courses', (req, res) => {
+
+router.delete('/register-courses', (req, res) => {
 
     let sessionKey = req.headers['session-key'];
     let course_id = req.body.course_id;
