@@ -29,12 +29,12 @@ class RegisteredCoursesStore extends EventEmitter {
                     }
                 )
                 .then(() => {
-                    let courses = this.registeredCourses.map((course) => course.course);
-                    coursesToAdd.forEach((course) => {
-                        if (!courses.includes(course)) {
-                            this.registeredCourses.push(course);
-                        }
-                    });
+                    // let courses = this.registeredCourses.map((course) => course.course);
+                    // coursesToAdd.forEach((course) => {
+                    //     if (!courses.includes(course)) {
+                    //         this.registeredCourses.push(course);
+                    //     }
+                    // });
                     this.emit("change");
                 })
                 .catch((err) => {
