@@ -61,6 +61,18 @@ router.get('/registered-courses', (req, res) => {
 
 });
 
+router.get('/default-values', (req, res) => {
+
+    db.query('SELECT * FROM ois1.v_default_values', (err, result) => {
+        if (err || !result) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).send(result.rows);
+        }
+    });
+
+});
+
 router.post('/registered-courses', (req, res) => {
 
     let sessionKey = req.headers['session-key'];
