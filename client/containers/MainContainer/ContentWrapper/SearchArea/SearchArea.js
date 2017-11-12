@@ -19,6 +19,7 @@ class SearchArea extends Component {
 
     constructor(props) {
         super(props);
+        RegisteredCoursesStore.fetchRegisteredCourses();
         this.state = {
             draftedCourses: CourseDraftStore.getAll(),
             registeredCourses: RegisteredCoursesStore.getAll(),
@@ -45,6 +46,11 @@ class SearchArea extends Component {
         CourseDraftStore.on("change", () => {
             this.setState({
                 draftedCourses: CourseDraftStore.getAll(),
+            })
+        });
+        RegisteredCoursesStore.on("change", () => {
+            this.setState({
+                registeredCourses: RegisteredCoursesStore.getAll(),
             })
         })
     }

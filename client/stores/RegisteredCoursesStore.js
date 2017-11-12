@@ -16,17 +16,32 @@ class RegisteredCoursesStore extends EventEmitter {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
-        }
-    }
+        };
+    };
 
-    addToRegisteredCourses(courses) {
-        courses.forEach((course) => {
-            if (!this.registeredCourses.includes(course)) {
-                this.registeredCourses.push(course);
-            }
+    addToRegisteredCourses(coursesToAdd) {
+        coursesToAdd.map((courseToRemove) => courseToRemove.course).forEach((courseToAdd) => {
+            axios.create(this.axoisConf)
+                .post('registered-courses',
+                    {
+                        'course_id': courseToAdd.id,
+                        'group_id': 1   // TODO: Currently hard-coded groupId
+                    }
+                )
+                .then(() => {
+                    let courses = this.registeredCourses.map((course) => course.course);
+                    coursesToAdd.forEach((course) => {
+                        if (!courses.includes(course)) {
+                            this.registeredCourses.push(course);
+                        }
+                    });
+                    this.emit("change");
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         });
-        registeredCoursesStore.emit("change");
-    }
+    };
 
     fetchRegisteredCourses() {
         axios.create(this.axoisConf).get('registered-courses')

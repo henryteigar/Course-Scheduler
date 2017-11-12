@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
                 credits: json.credits,
                 reg_persons: json.registered_attendants + "/" + json.limit_of_attendants,
                 cancellation_date: json.cancellation_date.slice(0,10).split("-").reverse().join('.'),
-                lecturer: json.lecturers.responsible[0].name,
+                // lecturer: json.lecturers.responsible[0].name, // TODO: Occurs error
                 schedule_est: json.occurrences.map((occ) => {return (occ.time.map((time) => {return time.day}))}).join()
                     .split(",").filter((item, pos, self) => {return self.indexOf(item) === pos}).sort()
                     .map((el) => {return ['E', 'T', 'K', 'N', 'R', 'L', 'P'][['1', '2', '3', '4', '5', '6', '7'].indexOf(el)]})

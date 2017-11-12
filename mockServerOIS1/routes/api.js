@@ -59,7 +59,7 @@ router.get('/registered-courses', (req, res) => {
 
 });
 
-router.post('/register-courses', (req, res) => {
+router.post('/registered-courses', (req, res) => {
 
     let sessionKey = req.headers['session-key'];
     let course_id = req.body.course_id;
@@ -77,13 +77,12 @@ router.post('/register-courses', (req, res) => {
     });
 });
 
-router.delete('/register-courses', (req, res) => {
+router.delete('/registered-courses', (req, res) => {
 
     let sessionKey = req.headers['session-key'];
     let course_id = req.body.course_id;
-    let group_id = req.body.group_id;
     db.query('DELETE from ois1.registered_courses ' +
-        'WHERE user_id = $1 AND course_id = $2 AND group_id = $3', [sessionKey, course_id, group_id], (err, result) => {
+        'WHERE user_id = $1 AND course_id = $2', [sessionKey, course_id], (err, result) => {
         if (err) {
             res.status(500).send();
         }
