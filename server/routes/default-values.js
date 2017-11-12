@@ -22,12 +22,14 @@ router.get('/', (req, res) => {
         url: remoteApiUrl + '/default-values'
     };
     request.get(options, function (error, response, body) {
+
         if (error) {
             res.status(400).send(error);
         } else {
-            res.status(200).send(body)
+            res.status(200).send(body[0].to_json)
         }
-    })
+
+    });
 
 });
 
