@@ -19,10 +19,6 @@ class RegisteredCoursesStore extends EventEmitter {
         }
     }
 
-    getAll() {
-        return this.registeredCourses;
-    }
-
     addToRegisteredCourses(courses) {
         courses.forEach((course) => {
             if (!this.registeredCourses.includes(course)) {
@@ -35,26 +31,25 @@ class RegisteredCoursesStore extends EventEmitter {
     fetchRegisteredCourses() {
         axios.create(this.axoisConf).get('registered-courses')
             .then((response) => {
-                console.log("fetchRegisteredCourses")
-                console.log(response)
                 let courses = [];
                 response.data.forEach((data) => {
                     courses.push({
                         "course": data.course,
-                        "locked_group": data.locked_group,
-                        "locked_lecturer": data.locked_lecturer,
-                        "active_group": data.active_group,
-                        "active_lecturer": data.active_lecturer
+                        "group": data.group
                     });
                 });
 
-                this.draftedCourses = courses;
+                this.registeredCourses = courses;
                 this.emit("change");
             })
             .catch((error) => {
                 console.log(error);
             });
     };
+
+    getAll() {
+        return this.registeredCourses;
+    }
 }
 
 dispatcher.register((action) => {

@@ -3,8 +3,6 @@ import React from 'react';
 import CheckBox from "../CheckBox/CheckBox";
 
 const DraftTable = (props) => {
-    console.log(props.courses);
-
     return (
         <table>
             <thead>

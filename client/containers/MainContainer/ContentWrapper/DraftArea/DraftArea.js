@@ -23,7 +23,6 @@ class DraftArea extends Component {
         CourseDraftStore.on("change", () => {
             this.setState({
                 courses: CourseDraftStore.getAll(),
-                selectedCourses: []
             })
         });
     }
