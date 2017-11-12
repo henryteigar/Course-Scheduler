@@ -26,9 +26,9 @@ const CourseSearchTable = (props) => {
                         </td> : <td />}
                     <td>{course.name_eng}</td>
                     <td>{course.credits} EAP</td>
-                    <td>{course.schedule_eng}</td>
-                    <td>{course.lecturer}</td>
-                    <td>{course.reg_persons}</td>
+                    <td>{course.occurrence_days_eng}</td>
+                    <td>{course.responsible_lecturer_name}</td>
+                    <td>{course.reg_persons_info}</td>
                     <td>{course.cancellation_date}</td>
                 </tr>
             )}

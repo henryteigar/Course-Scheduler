@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const db = require('../db/init.js');
+const mockOis1Converter = require('../lib/mock_ois1_converter');
 
 router.get('/', (req, res) => {
     //let token = req.headers['x-access-token'];
@@ -12,7 +13,12 @@ router.get('/', (req, res) => {
         if (err) {
             res.status(500).send();
         }
-        res.status(200).send(result.rows);
+        else {
+            result.rows.map((row) => {
+                row.course = mockOis1Converter.processCourse(row.course);
+            });
+            res.status(200).send(result.rows);
+        }
     });
 });
 

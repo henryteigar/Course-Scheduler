@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const remoteApiUrl = process.env[process.env.REMOTE_SERVER];
 const request = require('request');
+const mockOis1Converter = require('../lib/mock_ois1_converter');
 
 router.get('/', (req, res) => {
 
@@ -22,10 +23,13 @@ router.get('/', (req, res) => {
 
     request.get(options, function (err, response, body) {
         if (err) {
-            console.log(err);
-            res.status(400).send();
+            res.status(500).send();
         } else {
-            res.status(200).send(body)
+            let resp = body.map((registered_course_json) => {
+                registered_course_json.course = mockOis1Converter.processCourse(registered_course_json.course);
+                return registered_course_json;
+            });
+            res.status(200).send(resp)
         }
     })
 });
@@ -35,21 +39,27 @@ router.post('/', (req, res) => {
     //let token = req.headers['x-access-token'];
     let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwic2Vzc2lvbktleSI6MSwiYWRtaW4iOnRydWV9.DYshzaq1z5c1WrdGEpbgz4i-DcYxByTK_D0oJQbLkAU";
     let sessionKey = jwt.decode(token).sessionKey;
+
+    let course_id = req.body.course_id;
+    let group_id = req.body.group_id;
+
     let options = {
         headers: {
             "session-key": sessionKey
         },
-        body: req.body,
+        body: {
+            course_id: course_id,
+            group_id: group_id
+        },
         json: true,
         url: remoteApiUrl + '/registered-courses'
     };
 
-    request.post(options, function (err) {
+    request.post(options, function (err, response) {
         if (err) {
-            console.log(err);
-            res.status(400).send();
+            res.status(500).send();
         } else {
-            res.status(200).send()
+            res.status(response.statusCode).send()
         }
     })
 });
@@ -68,12 +78,11 @@ router.delete('/', (req, res) => {
         url: remoteApiUrl + '/registered-courses'
     };
 
-    request.delete(options, function (err) {
+    request.delete(options, function (err, response) {
         if (err) {
-            console.log(err);
-            res.status(400).send();
+            res.status(500).send();
         } else {
-            res.status(200).send()
+            res.status(response.statusCode).send()
         }
     })
 });
