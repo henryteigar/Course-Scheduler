@@ -10,8 +10,9 @@ class Grid extends Component {
     }
 
     getOccurrencesForDayAndWeek(courses, weekNr, dayNr) {
-        return this.filterAndMapOccurrences(true, courses.drafts, weekNr, dayNr)
-            .concat(this.filterAndMapOccurrences(false, courses.registered, weekNr, dayNr))
+
+        return this.filterAndMapOccurrences(true, courses.draftedCourses, weekNr, dayNr)
+            .concat(this.filterAndMapOccurrences(false, courses.registeredCourses, weekNr, dayNr))
     }
 
     getTimeLength(time) {
@@ -21,7 +22,8 @@ class Grid extends Component {
     }
 
     filterAndMapOccurrences(isDraft, data, weekNr, dayNr) {
-        let specificOccurrences = [];
+        console.log(data)
+        /*let specificOccurrences = [];
 
         data.forEach((el) => {
             el.occurrences.forEach((occurrence) => {
@@ -41,17 +43,17 @@ class Grid extends Component {
                 }));
             });
         });
-        return specificOccurrences;
+        return specificOccurrences;*/
     }
 
     render() {
         return (
             <div className="grid">
-                <Column name="Monday" occurrences={this.getOccurrencesForDayAndWeek(this.props.courses, 1, 1)}/>
-                <Column name="Tuesday" occurrences={this.getOccurrencesForDayAndWeek(this.props.courses, 1, 2)}/>
-                <Column name="Wednesday" occurrences={this.getOccurrencesForDayAndWeek(this.props.courses, 1, 3)}/>
-                <Column name="Thursday" occurrences={this.getOccurrencesForDayAndWeek(this.props.courses, 1, 4)}/>
-                <Column name="Friday" occurrences={this.getOccurrencesForDayAndWeek(this.props.courses, 1, 5)}/>
+                <Column name="Monday" occurrences={this.getOccurrencesForDayAndWeek(this.props.occurrences, 1, 1)}/>
+                <Column name="Tuesday" occurrences={this.getOccurrencesForDayAndWeek(this.props.occurrences, 1, 2)}/>
+                <Column name="Wednesday" occurrences={this.getOccurrencesForDayAndWeek(this.props.occurrences, 1, 3)}/>
+                <Column name="Thursday" occurrences={this.getOccurrencesForDayAndWeek(this.props.occurrences, 1, 4)}/>
+                <Column name="Friday" occurrences={this.getOccurrencesForDayAndWeek(this.props.occurrences, 1, 5)}/>*/}
             </div>
         )
     }

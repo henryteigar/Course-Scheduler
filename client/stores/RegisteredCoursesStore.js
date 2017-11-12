@@ -58,15 +58,7 @@ class RegisteredCoursesStore extends EventEmitter {
     fetchRegisteredCourses() {
         axios.create(this.axoisConf).get('registered-courses')
             .then((response) => {
-                let courses = [];
-                response.data.forEach((data) => {
-                    courses.push({
-                        "course": data.course,
-                        "group": data.group
-                    });
-                });
-
-                this.registeredCourses = courses;
+                this.registeredCourses = response.data;
                 this.emit("change");
             })
             .catch((error) => {
