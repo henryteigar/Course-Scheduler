@@ -59,6 +59,7 @@ router.get('/', (req, res) => {
         });
 
         res.status(200).send(resp);
+
     });
 });
 
