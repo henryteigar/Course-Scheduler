@@ -15,11 +15,12 @@
         border-bottom: 1px solid $table-border-primary;
         border-top: 1px solid $table-border-primary;
         display: block;
-        height: 360px;
+        height: 420px;
         position: relative;
 
         hr {
-            margin-top: 33px;
+            margin-top: 34px;
+            margin-bottom: 0;
             position: relative;
         }
     }
