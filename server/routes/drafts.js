@@ -43,7 +43,7 @@ router.post('/:course_id', (req, res) => {
             if (result.rowCount === 0) {
                 res.status(400).send();
             }
-            res.status(201).send();
+            res.status(200).send();
         });
     }
     catch (e) {
@@ -63,6 +63,36 @@ router.delete('/:course_id', (req, res) => {
             if (err) {
                 console.log(err);
                 res.status(500).send();
+            }
+            res.status(200).send();
+        });
+    }
+    catch (e) {
+        res.status(400).send();
+    }
+});
+
+router.put('/', (req, res) => {
+    //let token = req.headers['x-access-token'];
+
+    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwic2Vzc2lvbktleSI6MSwiYWRtaW4iOnRydWV9.DYshzaq1z5c1WrdGEpbgz4i-DcYxByTK_D0oJQbLkAU";
+    try {
+        let sessionKey = jwt.decode(token).sessionKey;
+        let course_id = req.body.course_id;
+        let active_group_id = req.body.active_group_id;
+        let active_lecturer_id = req.body.active_lecturer_id;
+        let locked_group_id = req.body.locked_group_id;
+        let locked_lecturer_id = req.body.locked_lecturer_id;
+
+        db.query('UPDATE draft_courses SET locked_group_id = $3,  locked_lecturer_id = $4, ' +
+            'active_group_id = $5, active_lecturer_id = $6 WHERE user_id = $1 AND course_id = $2',
+            [sessionKey, course_id, locked_group_id, locked_lecturer_id, active_group_id, active_lecturer_id], (err, result) => {
+
+            if (err) {
+                res.status(500).send();
+            }
+            if (result.rowCount === 0) {
+                res.status(400).send();
             }
             res.status(200).send();
         });
