@@ -20,7 +20,7 @@ class RegisteredCoursesStore extends EventEmitter {
     };
 
     addToRegisteredCourses(coursesToAdd) {
-        coursesToAdd.map((courseToRemove) => courseToRemove.course).forEach((courseToAdd) => {
+        coursesToAdd.map((courseToAdd) => courseToAdd.course).forEach((courseToAdd) => {
             axios.create(this.axoisConf)
                 .post('registered-courses',
                     {
@@ -41,6 +41,18 @@ class RegisteredCoursesStore extends EventEmitter {
                     console.log(err);
                 });
         });
+    };
+
+    removeFromRegisteredCourses(courseToRemove) {
+        axios.create(this.axoisConf)
+            .delete('registered-courses/' + courseToRemove.id)
+            .then(() => {
+                this.registeredCourses = this.registeredCourses.filter((el) => el.course !== courseToRemove);
+                this.emit("change");
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     fetchRegisteredCourses() {
@@ -74,6 +86,9 @@ dispatcher.register((action) => {
             break;
         case RegisteredCoursesConstants.FETCH_REGISTERED_COURSES:
             registeredCoursesStore.fetchRegisteredCourses();
+            break;
+        case RegisteredCoursesConstants.REMOVE_FROM_REGISTERED_COURSES:
+            registeredCoursesStore.removeFromRegisteredCourses(action.course);
             break;
     }
 });

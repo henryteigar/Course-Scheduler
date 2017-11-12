@@ -14,3 +14,10 @@ export function fetchRegisteredCourses(courses) {
         courses: courses
     });
 };
+
+export function removeFromDraft(course) {
+    dispatcher.dispatch({
+        type: RegisteredCoursesConstants.REMOVE_FROM_REGISTERED_COURSES,
+        course: course
+    });
+}

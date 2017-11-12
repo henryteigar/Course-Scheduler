@@ -64,8 +64,7 @@ router.post('/', (req, res) => {
     })
 });
 
-router.delete('/', (req, res) => {
-
+router.delete('/:course_id', (req, res) => {
     //let token = req.headers['x-access-token'];
     let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwic2Vzc2lvbktleSI6MSwiYWRtaW4iOnRydWV9.DYshzaq1z5c1WrdGEpbgz4i-DcYxByTK_D0oJQbLkAU";
     let sessionKey = jwt.decode(token).sessionKey;
@@ -73,7 +72,9 @@ router.delete('/', (req, res) => {
         headers: {
             "session-key": sessionKey
         },
-        body: req.body,
+        body: {
+            'course_id': req.params.course_id
+        },
         json: true,
         url: remoteApiUrl + '/registered-courses'
     };
