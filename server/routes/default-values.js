@@ -7,6 +7,4 @@ require('dotenv').config();
 const remoteApiUrl = process.env[process.env.REMOTE_SERVER];
 const request = require('request');
 
-
-
 module.exports = router;

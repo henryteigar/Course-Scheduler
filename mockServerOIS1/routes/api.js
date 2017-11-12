@@ -41,7 +41,7 @@ router.get('/courses', (req, res) => {
         if (err) {
             res.status(400).send(err);
         }
-        res.status(200).send(result.rows);
+        res.status(200).send(result ? result.rows : null);
     });
 
 });
@@ -70,7 +70,7 @@ router.post('/registered-courses', (req, res) => {
         if (err) {
             res.status(500).send();
         }
-        if (result.rowCount === 0) {
+        if (!result || result.rowCount === 0) {
             res.status(400).send();
         }
         res.status(200).send();

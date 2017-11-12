@@ -20,7 +20,6 @@ class CourseDraftStore extends EventEmitter {
     }
 
     addToDraft(coursesToAdd) {
-        console.log(coursesToAdd);
         coursesToAdd.map((courseToAdd) => courseToAdd.course).forEach((courseToAdd) => {
 
             axios.create(this.axoisConf).post('drafts/' + courseToAdd.id)
