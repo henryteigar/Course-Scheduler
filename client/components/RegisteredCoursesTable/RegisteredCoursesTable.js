@@ -12,12 +12,12 @@ const RegisteredCoursesTable = (props) => {
             </tr>
             </thead>
             <tbody>
-            {props.courses.map((row) =>
-                <tr key={row.id}>
-                    <td>{row.courseName}</td>
-                    <td>{row.credits}</td>
-                    <td>{row.lecturer}</td>
-                    <td>{row.cancellationDeadline}</td>
+            {props.courses.map((course) =>
+                <tr key={course.id}>
+                    <td>{course.name_eng}</td>
+                    <td>{course.credits}</td>
+                    <td>{course.lecturer}</td>
+                    <td>{course.cancellation_date}</td>
                 </tr>
             )}
             </tbody>

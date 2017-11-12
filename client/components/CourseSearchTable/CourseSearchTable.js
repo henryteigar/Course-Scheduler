@@ -20,16 +20,16 @@ const CourseSearchTable = (props) => {
             <tbody>
             {props.courses.map((course) =>
                 <tr key={course.id}>
-                    {!props.disabledCourses.includes(course) ?
+                    {!props.disabledCoursesIds.includes(course.id) ?
                         <td>
                             <CheckBox changeHandler={props.changeHandler} value={course} classes="blue small" />
                         </td> : <td />}
-                    <td>{course.courseName}</td>
+                    <td>{course.name_eng}</td>
                     <td>{course.credits} EAP</td>
-                    <td>{course.schedule}</td>
+                    <td>{course.schedule_eng}</td>
                     <td>{course.lecturer}</td>
-                    <td>{course.regPersons}</td>
-                    <td>{course.cancellationDeadline}</td>
+                    <td>{course.reg_persons}</td>
+                    <td>{course.cancellation_date}</td>
                 </tr>
             )}
             </tbody>

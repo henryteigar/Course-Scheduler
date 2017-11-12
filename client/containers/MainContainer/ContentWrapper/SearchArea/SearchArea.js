@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import CourseSearchTable from "client/components/CourseSearchTable/CourseSearchTable";
 import SearchBox from '../../../../components/SearchBox/SearchBox';
 import Button from "client/components/Button/Button";
-import CollapsibleTextButton from "client/components/CollapsibleTextButton/CollapsibleTextButton";
 import Tabs from "../../../../components/Tabs/Tabs";
 import DetailedSearchArea from "client/containers/MainContainer/ContentWrapper/SearchArea/DetailedSearchArea/DetailedSearchArea"
 
@@ -20,6 +19,7 @@ class SearchArea extends Component {
 
     constructor(props) {
         super(props);
+        RegisteredCoursesStore.fetchRegisteredCourses();
         this.state = {
             draftedCourses: CourseDraftStore.getAll(),
             registeredCourses: RegisteredCoursesStore.getAll(),
@@ -46,6 +46,11 @@ class SearchArea extends Component {
         CourseDraftStore.on("change", () => {
             this.setState({
                 draftedCourses: CourseDraftStore.getAll(),
+            })
+        });
+        RegisteredCoursesStore.on("change", () => {
+            this.setState({
+                registeredCourses: RegisteredCoursesStore.getAll(),
             })
         })
     }
@@ -93,7 +98,9 @@ class SearchArea extends Component {
     }
 
     addToDraft() {
-        CourseDraftAction.addToDraft(this.state.selectedCourses);
+        let courses = this.state.selectedCourses.map((course) => {return {'course': course}});
+
+        CourseDraftAction.addToDraft(courses);
         this.setState({
             draftedCourses: CourseDraftStore.getAll(),
             selectedCourses: []
@@ -101,20 +108,18 @@ class SearchArea extends Component {
     }
 
     addToRegisteredCourses() {
-        RegisteredCoursesAction.addToRegisteredCourses(this.state.selectedCourses);
+        let courses = this.state.selectedCourses.map((course) => {return {'course': course}});
+
+        RegisteredCoursesAction.addToRegisteredCourses(courses);
         this.setState({
             registeredCourses: RegisteredCoursesStore.getAll(),
             selectedCourses: []
         });
     }
 
-    toggleDetailedSearch() {
-        this.setState({isDetailedSearchCollapsed: !this.state.isDetailedSearchCollapsed});
-    }
-
-    getDisabledCourses() {
-        return this.state.registeredCourses.map((registeredCourse) => registeredCourse.course)
-            .concat(this.state.draftedCourses.map((draftedCourse) => draftedCourse.course));
+    getDisabledCoursesIds() {
+        return this.state.registeredCourses.map((registeredCourse) => registeredCourse.course.id)
+            .concat(this.state.draftedCourses.map((draftedCourse) => draftedCourse.course.id));
     }
 
     render() {
@@ -125,7 +130,7 @@ class SearchArea extends Component {
                     <div className="result-table">
                         <CourseSearchTable changeHandler={this.toggleCourse.bind(this)}
                                            courses={this.state.courses}
-                                           disabledCourses={this.getDisabledCourses()} />
+                                           disabledCoursesIds={this.getDisabledCoursesIds()} />
                     </div>
                     <div className="buttons-area">
                         <Button clickHandler={this.addToRegisteredCourses.bind(this)}

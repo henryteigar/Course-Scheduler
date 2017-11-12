@@ -3,12 +3,14 @@ import React, {Component} from 'react';
 import RegisteredCoursesTable from 'client/components/RegisteredCoursesTable/RegisteredCoursesTable'
 
 import RegisteredCoursesStore from 'client/stores/RegisteredCoursesStore';
+import * as RegisteredCoursesAction from 'client/actions/RegisteredCoursesAction';
 
 import 'client/containers/MainContainer/ContentWrapper/RegisteredCoursesArea/registered-courses-area.scss';
 
 class RegisteredCoursesArea extends Component {
     constructor(props) {
         super(props);
+        RegisteredCoursesAction.fetchRegisteredCourses();
         this.state = {
             courses: RegisteredCoursesStore.getAll()
         }
@@ -23,7 +25,8 @@ class RegisteredCoursesArea extends Component {
     }
 
     getRegisteredCourseTable() {
-        return (this.state.courses.length > 0) ? <RegisteredCoursesTable courses={this.state.courses} /> : null;
+        return (this.state.courses.length > 0) ?
+            <RegisteredCoursesTable courses={this.state.courses.map((course) => course.course)} /> : null;
     }
 
     render() {

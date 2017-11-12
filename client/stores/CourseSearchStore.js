@@ -54,15 +54,7 @@ class CourseSearchStore extends EventEmitter {
         myApi.get(uri).then((response) => {
             let courses = [];
             response.data.forEach((data) => {
-                courses.push({
-                    "id": data.id,
-                    "courseName": data.course_name,
-                    "credits": data.credits,
-                    "schedule": data.schedule,
-                    "lecturer": data.lecturer,
-                    "regPersons": data.reg_persons,
-                    "cancellationDeadline": data.cancellation_date
-                });
+                courses.push(data);
             });
 
             this.courses = courses;

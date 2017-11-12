@@ -14,3 +14,9 @@ export function removeFromDraft(courses) {
         courses: courses
     });
 }
+
+export function fetchDraftedCourses() {
+    dispatcher.dispatch({
+        type: DraftConstants.FETCH_DRAFT,
+    });
+}
