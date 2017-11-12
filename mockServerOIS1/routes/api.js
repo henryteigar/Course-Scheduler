@@ -21,7 +21,6 @@ router.get('/user', (reg, res) => {
 });
 
 router.get('/courses', (req, res) => {
-    let sessionKey = req.headers['session-key'];
 
     //Input params
     let input_query = req.query.q;
@@ -35,12 +34,13 @@ router.get('/courses', (req, res) => {
     let input_assessment = req.query.assessment;
     let input_currentlyOpened = req.query.currently_opened;
     let input_ids = req.query.ids;
+    
     let statement = courses.getCourses(input_query, input_lang, input_faculty, input_institute, input_year, input_semester,
         input_schedule, input_levelOfStudy, input_assessment, input_currentlyOpened, input_ids);
 
     db.query(statement.query_text, statement.parameters, (err, result) => {
         if (err) {
-            res.status(400).send(err);
+            res.status(400).send();
         }
         res.status(200).send(result ? result.rows : null);
     });
