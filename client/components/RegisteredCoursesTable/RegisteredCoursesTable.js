@@ -16,7 +16,7 @@ const RegisteredCoursesTable = (props) => {
                 <tr key={course.id}>
                     <td>{course.name_eng}</td>
                     <td>{course.credits}</td>
-                    <td>{course.lecturer}</td>
+                    <td>{course.responsible_lecturer_name}</td>
                     <td>{course.cancellation_date}</td>
                 </tr>
             )}

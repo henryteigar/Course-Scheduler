@@ -16,7 +16,7 @@ CREATE OR REPLACE VIEW ois1.v_courses AS
             courses.description_est AS descriptions_eng,
             courses.assessment AS assessment,
             courses.limit_of_attendants AS limit_of_attendants,
-            courses.registered_attendants AS regsitered_attendants,
+            courses.registered_attendants AS registered_attendants,
             (SELECT ARRAY_AGG(ROW_TO_JSON(obj1)) FROM (SELECT occurence.type AS type,
                               (SELECT ROW_TO_JSON(obj) FROM (SELECT times.id AS id, times.week AS week, times.day AS day, times.start_time AS start_time,
                                                                         times.end_time AS end_time FROM ois1.occurrence_time times WHERE

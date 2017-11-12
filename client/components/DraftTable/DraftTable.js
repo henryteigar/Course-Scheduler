@@ -20,7 +20,7 @@ const DraftTable = (props) => {
                     <td><CheckBox changeHandler={props.changeHandler} value={draftedCourse} classes="blue small" /></td>
                     <td>{draftedCourse.course.name_eng}</td>
                     <td>{draftedCourse.course.credits} EAP</td>
-                    <td>{draftedCourse.course.reg_persons}</td>
+                    <td>{draftedCourse.course.reg_persons_info}</td>
                     <td>{draftedCourse.active_group ? draftedCourse.active_group.name : null}</td>
                     <td>{draftedCourse.active_group ? draftedCourse.active_lecturer.name : null}</td>
                 </tr>

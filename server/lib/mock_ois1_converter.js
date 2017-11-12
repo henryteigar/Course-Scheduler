@@ -8,23 +8,21 @@ function processCourse(course) {
 }
 
 function getOccurrenceDays(occurrences, lang) {
+    if (occurrences === null) {
+        return ""
+    }
     let eng_days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     let est_days = ['E', 'T', 'K', 'N', 'R', 'L', 'P'];
     let day_nrs = ['1', '2', '3', '4', '5', '6', '7'];
 
     let days = lang === 'est' ? est_days : eng_days;
-
-    return occurrences
-        .map((occ) => {
-            return (occ.time.map((time) => { return time.day } ))
-        })
-        .join().split(",")
-        .filter((item, pos, self) => {
-            return self.indexOf(item) === pos
-        }).sort()
-        .map((el) => {
-            return days[day_nrs.indexOf(el)]
-        }).join(", ");
+    return occurrences.map((occ) => {
+       return occ.time.day;
+    }).join().split(",").filter((item, pos, self) => {
+        return self.indexOf(item) === pos
+    }).sort().map((el) => {
+        return days[day_nrs.indexOf(el)]
+    }).join(", ");
 }
 
 module.exports.processCourse = processCourse;
