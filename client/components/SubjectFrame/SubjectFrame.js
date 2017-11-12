@@ -4,9 +4,15 @@ import './subject-frame.scss'
 
 const SubjectFrame = (props) => {
 
+    let occurrence = props.occurrence;
+
     const frameStyle = {
-        top: (props.occurrence.time.start_hour - 8) * 40
+        top: (occurrence.time.start_hour - 8) * 60 * 0.7 + occurrence.time.start_minute * 0.7,
+        height: occurrence.time.length * 0.7
+
     };
+
+    console.log(frameStyle.height)
 
     return (
         <div className="subject-frame" style={frameStyle}>
@@ -18,7 +24,7 @@ const SubjectFrame = (props) => {
             <label className="name">{props.occurrence.name}</label>
 
             <div className="lower-info">
-                <label className="type">{props.occurrence.occurrenceType}</label>
+                <label className="type">sss</label>
                 <label className="location">Liivi 2 - 404</label>
             </div>
         </div>

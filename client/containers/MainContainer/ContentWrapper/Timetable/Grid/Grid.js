@@ -14,6 +14,12 @@ class Grid extends Component {
             .concat(this.filterAndMapOccurrences(false, courses.registered, weekNr, dayNr))
     }
 
+    getTimeLength(time) {
+        let hourDiff = time.end_hour - time.start_hour;
+        let minuteDiff = time.end_minute - time.start_minute;
+        return Math.round(hourDiff * 60 + minuteDiff);
+    }
+
     filterAndMapOccurrences(isDraft, data, weekNr, dayNr) {
         let specificOccurrences = [];
 
@@ -23,9 +29,10 @@ class Grid extends Component {
                 specificOccurrences = specificOccurrences.concat(occurrence.time.filter((time) => {
                     return time.day === dayNr && time.week === weekNr;
                 }).map((time) => {
+                    time.length = this.getTimeLength(time);
                     return {
-                        type: "draft" ? isDraft : "registered",
-                        occurrenceType: occurrence.type,
+                        isDraft: isDraft,
+                        type: occurrence.type,
                         name: el.name,
                         time: time
                     }
