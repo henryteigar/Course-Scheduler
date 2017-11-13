@@ -20,7 +20,6 @@ class SearchArea extends Component {
 
     constructor(props) {
         super(props);
-        RegisteredCoursesStore.fetchRegisteredCourses();
         this.addEventListenerToWindow();
 
         this.state = {
@@ -57,6 +56,27 @@ class SearchArea extends Component {
                 registeredCourses: RegisteredCoursesStore.getAll(),
             })
         })
+    }
+
+    getSearchResultArea() {
+        let searchResultArea = null;
+        if (this.state.courses.length > 0) {
+            searchResultArea =
+                <div className="search-result">
+                    <div className="result-table">
+                        <CourseSearchTable changeHandler={this.toggleCourse.bind(this)}
+                                           courses={this.state.courses}
+                                           disabledCoursesIds={this.getDisabledCoursesIds()} />
+                    </div>
+                    <div className="buttons-area">
+                        <Button clickHandler={this.openGroupSelectModal.bind(this)}
+                                class="big blue" name="Register to chosen courses" />
+                        <Button clickHandler={this.addToDraft.bind(this)}
+                                class="big green" name="Add to draft" />
+                    </div>
+                </div>
+        }
+        return searchResultArea;
     }
 
     updateQuery(e) {
@@ -152,42 +172,34 @@ class SearchArea extends Component {
             }
         });
     }
+    
+    getPracticeGroupsFromCourse(course) {
+        return course.occurrences
+            .filter((course) => course.type === "practice")
+            .map((occurrence) => {
+                return {
+                    id: occurrence.group.id,
+                    label_eng: occurrence.group.name
+                }
+            });
+    }
 
     render() {
-        let searchResultArea = null;
-        if (this.state.courses.length > 0) {
-            searchResultArea =
-                <div className="search-result">
-                    <div className="result-table">
-                        <CourseSearchTable changeHandler={this.toggleCourse.bind(this)}
-                                           courses={this.state.courses}
-                                           disabledCoursesIds={this.getDisabledCoursesIds()} />
-                    </div>
-                    <div className="buttons-area">
-                        <Button clickHandler={this.addToDraft.bind(this)}
-                                class="big green" name="Add to draft" />
-                        <Button clickHandler={this.openGroupSelectModal.bind(this)}
-                                class="big blue" name="Register to chosen courses" />
-                    </div>
-                </div>
-        }
-
-        return (
+          return (
             <div className="search-area">
 
                 <div id="group-search-modal" className="group-search-modal">
                     <div className="group-search-modal-content">
                         <h3>Choose group</h3>
                         <span onClick={this.closeGroupSelectModal} className="close">&times;</span>
-                        <DropdownSelectBox id="1" className="full-width"
-                                           values={
-                                               [
-                                                   { id:1, label_eng:"asd1" },
-                                                   { id:2, label_eng:"asd2" },
-                                                   { id:3, label_eng:"asd3" }
-                                               ]
-                                           }
-                                           clickHandler={this.setCourseGroups.bind(this)} />
+                        {
+                            this.state.selectedCourses.map((selectedCourse) =>
+                                <DropdownSelectBox key={selectedCourse.id} id={selectedCourse.id} label={selectedCourse.name_eng} className="full-width"
+                                                   values={this.getPracticeGroupsFromCourse(selectedCourse)}
+                                                   clickHandler={this.setCourseGroups.bind(this)} />
+                            )
+                        }
+
                         <Button class="big green" name="Register" clickHandler={this.addToRegisteredCourses.bind(this)}/>
                     </div>
                 </div>
@@ -209,7 +221,7 @@ class SearchArea extends Component {
 
                 <DetailedSearchArea/>
 
-                {searchResultArea}
+                {this.getSearchResultArea()}
 
             </div>
         )
