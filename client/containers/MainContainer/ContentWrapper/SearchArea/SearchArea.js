@@ -69,10 +69,10 @@ class SearchArea extends Component {
                                            disabledCoursesIds={this.getDisabledCoursesIds()} />
                     </div>
                     <div className="buttons-area">
-                        <Button clickHandler={this.openGroupSelectModal.bind(this)}
-                                class="big blue" name="Register to chosen courses" />
                         <Button clickHandler={this.addToDraft.bind(this)}
                                 class="big green" name="Add to draft" />
+                        <Button clickHandler={this.openGroupSelectModal.bind(this)}
+                                class="big blue" name="Register to chosen courses" />
                     </div>
                 </div>
         }
