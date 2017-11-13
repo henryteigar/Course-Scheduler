@@ -57,7 +57,7 @@ module.exports = {
 
         if (input_ids !== undefined) {
             let listOfIds = input_ids.split(",");
-            query += " AND (";
+            query += " AND (FALSE";
             for (let i = 0; i < listOfIds.length; i++) {
                 query += " OR ois1.v_courses.id = $" + (parameters.length + 1);
                 parameters.push(listOfIds[i]);
