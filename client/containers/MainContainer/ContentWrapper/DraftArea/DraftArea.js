@@ -40,6 +40,7 @@ class DraftArea extends Component {
 
     removeFromDraft() {
         CourseDraftAction.removeFromDraft(this.state.selectedCourses);
+        this.setState({selectedCourses: []});
         this.setState({courses: CourseDraftStore.getAll()});
     }
 
@@ -54,7 +55,7 @@ class DraftArea extends Component {
                                 clickHandler={this.removeFromDraft.bind(this)} />
                     </div>
                     <div className="button-area">
-                        <Button class="small blue" name="Put courses to timetable" />
+                        <Button class="small blue disabled" name="Put courses to timetable" />
                     </div>
                 </div>
         }

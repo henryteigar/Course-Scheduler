@@ -27,12 +27,14 @@ button {
         background: $blue-primary;
         color: white;
 
-        &:hover {
-            background: $blue-primary-hover;
-        }
+        &:not(.disabled) {
+            &:hover {
+                background: $blue-primary-hover;
+            }
 
-        &:active {
-            background: $blue-primary-clicked;
+            &:active {
+                background: $blue-primary-clicked;
+            }
         }
     }
 
@@ -40,12 +42,14 @@ button {
         background: $green-primary;
         color: white;
 
-        &:hover {
-            background: $green-primary-hover;
-        }
+        &:not(.disabled) {
+            &:hover {
+                background: $green-primary-hover;
+            }
 
-        &:active {
-            background: $green-primary-clicked;
+            &:active {
+                background: $green-primary-clicked;
+            }
         }
     }
 
@@ -53,12 +57,18 @@ button {
         background: $red-primary;
         color: white;
 
-        &:hover {
-            background: $red-light-hover;
-        }
+        &:not(.disabled) {
+            &:hover {
+                background: $red-primary-hover;
+            }
 
-        &:active {
-            background: $red-primary-clicked;
+            &:active {
+                background: $red-primary-clicked;
+            }
         }
+    }
+    
+    &.disabled {
+        cursor: not-allowed;
     }
 }

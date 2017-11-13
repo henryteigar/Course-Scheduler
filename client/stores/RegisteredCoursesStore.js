@@ -27,17 +27,11 @@ class RegisteredCoursesStore extends EventEmitter {
                 .post('registered-courses',
                     {
                         'course_id': courseToAdd.course.id,
-                        'group_id': courseToAdd.groupId
+                        'group_id': courseToAdd.locked_group.id
                     }
                 )
                 .then(() => {
-                    // let courses = this.registeredCourses.map((course) => course.course);
-                    // coursesToAdd.forEach((course) => {
-                    //     if (!courses.includes(course)) {
-                    //         this.registeredCourses.push(course);
-                    //     }
-                    // });
-                    this.emit("change");
+                    this.fetchRegisteredCourses();
                 })
                 .catch((err) => {
                     console.log(err);
@@ -49,8 +43,7 @@ class RegisteredCoursesStore extends EventEmitter {
         axios.create(this.axoisConf)
             .delete('registered-courses/' + courseToRemove.id)
             .then(() => {
-                this.registeredCourses = this.registeredCourses.filter((el) => el.course !== courseToRemove);
-                this.emit("change");
+                this.fetchRegisteredCourses();
             })
             .catch((err) => {
                 console.log(err);
