@@ -49,9 +49,9 @@ class DropdownSelectBox extends Component {
     render() {
         return (
             <div className={"dropdown-select-box " + this.props.className} ref={this.setWrapperRef}>
-                <label>{this.props.label}</label>
+                {this.props.label ? <label>{this.props.label}</label> : null}
                 <button onClick={this.toggleCollapse.bind(this)}>
-                    <span>{this.state.selectedEl != null ? this.state.selectedEl.label_eng : "Select option..."}</span>
+                    <span>{this.state.selectedEl !== null ? this.state.selectedEl.label_eng : "Select option..."}</span>
                     <div className="toggle-btn">
                         <Ionicon className="icon" color="#385A7C"
                                  icon="ion-chevron-down"/>
@@ -59,7 +59,7 @@ class DropdownSelectBox extends Component {
                 </button>
                 <ul className={this.state.isCollapsed ? "collapsed" : ""}>
                     {this.props.values.map((el) =>
-                        <li className={el == this.state.selectedEl ? "selected" : ""} onClick={(e) => this.onItemClickHandler(el)} key={el.id}>{el.label_eng}</li>
+                        <li className={el === this.state.selectedEl ? "selected" : ""} onClick={(e) => this.onItemClickHandler(el)} key={el.id}>{el.label_eng}</li>
                     )}
                 </ul>
             </div>

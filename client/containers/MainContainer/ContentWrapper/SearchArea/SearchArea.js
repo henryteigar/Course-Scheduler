@@ -5,6 +5,7 @@ import SearchBox from '../../../../components/SearchBox/SearchBox';
 import Button from "client/components/Button/Button";
 import Tabs from "../../../../components/Tabs/Tabs";
 import DetailedSearchArea from "client/containers/MainContainer/ContentWrapper/SearchArea/DetailedSearchArea/DetailedSearchArea"
+import DropdownSelectBox from "../../../../components/DropdownSelectBox/DropdownSelectBox";
 
 import * as CourseSearchAction from 'client/actions/CourseSearchAction';
 import * as CourseDraftAction from 'client/actions/CourseDraftAction';
@@ -20,6 +21,8 @@ class SearchArea extends Component {
     constructor(props) {
         super(props);
         RegisteredCoursesStore.fetchRegisteredCourses();
+        this.addEventListenerToWindow();
+
         this.state = {
             draftedCourses: CourseDraftStore.getAll(),
             registeredCourses: RegisteredCoursesStore.getAll(),
@@ -33,7 +36,8 @@ class SearchArea extends Component {
                 elective: "Elective courses",
             },
             initialFilter: "all",
-            selectedCourses: []
+            selectedCourses: [],
+            selectedGroup: null
         };
     }
 
@@ -108,6 +112,8 @@ class SearchArea extends Component {
     }
 
     addToRegisteredCourses() {
+        this.closeGroupSelectModal();
+
         let courses = this.state.selectedCourses.map((course) => {return {'course': course}});
 
         RegisteredCoursesAction.addToRegisteredCourses(courses);
@@ -120,6 +126,31 @@ class SearchArea extends Component {
     getDisabledCoursesIds() {
         return this.state.registeredCourses.map((registeredCourse) => registeredCourse.course.id)
             .concat(this.state.draftedCourses.map((draftedCourse) => draftedCourse.course.id));
+    }
+
+    setCourseGroups(selectedGroup) {
+        console.log(selectedGroup);
+        this.setState({selectedGroup});
+    }
+
+    closeGroupSelectModal() {
+        let modal = document.getElementById('group-search-modal');
+        modal.style.display = "none";
+    }
+
+    openGroupSelectModal() {
+        let modal = document.getElementById('group-search-modal');
+        modal.style.display = "block";
+    }
+
+    addEventListenerToWindow() {
+        window.addEventListener('click', (e) => {
+            let modal = document.getElementById('group-search-modal');
+
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+        });
     }
 
     render() {
@@ -135,7 +166,7 @@ class SearchArea extends Component {
                     <div className="buttons-area">
                         <Button clickHandler={this.addToDraft.bind(this)}
                                 class="big green" name="Add to draft" />
-                        <Button clickHandler={this.addToRegisteredCourses.bind(this)}
+                        <Button clickHandler={this.openGroupSelectModal.bind(this)}
                                 class="big blue" name="Register to chosen courses" />
                     </div>
                 </div>
@@ -143,6 +174,24 @@ class SearchArea extends Component {
 
         return (
             <div className="search-area">
+
+                <div id="group-search-modal" className="group-search-modal">
+                    <div className="group-search-modal-content">
+                        <h3>Choose group</h3>
+                        <span onClick={this.closeGroupSelectModal} className="close">&times;</span>
+                        <DropdownSelectBox id="1" className="full-width"
+                                           values={
+                                               [
+                                                   { id:1, label_eng:"asd1" },
+                                                   { id:2, label_eng:"asd2" },
+                                                   { id:3, label_eng:"asd3" }
+                                               ]
+                                           }
+                                           clickHandler={this.setCourseGroups.bind(this)} />
+                        <Button class="big green" name="Register" clickHandler={this.addToRegisteredCourses.bind(this)}/>
+                    </div>
+                </div>
+
                 <h2>Add courses</h2>
                 <hr />
                 <SearchBox changeHandler={this.updateQuery.bind(this)}

@@ -5,6 +5,10 @@
     display: inline-block;
     position: relative;
 
+    &.full-width {
+        width: 100%;
+    }
+
     &.large {
         width: 341px;
     }
