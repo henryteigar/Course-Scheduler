@@ -23,9 +23,9 @@ CREATE OR REPLACE VIEW ois1.v_courses AS
                                                                     times.day AS day,
                                                                     times.start_time AS start_time,
                                                                     times.end_time AS end_time,
-                                                                    to_char(times.start_time, 'HH')::int AS start_hour,
+                                                                    to_char(times.start_time, 'HH24')::int AS start_hour,
                                                                     to_char(times.start_time, 'MM')::int AS start_minute,
-                                                                    to_char(times.end_time, 'HH')::int AS end_hour,
+                                                                    to_char(times.end_time, 'HH24')::int AS end_hour,
                                                                     to_char(times.end_time, 'MM')::int AS end_minute
                                                                FROM ois1.occurrence_time times WHERE times.occurrence_id = occurrence.id) obj) AS time,
                               occurrence.schedule_id AS schedule,

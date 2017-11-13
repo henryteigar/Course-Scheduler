@@ -4,22 +4,27 @@ import './subject-frame.scss'
 
 const SubjectFrame = (props) => {
 
-    const frameStyle = {
-        top: (props.occurrence.time.start_hour - 8) * 40
+    let occurrence = props.occurrence;
+    let frameStyle = {
+        top: (occurrence.time.start_hour - 8) * 60 * 0.7 + occurrence.time.start_minute * 0.7,
+        height: occurrence.time.length * 0.7
     };
 
+    let startHour = occurrence.time.start_hour.toString().length === 1 ? '0' + occurrence.time.start_hour : occurrence.time.start_hour;
+    let startMinute = occurrence.time.start_minute.toString().length === 1 ? '0' + occurrence.time.start_minute : occurrence.time.start_minute;
+
     return (
-        <div className="subject-frame" style={frameStyle}>
+        <div className={"subject-frame" + (occurrence.isDraft ? " draft" : "")} style={frameStyle}>
             <div className="upper-info">
-                <label className="time">{props.occurrence.time.start_hour} : {props.occurrence.time.start_minute}</label>
-                <label className="group">I group</label>
+                <label className="time">{startHour} : {startMinute}</label>
+                <label className="group">{occurrence.group.name}</label>
             </div>
 
-            <label className="name">{props.occurrence.name}</label>
+            <label className="name">{occurrence.name}</label>
 
             <div className="lower-info">
-                <label className="type">{props.occurrence.occurrenceType}</label>
-                <label className="location">Liivi 2 - 404</label>
+                <label className="type">{occurrence.type === 'lecture' ? 'LECTURE' : 'PRACTICE'}</label>
+                <label className="additional-info">{occurrence.isDraft ? <b>DRAFT</b> : occurrence.place}</label>
             </div>
         </div>
     )

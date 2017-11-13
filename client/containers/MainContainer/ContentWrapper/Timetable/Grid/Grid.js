@@ -10,29 +10,40 @@ class Grid extends Component {
     }
 
     getOccurrencesForDayAndWeek(courses, weekNr, dayNr) {
-        return this.filterAndMapOccurrences(true, courses.drafts, weekNr, dayNr)
-            .concat(this.filterAndMapOccurrences(false, courses.registered, weekNr, dayNr))
+
+        return this.filterAndMapOccurrences(false, courses.registeredCourses, weekNr, dayNr)
+            .concat(this.filterAndMapOccurrences(true, courses.draftedCourses, weekNr, dayNr));
+    }
+
+    getTimeLength(time) {
+        let hourDiff = time.end_hour - time.start_hour;
+        let minuteDiff = time.end_minute - time.start_minute;
+        return Math.round(hourDiff * 60 + minuteDiff);
     }
 
     filterAndMapOccurrences(isDraft, data, weekNr, dayNr) {
-        let specificOccurrences = [];
+        let filteredOccurrences = [];
 
         data.forEach((el) => {
-            el.occurrences.forEach((occurrence) => {
-
-                specificOccurrences = specificOccurrences.concat(occurrence.time.filter((time) => {
-                    return time.day === dayNr && time.week === weekNr;
+            let selectedGroup = (el.locked_group !== undefined && el.locked_group !== null) ? el.locked_group : el.active_group;
+            el.course.occurrences.forEach((occurrence) => {
+                filteredOccurrences = filteredOccurrences.concat(occurrence.time.filter((timeEl) => {
+                    return timeEl.day === dayNr && (occurrence.group === null || selectedGroup === null || selectedGroup.id === occurrence.group.id);
                 }).map((time) => {
+                    time.length = this.getTimeLength(time);
                     return {
-                        type: "draft" ? isDraft : "registered",
-                        occurrenceType: occurrence.type,
-                        name: el.name,
-                        time: time
+                        isDraft: isDraft,
+                        type: occurrence.type,
+                        name: el.course.name_eng,
+                        time: time,
+                        group: occurrence.group,
+                        place: occurrence.place
                     }
                 }));
             });
         });
-        return specificOccurrences;
+
+        return filteredOccurrences;
     }
 
     render() {

@@ -3,13 +3,33 @@ import React, {Component} from 'react';
 import './timetable.scss';
 import Grid from "./Grid/Grid";
 import Button from "client/components/Button/Button";
+import TimetableTimeBar from "client/components/TimetableTimeBar/TimetableTimeBar";
+import CourseDraftStore from 'client/stores/CourseDraftStore';
+import RegisteredCoursesStore from 'client/stores/RegisteredCoursesStore';
+
 
 class Timetable extends Component {
     constructor() {
         super();
         this.state = {
-            courses: { drafts: [ { name: "Software engineering", occurrences: [ { type: "practice", time: [ { "week": 1, "day": 2, "start_hour": 8, "start_minute": 15, "end_hour": 9, "end_minute": 45, }, { "week": 1, "day": 4, "start_hour": 12, "start_minute": 15, "end_hour": 11, "end_minute": 45, } ] }, { type: "lecture", time: [ { "week": 1, "day": 2, "start_hour": 10, "start_minute": 15, "end_hour": 11, "end_minute": 45, } ] } ] } ], registered: [ { name: "Computer programming", occurrences: [ { type: "lecture", time: [ { "week": 1, "day": 1, "start_hour": 8, "start_minute": 15, "end_hour": 9, "end_minute": 45, } ] } ] } ] }
+            courses: {
+                draftedCourses: CourseDraftStore.getAll(),
+                registeredCourses: RegisteredCoursesStore.getAll()
+            }
         };
+    };
+
+    componentWillMount() {
+        CourseDraftStore.on("change", () => {
+            let courses = this.state.courses;
+            courses.draftedCourses = CourseDraftStore.getAll();
+            this.setState({courses: courses})
+        });
+        RegisteredCoursesStore.on("change", () => {
+            let courses = this.state.courses;
+            courses.registeredCourses = RegisteredCoursesStore.getAll();
+            this.setState({courses: courses})
+        })
     }
 
     render() {
@@ -17,9 +37,11 @@ class Timetable extends Component {
             <div className="timetable">
                 <h2>Timetable</h2>
                 <hr />
+                <TimetableTimeBar />
+                {console.log("state chnaged")}
                 <Grid courses={this.state.courses} />
                 <div className="register-btn">
-                    <Button name="Register draft courses" class="green small"/>
+                    <Button name="Register draft courses" class="green small" />
                 </div>
             </div>
         )
