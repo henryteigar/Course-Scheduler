@@ -15,8 +15,10 @@ class Tabs extends Component {
     tabClickHandler(e) {
         let targetTab = e.target.id;
 
-        this.setState({activeTab: targetTab});
-        this.state.changeTabHandler(targetTab);
+        if (targetTab !== this.state.activeTab) {
+            this.setState({activeTab: targetTab});
+            this.state.changeTabHandler(targetTab);
+        }
     }
 
     render() {

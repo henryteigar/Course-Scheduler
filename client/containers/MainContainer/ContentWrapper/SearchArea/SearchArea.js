@@ -31,7 +31,7 @@ class SearchArea extends Component {
             filters: {
                 all: "All",
                 obligatory: "Obligatory courses",
-                //isiklik: "Personal", TODO left out for demo resons
+                isiklik: "Personal",
                 elective: "Elective courses",
             },
             initialFilter: "all",
