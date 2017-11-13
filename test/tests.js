@@ -96,7 +96,7 @@ describe("Test 4. -> Testing registered-courses API endpoint",function(){
 
 });
 
-
+/*
 describe('Test 5. -> Testing registered-courses API endpoint', function() {
     it('Adding and removing courses from registered-courses and comparing response sizes.', function(done) {
 
@@ -141,3 +141,4 @@ describe('Test 5. -> Testing registered-courses API endpoint', function() {
     });
 
 });
+*/
