@@ -37,13 +37,13 @@ router.get('/courses', (req, res) => {
     
     let statement = courses.getCourses(input_query, input_lang, input_faculty, input_institute, input_year, input_semester,
         input_schedule, input_levelOfStudy, input_assessment, input_currentlyOpened, input_ids);
-
+    
     db.query(statement.query_text, statement.parameters, (err, result) => {
         if (err) {
             res.status(400).send();
         }
         else {
-            res.status(200).send(result ? result.rows : null);
+            res.status(200).send(result.rows);
         }
     });
 
