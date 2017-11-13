@@ -16,10 +16,10 @@ class Column extends Component {
             <div className="column">
                 <label>{this.props.name}</label>
                 <div className="day-area">
-                  {/*  {[...Array(11)].map((x, i) => <hr key={i}/>)}
+                  {[...Array(11)].map((x, i) => <hr key={i}/>)}
                     {this.props.occurrences.map((occurrence, i) =>
                         <SubjectFrame key={i} occurrence={occurrence} />
-                    )}*/}
+                    )}
 
 
                 </div>
