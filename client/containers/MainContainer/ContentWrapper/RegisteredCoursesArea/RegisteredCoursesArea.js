@@ -12,7 +12,7 @@ class RegisteredCoursesArea extends Component {
         super(props);
         RegisteredCoursesAction.fetchRegisteredCourses();
         this.state = {
-            registeredCourses: RegisteredCoursesStore.getAll()
+            registeredCourses: []
         }
     }
 

@@ -20,8 +20,6 @@ class RegisteredCoursesStore extends EventEmitter {
     };
 
     addToRegisteredCourses(coursesToAdd) {
-        console.log(coursesToAdd);
-
         coursesToAdd.forEach((courseToAdd) => {
             axios.create(this.axoisConf)
                 .post('registered-courses',
