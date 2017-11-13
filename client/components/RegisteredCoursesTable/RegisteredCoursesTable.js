@@ -12,23 +12,19 @@ const RegisteredCoursesTable = (props) => {
             <tr>
                 <th>Course name</th>
                 <th>Credits</th>
-                <th>Lecturer</th>
+                <th>Group</th>
                 <th>Cancellation date</th>
                 <th>Remove</th>
             </tr>
             </thead>
             <tbody>
-            {props.courses.map((course) =>
-                <tr key={course.id}>
-                    <td>{course.name_eng}</td>
-                    <td>{course.credits}</td>
-                    <td>{course.responsible_lecturer_name}</td>
-                    <td>{course.cancellation_date}</td>
-                    <td>
-                        <span onClick={() => RegisteredCoursesAction.removeFromDraft(course)}>
-                            <Ionicon className="remove-icon" color="#BD5E5E" icon="ion-close" />
-                        </span>
-                    </td>
+            {props.registeredCourses.map((registeredCourse) =>
+                <tr key={registeredCourse.course.id}>
+                    <td>{registeredCourse.course.name_eng}</td>
+                    <td>{registeredCourse.course.credits} EAP</td>
+                    <td>{registeredCourse.locked_group.name}</td>
+                    <td>{registeredCourse.course.cancellation_date}</td>
+                    <td><span onClick={() => RegisteredCoursesAction.removeFromDraft(registeredCourse.course)}><Ionicon className="remove-icon" color="#BD5E5E" icon="ion-close" /></span></td>
                 </tr>
             )}
             </tbody>

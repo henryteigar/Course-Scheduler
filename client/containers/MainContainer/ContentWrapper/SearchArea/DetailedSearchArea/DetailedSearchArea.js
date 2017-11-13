@@ -29,7 +29,7 @@ class DetailedSearchArea extends Component {
 
     updateFilterValue(selectedFilter) {
         this.state.selectedFilters.forEach((filter) => {
-            if (selectedFilter.id == filter.id) {
+            if (selectedFilter.id === filter.id) {
                 filter.selectedEl = selectedFilter.selectedEl
             }
         });

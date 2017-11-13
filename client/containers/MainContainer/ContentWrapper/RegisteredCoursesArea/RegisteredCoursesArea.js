@@ -12,21 +12,21 @@ class RegisteredCoursesArea extends Component {
         super(props);
         RegisteredCoursesAction.fetchRegisteredCourses();
         this.state = {
-            courses: RegisteredCoursesStore.getAll()
+            registeredCourses: RegisteredCoursesStore.getAll()
         }
     }
 
     componentWillMount() {
         RegisteredCoursesStore.on("change", () => {
             this.setState({
-                courses: RegisteredCoursesStore.getAll(),
+                registeredCourses: RegisteredCoursesStore.getAll(),
             })
         });
     }
 
     getRegisteredCourseTable() {
-        return (this.state.courses.length > 0) ?
-            <RegisteredCoursesTable courses={this.state.courses.map((course) => course.course)} /> : null;
+        return (this.state.registeredCourses.length > 0) ?
+            <RegisteredCoursesTable registeredCourses={this.state.registeredCourses} /> : null;
     }
 
     render() {
