@@ -41,7 +41,7 @@ module.exports = {
         }
 
         if (input_levelOfStudy !== undefined) {
-            query += " AND EXISTS (SELECT 1 FROM course_level_of_study cole WHERE cole.course_id = ois1.v_courses.id AND cole.level_of_study_id = $" + (parameters.length + 1) + ")";
+            query += " AND EXISTS (SELECT 1 FROM ois1.course_level_of_study cole WHERE cole.course_id = ois1.v_courses.id AND cole.level_of_study_id = $" + (parameters.length + 1) + ")";
             parameters.push(input_levelOfStudy);
         }
 

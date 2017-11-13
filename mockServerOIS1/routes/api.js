@@ -27,7 +27,7 @@ router.get('/courses', (req, res) => {
     let input_lang = req.query.lang;
     let input_faculty = req.query.faculty;
     let input_institute = req.query.institute;
-    let input_year = req.query.year;
+    let input_year = req.query.academic_year;
     let input_semester = req.query.semester;
     let input_schedule = req.query.schedule;
     let input_levelOfStudy = req.query.level_of_study;
@@ -37,7 +37,7 @@ router.get('/courses', (req, res) => {
     
     let statement = courses.getCourses(input_query, input_lang, input_faculty, input_institute, input_year, input_semester,
         input_schedule, input_levelOfStudy, input_assessment, input_currentlyOpened, input_ids);
-    
+
     db.query(statement.query_text, statement.parameters, (err, result) => {
         if (err) {
             res.status(400).send();
