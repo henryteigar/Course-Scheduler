@@ -60,7 +60,7 @@
 
             & > h3 {
                 font-weight: 500;
-                margin-bottom: 20px;
+                margin-bottom: 25px;
                 margin-top: 10px;
             }
 
@@ -76,7 +76,11 @@
             }
 
             & > button {
-                margin-top: 20px;
+                margin-top: 15px;
+            }
+
+            .dropdown-select-box {
+                margin-bottom: 15px;
             }
         }
     }
