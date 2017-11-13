@@ -20,12 +20,14 @@ class RegisteredCoursesStore extends EventEmitter {
     };
 
     addToRegisteredCourses(coursesToAdd) {
-        coursesToAdd.map((courseToAdd) => courseToAdd.course).forEach((courseToAdd) => {
+        console.log(coursesToAdd);
+
+        coursesToAdd.forEach((courseToAdd) => {
             axios.create(this.axoisConf)
                 .post('registered-courses',
                     {
-                        'course_id': courseToAdd.id,
-                        'group_id': 1   // TODO: Currently hard-coded groupId
+                        'course_id': courseToAdd.course.id,
+                        'group_id': courseToAdd.groupId
                     }
                 )
                 .then(() => {

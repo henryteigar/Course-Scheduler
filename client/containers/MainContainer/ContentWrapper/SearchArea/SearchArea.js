@@ -36,7 +36,7 @@ class SearchArea extends Component {
             },
             initialFilter: "all",
             selectedCourses: [],
-            selectedGroup: null
+            selectedGroups: {}
         };
     }
 
@@ -132,15 +132,22 @@ class SearchArea extends Component {
     }
 
     addToRegisteredCourses() {
-        this.closeGroupSelectModal();
+        if (Object.keys(this.state.selectedGroups).length === this.state.selectedCourses.length) {
+            let courses = this.state.selectedCourses.map((course) => {
+                return {
+                    'course': course,
+                    'groupId': this.state.selectedGroups[course.id].id
+                }
+            });
 
-        let courses = this.state.selectedCourses.map((course) => {return {'course': course}});
+            RegisteredCoursesAction.addToRegisteredCourses(courses);
+            this.setState({
+                registeredCourses: RegisteredCoursesStore.getAll(),
+                selectedCourses: []
+            });
 
-        RegisteredCoursesAction.addToRegisteredCourses(courses);
-        this.setState({
-            registeredCourses: RegisteredCoursesStore.getAll(),
-            selectedCourses: []
-        });
+            this.closeGroupSelectModal();
+        }
     }
 
     getDisabledCoursesIds() {
@@ -148,9 +155,14 @@ class SearchArea extends Component {
             .concat(this.state.draftedCourses.map((draftedCourse) => draftedCourse.course.id));
     }
 
-    setCourseGroups(selectedGroup) {
-        console.log(selectedGroup);
-        this.setState({selectedGroup});
+    setCourseGroups(selection) {
+        console.log(selection);
+
+        let selectedGroups = this.state.selectedGroups;
+
+        selectedGroups[selection.id] = selection.selectedEl;
+
+        this.setState({selectedGroups});
     }
 
     closeGroupSelectModal() {
