@@ -1,0 +1,85 @@
+{
+	"info": {
+		"name": "course-scheduler API",
+		"_postman_id": "eaa9a73b-56dd-308c-f593-3e64fde3248b",
+		"description": "This is a Collection for course-scheduler API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "course-scheduler Root API",
+			"description": "This will test the result of the root API call\n",
+			"item": [
+				{
+					"name": "course request from API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Test 1. -> all subject information\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.eql([",
+									"    {",
+									"        \"id\": 3,",
+									"        \"title\": \"Tehisintellekt\",",
+									"        \"credit\": 6,",
+									"        \"final_assessment\": \"Eristav (A, B, C, D, E, F, mi)\",",
+									"        \"lecturers\": \"Mark Fišel, Krista Liin, Sander Tars, Sven Aller\",",
+									"        \"study_language\": \"eesti keel\",",
+									"        \"course_code\": \"LTAT.01.003\",",
+									"        \"cancellation_date\": \"12.10.2017\",",
+									"        \"nr_of_registered\": 154,",
+									"        \"max_registrations\": 200,",
+									"        \"occurrences\": \"K, N\",",
+									"        \"subject_type\": \"kohustuslik;valik\"",
+									"    }",
+									"]);",
+									"});",
+									"",
+									"pm.test(\"Test 2. -> Subject id\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[0].id).to.eql(3);",
+									"});",
+									"",
+									"pm.test(\"Test 3. -> Subject name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[0].title).to.eql(\"Tehisintellekt\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://course-scheduler.me:3000/api/courses?q=Tehis",
+							"protocol": "http",
+							"host": [
+								"course-scheduler",
+								"me"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"courses"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "Tehis",
+									"equals": true
+								}
+							]
+						},
+						"description": "This is request course"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

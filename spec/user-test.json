@@ -1,0 +1,66 @@
+{
+	"info": {
+		"name": "user-details",
+		"_postman_id": "2bdf641c-0031-9187-3ddb-61f25371ff66",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user-details",
+			"description": "",
+			"item": [
+				{
+					"name": "user-details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Test 4. -> Got response\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"",
+									"pm.test(\"Test 5. -> User name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    var name = \"Ants Aus\";",
+									"    pm.expect(jsonData[0].user_name).to.eql(name);",
+									"});",
+									"",
+									"pm.test(\"Test 6. -> studybook id\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    var nr = \"B123456\";",
+									"    pm.expect(jsonData[0].studybook_nr).to.eql(nr);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://course-scheduler.me:3000/api/users",
+							"protocol": "http",
+							"host": [
+								"course-scheduler",
+								"me"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
