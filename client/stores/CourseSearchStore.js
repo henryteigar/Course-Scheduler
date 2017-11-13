@@ -44,9 +44,9 @@ class CourseSearchStore extends EventEmitter {
         let uri = 'courses?q=' + query;
         if (this.filter && this.filter !== "all") uri += '&filter=' + this.filter;
         this.detailedFilters.forEach((filter) => {
-           if (filter.selectedEl != null) {
-               uri += '&' + filter.id + '=' + filter.selectedEl.id
-           }
+            if (filter.selectedEl !== null) {
+                uri += '&' + filter.id + '=' + filter.selectedEl.id
+            }
         });
 
         console.log(uri);

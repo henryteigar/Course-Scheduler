@@ -14,7 +14,7 @@ class DraftArea extends Component {
         super(props);
         CourseDraftAction.fetchDraftedCourses();
         this.state = {
-            courses: CourseDraftStore.getAll(),
+            courses: [],
             selectedCourses: []
         }
     }

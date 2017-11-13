@@ -66,7 +66,7 @@ class SearchArea extends Component {
                     <div className="result-table">
                         <CourseSearchTable changeHandler={this.toggleCourse.bind(this)}
                                            courses={this.state.courses}
-                                           disabledCoursesIds={this.getDisabledCoursesIds()} />
+                                           disabledCoursesIds={this.getRegisteredCoursesIds().concat(this.getDraftedCoursesIds())} />
                     </div>
                     <div className="buttons-area">
                         <Button clickHandler={this.addToDraft.bind(this)}
@@ -111,35 +111,36 @@ class SearchArea extends Component {
     }
 
     toggleCourse(course) {
-        let courses = this.state.selectedCourses;
+        let selectedCourses = this.state.selectedCourses;
 
-        if (courses.includes(course)) {
-            courses = courses.filter(el => el !== course);
+        if (selectedCourses.includes(course)) {
+            selectedCourses = selectedCourses.filter((el) => el !== course);
         } else {
-            courses.push(course);
+            selectedCourses.push(course);
         }
-        this.setState({selectedCourses: courses});
+        this.setState({selectedCourses});
     }
 
     addToDraft() {
-        let courses = this.state.selectedCourses.map((course) => {return {'course': course}});
+        let courses = this.state.selectedCourses.map((course) => {
+            return {'course': course}
+        });
 
         CourseDraftAction.addToDraft(courses);
         this.setState({
-            draftedCourses: CourseDraftStore.getAll(),
             selectedCourses: []
         });
     }
 
-    isAllCheckedCourseWithGroup() {
+    isDataValidForRegistering() {
         let selectedCoursesIds = this.state.selectedCourses.map((selectedCourse) => selectedCourse.id);
         let courseIdsFromSelectedGroups = Object.keys(this.state.selectedGroups).map((el) => parseInt(el));
 
-        return selectedCoursesIds.every((id, i, array) => courseIdsFromSelectedGroups.includes(id))
+        return selectedCoursesIds.every((id) => courseIdsFromSelectedGroups.includes(id))
     }
 
     addToRegisteredCourses() {
-        if (this.isAllCheckedCourseWithGroup()) {
+        if (this.isDataValidForRegistering()) {
             let courses = this.state.selectedCourses.map((course) => {
                 return {
                     'course': course,
@@ -149,7 +150,6 @@ class SearchArea extends Component {
 
             RegisteredCoursesAction.addToRegisteredCourses(courses);
             this.setState({
-                registeredCourses: RegisteredCoursesStore.getAll(),
                 selectedCourses: [],
                 selectedGroups: {}
             });
@@ -158,12 +158,15 @@ class SearchArea extends Component {
         }
     }
 
-    getDisabledCoursesIds() {
+    getRegisteredCoursesIds() {
         return this.state.registeredCourses.map((registeredCourse) => registeredCourse.course.id)
-            .concat(this.state.draftedCourses.map((draftedCourse) => draftedCourse.course.id));
     }
 
-    setCourseGroups(selection) {
+    getDraftedCoursesIds() {
+        return this.state.draftedCourses.map((draftedCourse) => draftedCourse.course.id)
+    }
+
+    setCourseGroup(selection) {
         let selectedGroups = this.state.selectedGroups;
 
         selectedGroups[selection.id] = selection.selectedEl;
@@ -192,7 +195,7 @@ class SearchArea extends Component {
             }
         });
     }
-    
+
     getPracticeGroupsFromCourse(course) {
         return course.occurrences
             .filter((course) => course.type === "practice")
@@ -205,7 +208,7 @@ class SearchArea extends Component {
     }
 
     render() {
-          return (
+        return (
             <div className="search-area">
 
                 <div id="group-search-modal" className="group-search-modal">
@@ -214,13 +217,15 @@ class SearchArea extends Component {
                         <span onClick={this.closeGroupSelectModal} className="close">&times;</span>
                         {
                             this.state.selectedCourses.map((selectedCourse) =>
-                                <DropdownSelectBox key={selectedCourse.id} id={selectedCourse.id} label={selectedCourse.name_eng} className="full-width"
+                                <DropdownSelectBox key={selectedCourse.id} id={selectedCourse.id}
+                                                   label={selectedCourse.name_eng} className="full-width"
                                                    values={this.getPracticeGroupsFromCourse(selectedCourse)}
-                                                   clickHandler={this.setCourseGroups.bind(this)} />
+                                                   clickHandler={this.setCourseGroup.bind(this)} />
                             )
                         }
 
-                        <Button class="big green" name="Register" clickHandler={this.addToRegisteredCourses.bind(this)}/>
+                        <Button class="big green" name="Register"
+                                clickHandler={this.addToRegisteredCourses.bind(this)} />
                     </div>
                 </div>
 
@@ -236,10 +241,10 @@ class SearchArea extends Component {
                       changeTabHandler={this.filterChangeHandler.bind(this)} />
 
                 <div className="search-button">
-                    <Button class="big blue" name="Search" clickHandler={this.updateSearchResult.bind(this)}/>
+                    <Button class="big blue" name="Search" clickHandler={this.updateSearchResult.bind(this)} />
                 </div>
 
-                <DetailedSearchArea/>
+                <DetailedSearchArea />
 
                 {this.getSearchResultArea()}
 
