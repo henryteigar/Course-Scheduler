@@ -36,7 +36,7 @@ class Grid extends Component {
                         type: occurrence.type,
                         name: el.course.name_eng,
                         time: time,
-                        group: occurrence.group.name,
+                        group: occurrence.group,
                         place: occurrence.place
                     }
                 }));

@@ -38,6 +38,7 @@ class Timetable extends Component {
                 <h2>Timetable</h2>
                 <hr />
                 <TimetableTimeBar />
+                {console.log("state chnaged")}
                 <Grid courses={this.state.courses} />
                 <div className="register-btn">
                     <Button name="Register draft courses" class="green small" />

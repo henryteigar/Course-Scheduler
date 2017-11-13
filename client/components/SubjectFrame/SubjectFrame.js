@@ -10,12 +10,13 @@ const SubjectFrame = (props) => {
         height: occurrence.time.length * 0.7
     };
 
-    let startHour = occurrence.time.start_hour.toString().length === 1 ? '0' + occurrence.time.start_hour : occurrence.time.start_hour
+    let startHour = occurrence.time.start_hour.toString().length === 1 ? '0' + occurrence.time.start_hour : occurrence.time.start_hour;
+    let startMinute = occurrence.time.start_minute.toString().length === 1 ? '0' + occurrence.time.start_minute : occurrence.time.start_minute;
 
     return (
         <div className={"subject-frame" + (occurrence.isDraft ? " draft" : "")} style={frameStyle}>
             <div className="upper-info">
-                <label className="time">{startHour} : {occurrence.time.start_minute}</label>
+                <label className="time">{startHour} : {startMinute}</label>
                 <label className="group">{occurrence.group.name}</label>
             </div>
 
