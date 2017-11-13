@@ -36,6 +36,7 @@ describe("Test 2. -> Testing drafts API endpoint",function(){
 
 });
 
+
 describe('Test 3. -> Testing drafts API endpoint', function() {
     it('Adding and removing courses from draft and comparing response sizes.', function(done) {
 
@@ -44,7 +45,7 @@ describe('Test 3. -> Testing drafts API endpoint', function() {
         server.get("/api/drafts")
             .end(function(err,res){
                 let body = res.body;
-                contains = (body.toString()).indexOf("Java Harjutused") === -1;
+                contains = (body.toString()).indexOf("Java Harjutused") !== -1;
                 length = Object.keys(res.body).length;
                 done();
             });
@@ -70,7 +71,6 @@ describe('Test 3. -> Testing drafts API endpoint', function() {
                 .expect("Content-type", /json/)
                 .expect(200)
                 .end(function (err, res) {
-                    // HTTP status should be 200
                     assert.equal(res.status, 200);
                     assert.equal(Object.keys(res.body).length, (length + 1));
                     request.delete('http://course-scheduler.me:3000/api/drafts/8');
@@ -80,6 +80,7 @@ describe('Test 3. -> Testing drafts API endpoint', function() {
         });
 
 });
+
 
 describe("Test 4. -> Testing registered-courses API endpoint",function(){
     it("Should get response from /registered-courses",function(done){
@@ -96,7 +97,6 @@ describe("Test 4. -> Testing registered-courses API endpoint",function(){
 });
 
 
-
 describe('Test 5. -> Testing registered-courses API endpoint', function() {
     it('Adding and removing courses from registered-courses and comparing response sizes.', function(done) {
 
@@ -105,7 +105,7 @@ describe('Test 5. -> Testing registered-courses API endpoint', function() {
         server.get("/api/registered-courses")
             .end(function(err,res){
                 let body = res.body;
-                contains = (body.toString()).indexOf("Java Harjutused") === -1;
+                contains = (body.toString()).indexOf("Multimedia") !== -1;
                 length = Object.keys(res.body).length;
                 done();
             });
