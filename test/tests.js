@@ -24,33 +24,46 @@ describe("Test 1. -> Testing courses API endpoint",function(){
 });
 
 describe('Test 2. -> Testing drafts API endpoint', function() {
-    it('adding courses to draft and comparing response size. Should be bigger by 1', function(done) {
+    it('Adding and removing courses from draft and comparing response sizes.', function(done) {
 
-        let length = 0;
-        server
-            .get("/api/drafts")
-            .expect("Content-type",/json/)
-            .expect(200)
+        let length = -1;
+        let contains = false;
+        server.get("/api/drafts")
             .end(function(err,res){
-                // HTTP status should be 200
+                let body = res.body;
+                contains = (body.toString()).indexOf("Java Harjutused") === -1;
                 length = Object.keys(res.body).length;
                 done();
             });
 
-        request.post('http://course-scheduler.me:3000/api/drafts/8');
+        if (contains){
+            request.delete('http://course-scheduler.me:3000/api/drafts/8');
+            server
+                .get("/api/drafts")
+                .expect("Content-type",/json/)
+                .expect(200)
+                .end(function(err,res){
+                    assert.equal(res.status, 200);
+                    assert.equal(Object.keys(res.body).length, (length - 1));
+                    request.post('http://course-scheduler.me:3000/api/drafts/8');
+                    done();
+                });
+        }
+        else {
+            request.post('http://course-scheduler.me:3000/api/drafts/8');
 
-        server
-            .get("/api/drafts")
-            .expect("Content-type",/json/)
-            .expect(200)
-            .end(function(err,res){
-                // HTTP status should be 200
-                assert.equal(res.status, 200);
-                assert.equal(Object.keys(res.body).length, (length + 1));
-                done();
-            });
-        request.delete('http://course-scheduler.me:3000/api/drafts/8');
-    });
+            server
+                .get("/api/drafts")
+                .expect("Content-type", /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    // HTTP status should be 200
+                    assert.equal(res.status, 200);
+                    assert.equal(Object.keys(res.body).length, (length + 1));
+                    request.delete('http://course-scheduler.me:3000/api/drafts/8');
+                    done();
+                });
+        }
+        });
 
 });
-
