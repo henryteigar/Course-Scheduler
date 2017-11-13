@@ -40,6 +40,7 @@ class DraftArea extends Component {
 
     removeFromDraft() {
         CourseDraftAction.removeFromDraft(this.state.selectedCourses);
+        this.setState({selectedCourses: []});
         this.setState({courses: CourseDraftStore.getAll()});
     }
 

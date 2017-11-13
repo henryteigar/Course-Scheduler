@@ -131,19 +131,27 @@ class SearchArea extends Component {
         });
     }
 
+    isAllCheckedCourseWithGroup() {
+        let selectedCoursesIds = this.state.selectedCourses.map((selectedCourse) => selectedCourse.id);
+        let courseIdsFromSelectedGroups = Object.keys(this.state.selectedGroups).map((el) => parseInt(el));
+
+        return selectedCoursesIds.every((id, i, array) => courseIdsFromSelectedGroups.includes(id))
+    }
+
     addToRegisteredCourses() {
-        if (Object.keys(this.state.selectedGroups).length === this.state.selectedCourses.length) {
+        if (this.isAllCheckedCourseWithGroup()) {
             let courses = this.state.selectedCourses.map((course) => {
                 return {
                     'course': course,
-                    'groupId': this.state.selectedGroups[course.id].id
+                    'locked_group': this.state.selectedGroups[course.id]
                 }
             });
 
             RegisteredCoursesAction.addToRegisteredCourses(courses);
             this.setState({
                 registeredCourses: RegisteredCoursesStore.getAll(),
-                selectedCourses: []
+                selectedCourses: [],
+                selectedGroups: {}
             });
 
             this.closeGroupSelectModal();
@@ -156,8 +164,6 @@ class SearchArea extends Component {
     }
 
     setCourseGroups(selection) {
-        console.log(selection);
-
         let selectedGroups = this.state.selectedGroups;
 
         selectedGroups[selection.id] = selection.selectedEl;

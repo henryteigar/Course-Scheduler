@@ -24,13 +24,7 @@ class CourseDraftStore extends EventEmitter {
 
             axios.create(this.axoisConf).post('drafts/' + courseToAdd.id)
                 .then(() => {
-                    let courses = this.draftedCourses.map((course) => course.course);
-                    coursesToAdd.forEach((courseToAdd) => {
-                        if (!courses.includes(courseToAdd.course)) {
-                            this.draftedCourses.push(courseToAdd);
-                        }
-                    });
-                    this.emit("change");
+                    this.fetchDraftedCourses();
                 })
                 .catch((error) => {
                     console.log(error);
@@ -43,8 +37,7 @@ class CourseDraftStore extends EventEmitter {
 
             axios.create(this.axoisConf).delete('drafts/' + courseToRemove.id)
                 .then(() => {
-                    this.draftedCourses = this.draftedCourses.filter((el) => !coursesToRemove.includes(el));
-                    this.emit("change");
+                    this.fetchDraftedCourses();
                 })
                 .catch((error) => {
                     console.log(error);
