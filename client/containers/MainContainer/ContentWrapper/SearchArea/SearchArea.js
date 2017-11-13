@@ -171,8 +171,10 @@ class SearchArea extends Component {
     }
 
     openGroupSelectModal() {
-        let modal = document.getElementById('group-search-modal');
-        modal.style.display = "block";
+        if (this.state.selectedCourses.length > 0) {
+            let modal = document.getElementById('group-search-modal');
+            modal.style.display = "block";
+        }
     }
 
     addEventListenerToWindow() {
