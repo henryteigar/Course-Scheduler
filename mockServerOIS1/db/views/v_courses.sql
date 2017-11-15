@@ -17,6 +17,15 @@ CREATE OR REPLACE VIEW ois1.v_courses AS
             courses.assessment AS assessment,
             courses.limit_of_attendants AS limit_of_attendants,
             courses.registered_attendants AS registered_attendants,
+            (SELECT row_to_json(obj) FROM
+                                (SELECT
+                                    course_type.name_eng AS course_type_name_eng,
+                                    course_type.name_est AS course_type_name_est,
+                                    curriculas.name_est AS curricula_name_est,
+                                    curriculas.name_eng AS curricula_name_eng
+                                 FROM ois1.course_curricula JOIN ois1.course_type ON course_curricula.course_type_id = course_type.id
+                                   JOIN ois1.curriculas ON course_curricula.curricula_id = curriculas.id
+                                  WHERE courses.id = course_curricula.course_id) obj) AS curricula,
             (SELECT JSON_AGG(ROW_TO_JSON(obj1)) FROM (SELECT occurrence.type AS type,
                               (SELECT JSON_AGG(ROW_TO_JSON(obj)) FROM (SELECT times.id AS id,
                                                                     times.week AS week,
