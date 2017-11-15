@@ -19,6 +19,7 @@ CREATE OR REPLACE VIEW ois1.v_courses AS
             courses.registered_attendants AS registered_attendants,
             (SELECT row_to_json(obj) FROM
                                 (SELECT
+                                    course_type_id AS id,
                                     course_type.name_eng AS course_type_name_eng,
                                     course_type.name_est AS course_type_name_est,
                                     curriculas.name_est AS curricula_name_est,
