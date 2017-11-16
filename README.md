@@ -20,7 +20,7 @@ The relavant documentation is accessible in our [wiki page](https://github.com/h
 * Clone the repository: `git clone https://github.com/henryteigar/course-scheduler.git` 
 * Being in the project root, execute `npm install` to install all the dependencies.
 * You also need to rename .env.sample to .env and insert necessary secrets (If not sure, ask the team members)
-* To start the server, run `npm run start`. This should start the server on `http://localhost:3000`
+* To start the server, run `npm run prod`. This should start the server on `http://localhost:3000`
 * That's it!
 
 ### Installing for development
