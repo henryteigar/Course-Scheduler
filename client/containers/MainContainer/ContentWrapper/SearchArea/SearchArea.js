@@ -25,16 +25,16 @@ class SearchArea extends Component {
         this.state = {
             draftedCourses: CourseDraftStore.getAll(),
             registeredCourses: RegisteredCoursesStore.getAll(),
-            courses: CourseSearchStore.getAll(),
+            courses: [],
             inputPlaceholder: "Search course name, code, institute etc...",
             query: '',
             filters: {
                 all: "All",
                 obligatory: "Obligatory courses",
-                isiklik: "Personal",
+                personal: "Personal",
                 elective: "Elective courses",
             },
-            initialFilter: "all",
+            activeFilter: "all",
             selectedCourses: [],
             selectedGroups: {}
         };
@@ -84,7 +84,7 @@ class SearchArea extends Component {
     }
 
     updateSearchResult() {
-        CourseSearchAction.searchCourses(this.state.query);
+        CourseSearchAction.searchCourses(this.state.query, this.state.activeFilter);
     }
 
     clearSearchResult() {
@@ -94,13 +94,13 @@ class SearchArea extends Component {
 
     filterChangeHandler(tab) {
         this.clearSearchResult();
-        CourseSearchAction.changeCoursesSearchFilter(tab);
+        this.setState({ activeFilter: tab });
 
         if (tab === "all") {
             this.setState({inputPlaceholder: "Search course name, code, institute etc..."});
         } else {
             this.setState({inputPlaceholder: "Filter results..."});
-            CourseSearchAction.searchCourses(this.state.query);
+            CourseSearchAction.searchCourses(this.state.query, tab);
         }
     }
 
@@ -237,7 +237,7 @@ class SearchArea extends Component {
                            class="mainSearchBox"
                            value={this.state.query} />
 
-                <Tabs tabs={this.state.filters} activeTab={this.state.initialFilter}
+                <Tabs tabs={this.state.filters} activeTab={this.state.activeFilter}
                       changeTabHandler={this.filterChangeHandler.bind(this)} />
 
                 <div className="search-button">

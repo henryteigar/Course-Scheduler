@@ -1,6 +1,7 @@
 import React from 'react';
 
 import CheckBox from "../CheckBox/CheckBox";
+import DropdownSelectBox from 'client/components/DropdownSelectBox/DropdownSelectBox';
 
 const DraftTable = (props) => {
     return (
@@ -21,6 +22,12 @@ const DraftTable = (props) => {
                     <td>{draftedCourse.course.name_eng}</td>
                     <td>{draftedCourse.course.credits} EAP</td>
                     <td>{draftedCourse.course.reg_persons_info}</td>
+                    <td><DropdownSelectBox key={draftedCourse.course.id} id={draftedCourse.course.id}
+                                           className="full-width"
+                                           values={draftedCourse.course.occurrences
+                                               .filter((el) => el.type == "practice")
+                                               .map((el) => { return { id: el.group.id, label_eng: el.group.name }})}
+                                           clickHandler={console.log} /></td>
                     <td>{draftedCourse.active_group ? draftedCourse.active_group.name : null}</td>
                     <td>{draftedCourse.active_group ? draftedCourse.active_lecturer.name : null}</td>
                 </tr>
