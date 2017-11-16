@@ -37,14 +37,8 @@ class CourseSearchStore extends EventEmitter {
         });
 
         let uri = 'courses?q=' + query;
-        
-        if (filter === 'obligatory' ) {
-            uri += '&filter=' + 1;
-        } else if (filter === 'elective') {
-            uri += '&filter=' + 2;
-        } else if (filter === 'personal' ) {
-            uri += '&filter=' + 1;
-        }
+
+        if (filter !== 'all') uri += "&filter=" + filter;
 
         this.detailedFilters.forEach((filter) => {
             if (filter.selectedEl !== null) {
