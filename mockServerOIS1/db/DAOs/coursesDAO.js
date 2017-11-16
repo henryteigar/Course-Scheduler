@@ -16,8 +16,13 @@ module.exports = {
         }
 
         if (input_filter !== undefined) {
-            query += " AND EXISTS (SELECT 1 FROM ois1.course_curricula coty WHERE coty.course_id = ois1.v_courses.id AND coty.course_type_id = $" + (parameters.length + 1) + ")";
-            parameters.push(input_filter);
+            let field = 'name_eng';
+            if (input_lang && input_lang.toLowerCase() === 'est') {
+                field = 'name_est';
+            }
+            query += " AND EXISTS (SELECT 1 FROM ois1.course_curricula coty JOIN ois1.course_type ON coty.course_type_id = ois1.course_type.id " +
+                "WHERE coty.course_id = ois1.v_courses.id AND LOWER(ois1.course_type." + field + ") LIKE $" + (parameters.length + 1) + ")";
+            parameters.push('%' + input_filter + '%');
         }
 
         if (input_faculty !== undefined) {
