@@ -4,12 +4,18 @@ import './dropdown-select-box.scss'
 import Ionicon from 'react-ionicons'
 
 class DropdownSelectBox extends Component {
-    constructor() {
+    constructor(props) {
         super();
         this.state = {
             selectedEl: null,
-            isCollapsed: true
+            isCollapsed: true,
+            values: props.values.slice()
         };
+        this.state.values.unshift({
+            id: 0,
+            label_eng: "Select option...",
+            label_est: "Vali..."
+        });
         this.setWrapperRef = this.setWrapperRef.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
     }
@@ -38,6 +44,9 @@ class DropdownSelectBox extends Component {
     }
 
     onItemClickHandler(selectedEl) {
+        if (selectedEl.id === 0) {
+            selectedEl = null
+        }
         this.setState({selectedEl});
         this.setState({isCollapsed: true});
         this.props.clickHandler({
@@ -58,7 +67,7 @@ class DropdownSelectBox extends Component {
                     </div>
                 </button>
                 <ul className={this.state.isCollapsed ? "collapsed" : ""}>
-                    {this.props.values.map((el) =>
+                    {this.state.values.filter(el => this.state.selectedEl !== null || el.id !== 0).map((el) =>
                         <li className={el === this.state.selectedEl ? "selected" : ""} onClick={(e) => this.onItemClickHandler(el)} key={el.id}>{el.label_eng}</li>
                     )}
                 </ul>
