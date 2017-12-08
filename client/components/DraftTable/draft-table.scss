@@ -1,0 +1,17 @@
+@import "../../css/variables";
+
+.preference {
+
+    .lock-icon {
+        position: absolute;
+        vertical-align: middle;
+    }
+
+    span {
+        margin-left: 20px;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
