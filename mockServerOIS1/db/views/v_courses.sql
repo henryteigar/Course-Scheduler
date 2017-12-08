@@ -14,7 +14,12 @@ CREATE OR REPLACE VIEW ois1.v_courses AS
             courses.outcome_eng AS outcomes_eng,
             courses.description_est AS descriptions_est,
             courses.description_est AS descriptions_eng,
-            courses.assessment AS assessment,
+            (SELECT row_to_json(obj) FROM
+                                (SELECT
+                                    assessments.id AS id,
+                                    assessments.name_eng AS assessment_name_eng,
+                                    assessments.name_est AS assessment_name_est
+                                 FROM ois1.courses JOIN ois1.assessments ON courses.assessment_id = assessments.id) obj) AS assessment,
             courses.limit_of_attendants AS limit_of_attendants,
             courses.registered_attendants AS registered_attendants,
             (SELECT row_to_json(obj) FROM
