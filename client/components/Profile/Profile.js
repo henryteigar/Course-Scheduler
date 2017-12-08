@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 
 import 'client/components/Profile/profile.scss'
+import DetailedProfileBox from './DetailedProfileBox/DetailedProfileBox';
+
 
 const Profile = (props) => {
     return (
         <div className="profile">
-            <div className="profile-info">
-                <p className="name">{props.name}</p>
-                <p className="studentId">{props.studentId}</p>
-            </div>
-            <div className="profile-pic" />
+            <img className="profile-pic" src="../../images/user4.svg"/>
+            <DetailedProfileBox/>
         </div>
     )
 };
