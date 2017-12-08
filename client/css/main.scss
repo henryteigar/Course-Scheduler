@@ -23,6 +23,10 @@ html, body, #app {
     width: 100%;
 }
 
+p {
+    font: normal 13px 'Roboto', sans-serif;
+}
+
 #app > div {
     overflow: auto;
     background: $blue-primary;
