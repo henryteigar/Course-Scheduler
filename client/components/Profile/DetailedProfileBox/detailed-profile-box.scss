@@ -1,0 +1,19 @@
+@import "../../../css/variables";
+
+.detailed-profile-box {
+    background: white;
+    border: 1px solid $table-border-primary;
+    height: 100px;
+    position: relative;
+    top: 65px;
+    width: 180px;
+
+    img {
+        background-color: $blue-primary;
+        border-radius: 50%;
+        margin: 10px;
+        height: 55px;
+        position: relative;
+        width: 55px;
+    }
+}

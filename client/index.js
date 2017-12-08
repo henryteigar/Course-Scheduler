@@ -8,8 +8,6 @@ ReactDOM.render(
     <BrowserRouter>
         <Switch>
             <Route exact path='/' component={App} />
-            <Route exact path='/test' component={App} />
-            <Route path='/test/:id' component={App} />
             <Route exact path='/login' component={Login}/>
         </Switch>
     </BrowserRouter>,

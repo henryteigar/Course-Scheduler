@@ -9,7 +9,8 @@ class Header extends Component {
         super();
         this.state = {
             name: "John Doe",
-            studentId: "B33043"
+            studentId: "B33043",
+            email: "john@doe.ut.ee"
         }
     }
     render () {
@@ -17,7 +18,6 @@ class Header extends Component {
             <header className="header">
                 <h1>Registration for courses</h1>
                 <Profile name={this.state.name} studentId={this.state.studentId} />
-                <input placeholder="Search..."/>
             </header>
         )
     }
