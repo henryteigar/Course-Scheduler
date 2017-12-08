@@ -26,11 +26,16 @@ router.get('/', (req, res) => {
             if (err) {
                 res.status(500).send();
             } else {
-                let resp = body.map((registered_course_json) => {
-                    registered_course_json.course = mockOis1Converter.processCourse(registered_course_json.course);
-                    return registered_course_json;
-                });
-                res.status(200).send(resp)
+                if (body) {
+                    let resp = body.map((registered_course_json) => {
+                        registered_course_json.course = mockOis1Converter.processCourse(registered_course_json.course);
+                        return registered_course_json;
+                    });
+                    res.status(200).send(resp)
+                }
+                else {
+                    res.status(500).send();
+                }
             }
         })
     }
