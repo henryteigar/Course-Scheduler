@@ -9,9 +9,14 @@
 
         span {
             padding: 5px 5px 5px 5px;
-
             position: relative;
             top: -2px;
+
+            &.hidden {
+                img.arrow {
+                    opacity: 0;
+                }
+            }
 
             &:first-child {
                 margin-right: -3px;

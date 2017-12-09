@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import * as Utils from 'client/utils/Utils'
 import './week-selector.scss'
 
 class WeekSelector extends Component {
@@ -7,30 +7,20 @@ class WeekSelector extends Component {
         super(props);
     }
 
-    addDays(date, days) {
-        let result = new Date(date);
-        result.setDate(result.getDate() + days);
-        return result;
-    }
-
     render() {
         let startDate = this.props.currentWeek.startDate;
-        let endDate = this.addDays(this.props.currentWeek.startDate, 7);
-        let startDay = ('0' + startDate.getDate()).slice(-2);
-        let startMonth = ('0' + startDate.getMonth()).slice(-2);
-        let endDay = ('0' + endDate.getDate()).slice(-2);
-        let endMonth = ('0' + endDate.getMonth()).slice(-2);
-
+        let endDate = Utils.addDays(this.props.currentWeek.startDate, 6);
 
         return (
             <div className="week-selector">
-
                 <p>
-                    <span onClick={this.props.backHandler}>
+                    <span onClick={this.props.backHandler}
+                          className={this.props.weeks.indexOf(this.props.currentWeek) === 0 ? "hidden" : ""}>
                         <img src="../../images/angle-left.svg" className="arrow" />
                     </span>
-                    Week {this.props.currentWeek.nr + " - " + startDay + "." + startMonth + " - " + endDay + "." + endMonth}
-                    <span onClick={this.props.forwardHandler}>
+                    Week {this.props.currentWeek.nr + " - " + Utils.formatDate(startDate) + " - " + Utils.formatDate(endDate)}
+                    <span onClick={this.props.forwardHandler}
+                          className={this.props.weeks.indexOf(this.props.currentWeek) === this.props.weeks.length - 1 ? "hidden" : ""}>
                         <img src="../../images/angle-right.svg" className="arrow" />
                     </span>
                 </p>
