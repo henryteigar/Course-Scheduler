@@ -8,7 +8,7 @@ const Profile = (props) => {
     return (
         <div className="profile">
             <img className="profile-pic" src="../../images/user4.svg"/>
-            <DetailedProfileBox/>
+            <DetailedProfileBox />
         </div>
     )
 };

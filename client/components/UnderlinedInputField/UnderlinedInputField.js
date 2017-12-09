@@ -4,7 +4,7 @@ import './underlined-input-field.scss'
 const UnderlinedInputField = (props) => {
     return (
         <input className="underlined-input" type={props.type}
-               placeholder={props.placeholder}/>
+               placeholder={props.placeholder} onChange={props.changeHandler}/>
     )
 };
 

@@ -120,7 +120,7 @@ router.post('/login', (req, res) => {
 
     db.query('SELECT id AS session_key from ois1.users WHERE username = $1 AND password = $2', [username, password], (err, result) => {
         if (!result || err || result.rowCount === 0) {
-            res.status(404).send();
+            res.status(401).send();
         }
         else {
             res.status(200).send(result.rows[0]);

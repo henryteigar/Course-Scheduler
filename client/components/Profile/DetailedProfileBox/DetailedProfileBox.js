@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 
 import './detailed-profile-box.scss'
 
@@ -13,8 +14,8 @@ const DetailedProfileBox = (props) => {
                 <p className="student-id">B33043</p>
             </div>
             <div className="buttons">
-                <p>Settings</p>
-                <p>Sign out</p>
+                <Link to='' className="link">Settings</Link>
+                <Link to='/login' className="link">Sign out</Link>
             </div>
         </div>
     )
