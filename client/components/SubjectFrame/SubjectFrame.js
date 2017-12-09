@@ -16,8 +16,8 @@ const SubjectFrame = (props) => {
     return (
         <div className={"subject-frame" + (occurrence.isDraft ? " draft" : "")} style={frameStyle}>
             <div className="upper-info">
-                <label className="time">{startHour} : {startMinute}</label>
-                <label className="group">{occurrence.group.name}</label>
+                <label className="time">{startHour}:{startMinute}</label>
+                <label className="group">{ occurrence.group !== null && occurrence.group.name !== null ? occurrence.group.name : ""}</label>
             </div>
 
             <label className="name">{occurrence.name}</label>
