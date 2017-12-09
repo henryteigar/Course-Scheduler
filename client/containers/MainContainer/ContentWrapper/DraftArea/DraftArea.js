@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 import DraftTable from "client/components/DraftTable/DraftTable";
 import Button from "client/components/Button/Button";
-import Modal from "client/components/Modal/Modal";
 
 import * as CourseDraftAction from 'client/actions/CourseDraftAction';
 import CourseDraftStore from 'client/stores/CourseDraftStore';
@@ -18,8 +17,6 @@ class DraftArea extends Component {
             courses: [],
             selectedCourses: []
         }
-
-        this.groupLockModalId = "lock-group-preference-modal";
     }
 
     componentWillMount() {
@@ -55,7 +52,7 @@ class DraftArea extends Component {
         if (this.state.courses.length > 0) {
             searchResultArea =
                 <div>
-                    <DraftTable modalId={this.groupLockModalId} courses={this.state.courses} changeHandler={this.toggleCourse.bind(this)} />
+                    <DraftTable courses={this.state.courses} changeHandler={this.toggleCourse.bind(this)} />
                     <div className="button-area">
                         <Button class="small red" name="Remove from draft"
                                 clickHandler={this.removeFromDraft.bind(this)} />
@@ -67,10 +64,6 @@ class DraftArea extends Component {
         }
 
         return searchResultArea;
-    }
-
-    lockGroupModal() {
-        <div>Jou</div>
     }
 
     render() {
