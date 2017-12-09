@@ -69,10 +69,6 @@ class DraftArea extends Component {
     render() {
         return (
             <div className="draft-area">
-
-                <Modal child={this.lockGroupModal()} id={this.groupLockModalId}
-                       heading="Lock group" showX />
-
                 <h2>Courses in draft</h2>
                 <hr />
                 {this.getResultArea()}

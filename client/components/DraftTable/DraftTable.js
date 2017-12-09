@@ -28,7 +28,7 @@ class DraftTable extends Component {
             rowContent =
                 <div>
                     <img height='18' src="../../images/unlock.svg" className="lock-icon" />
-                    <span>Lock group preference</span>
+                    <span>Lock group</span>
                 </div>
         }
 
