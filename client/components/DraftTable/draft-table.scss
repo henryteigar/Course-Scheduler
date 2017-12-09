@@ -2,6 +2,8 @@
 
 .preference {
 
+    position: relative;
+
     .lock-icon {
         position: absolute;
         vertical-align: middle;
@@ -9,6 +11,11 @@
 
     span {
         margin-left: 20px;
+
+        &.green {
+            color: $green-primary;
+            font-weight: 500;
+        }
     }
 
     &:hover {

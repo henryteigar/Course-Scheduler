@@ -34,8 +34,8 @@ router.post('/:course_id', (req, res) => {
     let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwic2Vzc2lvbktleSI6MSwiYWRtaW4iOnRydWV9.DYshzaq1z5c1WrdGEpbgz4i-DcYxByTK_D0oJQbLkAU";
     try {
         let sessionKey = jwt.decode(token).sessionKey;
-        db.query('INSERT INTO draft_courses (user_id, course_id, locked_group_id, locked_lecturer_id, active_group_id, active_lecturer_id)' +
-            'SELECT $1, $2, NULL, NULL, NULL, NULL WHERE NOT EXISTS (SELECT * FROM draft_courses WHERE course_id = $2 AND user_id = $1)', [sessionKey, course_id], (err, result) => {
+        db.query('INSERT INTO draft_courses (user_id, course_id, active_group_id)' +
+            'SELECT $1, $2, NULL WHERE NOT EXISTS (SELECT * FROM draft_courses WHERE course_id = $2 AND user_id = $1)', [sessionKey, course_id], (err, result) => {
 
             if (err) {
                 res.status(500).send();

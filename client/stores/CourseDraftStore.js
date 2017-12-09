@@ -48,18 +48,7 @@ class CourseDraftStore extends EventEmitter {
     fetchDraftedCourses() {
         axios.create(this.axoisConf).get('drafts')
             .then((response) => {
-                let courses = [];
-                response.data.forEach((data) => {
-                    courses.push({
-                        "course": data.course,
-                        "locked_group": data.locked_group,
-                        "locked_lecturer": data.locked_lecturer,
-                        "active_group": data.active_group,
-                        "active_lecturer": data.active_lecturer
-                    });
-                });
-
-                this.draftedCourses = courses;
+                this.draftedCourses = response.data;
                 this.emit("change");
             })
             .catch((error) => {

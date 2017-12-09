@@ -4,15 +4,15 @@ import CheckBox from "../CheckBox/CheckBox";
 
 import 'client/components/DraftTable/draft-table.scss';
 
-const groupPreference = (draftedCourse) => {
-    if (draftedCourse.locked_group) {
+const groupPreference = (course) => {
+    if (course.locked_groups) {
         return <div className="preference">
-            <img height='16' src="../../images/lock.svg" className="lock-icon" />
-            <span>{draftedCourse.locked_group.map((group) => group.name).join()}</span>
+            <img height='18' src="../../images/lock.svg" className="lock-icon" />
+            <span className="green">{course.locked_groups.map((group) => group.name).join(", ")}</span>
         </div>
     } else {
         return <div className="preference">
-            <img height='16' src="../../images/unlock.svg" className="lock-icon" />
+            <img height='18' src="../../images/unlock.svg" className="lock-icon" />
             <span>Lock group preference</span>
         </div>;
     }
