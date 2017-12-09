@@ -4,18 +4,33 @@ import CheckBox from "../CheckBox/CheckBox";
 
 import 'client/components/DraftTable/draft-table.scss';
 
-function groupPreference(course) {
+function groupPreference(course, modalId) {
+    let rowContent;
+
     if (course.locked_groups) {
-        return <div className="preference">
-            <img height='18' src="../../images/lock.svg" className="lock-icon" />
-            <span className="green">{course.locked_groups.map((group) => group.name).join(", ")}</span>
-        </div>
+        rowContent =
+            <div>
+                <img height='18' src="../../images/lock.svg" className="lock-icon" />
+                <span className="green">{course.locked_groups.map((group) => group.name).join(", ")}</span>
+            </div>
     } else {
-        return <div className="preference">
-            <img height='18' src="../../images/unlock.svg" className="lock-icon" />
-            <span>Lock group preference</span>
-        </div>;
+        rowContent =
+            <div>
+                <img height='18' src="../../images/unlock.svg" className="lock-icon" />
+                <span>Lock group preference</span>
+            </div>
     }
+
+    return (
+        <div className="preference" onClick={function openModal(){ openGroupSelectModal(modalId) }}>
+            { rowContent }
+        </div>
+    )
+}
+
+function openGroupSelectModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.style.display = "block";
 }
 
 const DraftTable = (props) => {
@@ -37,7 +52,7 @@ const DraftTable = (props) => {
                     <td>{draftedCourse.course.name_eng}</td>
                     <td>{draftedCourse.course.credits} EAP</td>
                     <td>{draftedCourse.course.reg_persons_info}</td>
-                    <td>{groupPreference(draftedCourse)}</td>
+                    <td>{groupPreference(draftedCourse, props.modalId)}</td>
                 </tr>
             )}
             </tbody>

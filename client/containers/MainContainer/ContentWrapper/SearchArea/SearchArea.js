@@ -39,7 +39,7 @@ class SearchArea extends Component {
             selectedGroups: {}
         };
 
-        this.groupSelectionModalId = "group-selection-modal";
+        this.groupSelectionModalId = "group-selection-on-register-modal";
     }
 
     componentWillMount() {
@@ -218,7 +218,7 @@ class SearchArea extends Component {
         return (
             <div className="search-area">
 
-                <Modal child={this.groupSelectionModal()} id={this.groupSelectionModalId} heading="Hello there!" showX={true} />
+                <Modal child={this.groupSelectionModal()} id={this.groupSelectionModalId} heading="Choose group" showX />
 
                 <h2>Add courses</h2>
                 <hr />
