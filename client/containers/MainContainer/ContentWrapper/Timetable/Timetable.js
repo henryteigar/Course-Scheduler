@@ -20,66 +20,66 @@ class Timetable extends Component {
             weeks: [
                 {
                     nr: 24,
-                    startDate: new Date(2018, 2, 12)
+                    startDate: new Date(2018, 1, 12)
                 },
                 {
                     nr: 25,
-                    startDate: new Date(2018, 2, 19)
+                    startDate: new Date(2018, 1, 19)
                 },
                 {
                     nr: 26,
-                    startDate: new Date(2018, 2, 26)
+                    startDate: new Date(2018, 1, 26)
                 },
                 {
                     nr: 27,
-                    startDate: new Date(2018, 3, 5)
+                    startDate: new Date(2018, 2, 5)
                 },
                 {
                     nr: 28,
-                    startDate: new Date(2018, 3, 12)
+                    startDate: new Date(2018, 2, 12)
                 },
                 {
                     nr: 29,
-                    startDate: new Date(2018, 3, 19)
+                    startDate: new Date(2018, 2, 19)
                 },
                 {
                     nr: 30,
-                    startDate: new Date(2018, 3, 26)
+                    startDate: new Date(2018, 2, 26)
                 },
                 {
                     nr: 31,
-                    startDate: new Date(2018, 4, 2)
+                    startDate: new Date(2018, 3, 2)
                 },
                 {
                     nr: 32,
-                    startDate: new Date(2018, 4, 9)
+                    startDate: new Date(2018, 3, 9)
                 },
                 {
                     nr: 33,
-                    startDate: new Date(2018, 4, 16)
+                    startDate: new Date(2018, 3, 16)
                 },
                 {
                     nr: 34,
-                    startDate: new Date(2018, 4, 23)
+                    startDate: new Date(2018, 3, 23)
                 },
                 {
                     nr: 35,
-                    startDate: new Date(2018, 4, 30)
+                    startDate: new Date(2018, 3, 30)
                 }, {
                     nr: 36,
-                    startDate: new Date(2018, 5, 7)
+                    startDate: new Date(2018, 4, 7)
                 },
                 {
                     nr: 37,
-                    startDate: new Date(2018, 5, 14)
+                    startDate: new Date(2018, 4, 14)
                 },
                 {
                     nr: 38,
-                    startDate: new Date(2018, 5, 21)
+                    startDate: new Date(2018, 4, 21)
                 },
                 {
                     nr: 39,
-                    startDate: new Date(2018, 5, 28)
+                    startDate: new Date(2018, 4, 28)
                 }
             ],
             currentWeek: null

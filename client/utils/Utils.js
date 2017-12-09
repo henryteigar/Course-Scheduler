@@ -25,10 +25,9 @@ export function addDays(date, days) {
 }
 
 export function formatDate(date) {
-    let startDate = date;
-    let startDay = ('0' + startDate.getDate()).slice(-2);
-    let startMonth = ('0' + startDate.getMonth()).slice(-2);
-    return startDay + "." + startMonth;
+    let day = ('0' + date.getDate()).slice(-2);
+    let month = ('0' + (date.getMonth() + 1)).slice(-2);
+    return day + "." + month;
 }
 
 
