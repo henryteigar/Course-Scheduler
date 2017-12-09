@@ -17,7 +17,7 @@ class Timetable extends Component {
                 draftedCourses: CourseDraftStore.getAll(),
                 registeredCourses: RegisteredCoursesStore.getAll()
             },
-            autumnWeeks2018: [
+            weeks: [
                 {
                     nr: 1,
                     startDate: new Date(2018, 2, 12)
@@ -65,7 +65,7 @@ class Timetable extends Component {
                 {
                     nr: 12,
                     startDate: new Date(2018, 4, 30)
-                },{
+                }, {
                     nr: 13,
                     startDate: new Date(2018, 5, 7)
                 },
@@ -81,11 +81,14 @@ class Timetable extends Component {
                     nr: 16,
                     startDate: new Date(2018, 5, 28)
                 }
-            ]
+            ],
+            currentWeek: null
         };
     };
 
     componentWillMount() {
+        this.setState({currentWeek: this.state.weeks[0]})
+
         CourseDraftStore.on("change", () => {
             let courses = this.state.courses;
             courses.draftedCourses = CourseDraftStore.getAll();
@@ -98,12 +101,29 @@ class Timetable extends Component {
         })
     }
 
+    handleBack(e) {
+        let currentIndex = this.state.weeks.indexOf(this.state.currentWeek);
+        console.log(currentIndex);
+        if (currentIndex !== 0) {
+            this.setState({currentWeek: this.state.weeks[currentIndex - 1]})
+        }
+    }
+
+    handleForward(e) {
+        let currentIndex = this.state.weeks.indexOf(this.state.currentWeek);
+        if (currentIndex !== this.state.weeks.length - 1) {
+            this.setState({currentWeek: this.state.weeks[currentIndex + 1]})
+        }
+    }
+
     render() {
         return (
             <div className="timetable">
                 <div className="header">
                     <h2>Timetable</h2>
-                    <WeekSelector weeks={this.state.autumnWeeks2018}/>
+                    <WeekSelector currentWeek={this.state.currentWeek}
+                                  forwardHandler={this.handleForward.bind(this)}
+                                  backHandler={this.handleBack.bind(this)} />
                     <p className="warning">Conflicts on weeks: 3, 4, 5</p>
                 </div>
                 <hr />
