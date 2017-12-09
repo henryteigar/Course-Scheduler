@@ -19,66 +19,66 @@ class Timetable extends Component {
             },
             weeks: [
                 {
-                    nr: 1,
+                    nr: 24,
                     startDate: new Date(2018, 2, 12)
                 },
                 {
-                    nr: 2,
+                    nr: 25,
                     startDate: new Date(2018, 2, 19)
                 },
                 {
-                    nr: 3,
+                    nr: 26,
                     startDate: new Date(2018, 2, 26)
                 },
                 {
-                    nr: 4,
+                    nr: 27,
                     startDate: new Date(2018, 3, 5)
                 },
                 {
-                    nr: 5,
+                    nr: 28,
                     startDate: new Date(2018, 3, 12)
                 },
                 {
-                    nr: 6,
+                    nr: 29,
                     startDate: new Date(2018, 3, 19)
                 },
                 {
-                    nr: 7,
+                    nr: 30,
                     startDate: new Date(2018, 3, 26)
                 },
                 {
-                    nr: 8,
+                    nr: 31,
                     startDate: new Date(2018, 4, 2)
                 },
                 {
-                    nr: 9,
+                    nr: 32,
                     startDate: new Date(2018, 4, 9)
                 },
                 {
-                    nr: 10,
+                    nr: 33,
                     startDate: new Date(2018, 4, 16)
                 },
                 {
-                    nr: 11,
+                    nr: 34,
                     startDate: new Date(2018, 4, 23)
                 },
                 {
-                    nr: 12,
+                    nr: 35,
                     startDate: new Date(2018, 4, 30)
                 }, {
-                    nr: 13,
+                    nr: 36,
                     startDate: new Date(2018, 5, 7)
                 },
                 {
-                    nr: 14,
+                    nr: 37,
                     startDate: new Date(2018, 5, 14)
                 },
                 {
-                    nr: 15,
+                    nr: 38,
                     startDate: new Date(2018, 5, 21)
                 },
                 {
-                    nr: 16,
+                    nr: 39,
                     startDate: new Date(2018, 5, 28)
                 }
             ],
@@ -103,7 +103,6 @@ class Timetable extends Component {
 
     handleBack(e) {
         let currentIndex = this.state.weeks.indexOf(this.state.currentWeek);
-        console.log(currentIndex);
         if (currentIndex !== 0) {
             this.setState({currentWeek: this.state.weeks[currentIndex - 1]})
         }
@@ -121,14 +120,15 @@ class Timetable extends Component {
             <div className="timetable">
                 <div className="header">
                     <h2>Timetable</h2>
-                    <WeekSelector currentWeek={this.state.currentWeek}
+                    <WeekSelector weeks={this.state.weeks}
+                                  currentWeek={this.state.currentWeek}
                                   forwardHandler={this.handleForward.bind(this)}
                                   backHandler={this.handleBack.bind(this)} />
                     <p className="warning">Conflicts on weeks: 3, 4, 5</p>
                 </div>
                 <hr />
                 <TimetableTimeBar />
-                <Grid courses={this.state.courses} />
+                <Grid courses={this.state.courses} currentWeek={this.state.currentWeek}/>
                 <div className="register-btn">
                     <Button name="Register draft courses" class="green small disabled" />
                 </div>

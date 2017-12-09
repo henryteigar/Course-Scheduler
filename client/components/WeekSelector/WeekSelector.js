@@ -5,9 +5,6 @@ import './week-selector.scss'
 class WeekSelector extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            currentWeek: props.currentWeek
-        }
     }
 
     addDays(date, days) {

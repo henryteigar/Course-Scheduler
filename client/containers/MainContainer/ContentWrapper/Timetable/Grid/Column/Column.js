@@ -14,7 +14,10 @@ class Column extends Component {
     render() {
         return (
             <div className="column">
-                <label>{this.props.name}</label>
+                <label>
+                    {this.props.name}
+                    <span>12.02</span>
+                </label>
                 <div className="day-area">
                   {[...Array(11)].map((x, i) => <hr key={i}/>)}
                     {this.props.occurrences.map((occurrence, i) =>

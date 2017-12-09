@@ -78,7 +78,7 @@ class DraftArea extends Component {
             <div className="draft-area">
 
                 <Modal child={this.lockGroupModal()} id={this.groupLockModalId}
-                       heading="Lock group preference" showX />
+                       heading="Lock group" showX />
 
                 <h2>Courses in draft</h2>
                 <hr />
