@@ -35,53 +35,13 @@
         }
     }
 
-    .group-search-modal {
-        background-color: rgb(0, 0, 0);
-        background-color: rgba(0, 0, 0, 0.4);
-        display: none;
-        height: 100%;
-        left: 0;
-        overflow: auto;
-        padding-top: 200px;
-        position: fixed;
-        text-align: center;
-        top: 0;
-        width: 100%;
-        z-index: 100;
+    #group-selection-modal {
+        button.register {
+            margin-top: 15px;
+        }
 
-        .group-search-modal-content {
-            background-color: #FEFEFE;
-            border-radius: 2px;
-            display: inline-block;
-            padding: 15px;
-            position: relative;
-            text-align: left;
-            width: 250px;
-
-            & > h3 {
-                font-weight: 500;
-                margin-bottom: 25px;
-                margin-top: 10px;
-            }
-
-            & > span {
-                cursor: pointer;
-                display: block;
-                font-size: 20px;
-                margin: 0 auto;
-                padding: 0 4px;
-                position: absolute;
-                right: 20px;
-                top: 20px;
-            }
-
-            & > button {
-                margin-top: 15px;
-            }
-
-            .dropdown-select-box {
-                margin-bottom: 15px;
-            }
+        .dropdown-select-box {
+            margin-bottom: 15px;
         }
     }
 }

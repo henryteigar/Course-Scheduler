@@ -4,7 +4,7 @@ import CheckBox from "../CheckBox/CheckBox";
 
 import 'client/components/DraftTable/draft-table.scss';
 
-const groupPreference = (course) => {
+function groupPreference(course) {
     if (course.locked_groups) {
         return <div className="preference">
             <img height='18' src="../../images/lock.svg" className="lock-icon" />
