@@ -30,9 +30,16 @@ class SmartGroupSelector extends Component {
             return value.group.id + '#' + value.group.name;
         });
 
+        console.log('groups')
+        console.log(groups)
+
         const occurrences = _.map(groups, (group) => {
             return {
                 group: group[0].group,
+                regAttendants: group[0].registered_attendants,
+                maxAttendants: group[0].limit_of_attendants,
+                places: _.pluck(group, 'place'),
+                lecturers: _.pluck(group[0].lecturers, 'name'),
                 occurrences: this.parseTimeFromOccurrence(group)
             }
         });
@@ -64,8 +71,31 @@ class SmartGroupSelector extends Component {
 
         return (
             <div>
-                <label>Practicals: </label>
-                {practicals.map((p) => <span key={p.group.id}>{p.group.name}   </span>)}
+                <label>Lecture:</label>
+                <table>
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Group</th>
+                        <th>Time</th>
+                        <th>Place</th>
+                        <th>Reg. persons</th>
+                        <th>Lecturers</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {practicals.map((p) =>
+                        <tr key={p.group.id}>
+                            <td>CB</td>
+                            <td>{p.group.name}</td>
+                            <td>TIME</td>
+                            <td>{p.places.join(", ")}</td>
+                            <td>{p.regAttendants + "/" + p.maxAttendants}</td>
+                            <td>{p.lecturers.join(", ")}</td>
+                        </tr>)
+                    }
+                    </tbody>
+                </table>
             </div>
         )
     }
