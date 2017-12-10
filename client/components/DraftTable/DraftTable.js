@@ -40,14 +40,11 @@ class DraftTable extends Component {
     }
 
     openGroupSelectModal(draftedCourse) {
-        this.setChild(draftedCourse);
-        const modal = document.getElementById(this.groupLockModalId);
-        modal.style.display = "block";
-    }
-
-    setChild(draftedCourse) {
         const child = <SmartGroupSelector course={draftedCourse} />;
+        const modal = document.getElementById(this.groupLockModalId);
+
         this.setState({child});
+        modal.style.display = "block";
     }
 
     render() {

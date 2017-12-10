@@ -1,9 +1,17 @@
 import React, {Component} from 'react';
 import _ from 'underscore';
 
+import CheckBox from "client/components/CheckBox/CheckBox";
+import ScheduleBar from "client/components/ScheduleBar/ScheduleBar";
+
+import 'client/components/SmartGroupSelector/smart-group-selector.scss';
+
 class SmartGroupSelector extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        this.state = {
+            course: props.course
+        }
     }
 
     parseTimeFromOccurrence(occurrence) {
@@ -47,23 +55,6 @@ class SmartGroupSelector extends Component {
         return occurrences
     }
 
-    lecturesScheduleBar(lectureOccurrences) {
-        const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
-        if (!lectureOccurrences) return null;
-
-        return (
-            <div>
-                <label>Lecture:</label>
-                {days.map((day) =>
-                    _.pluck(lectureOccurrences, 'day').includes(_.indexOf(days, day) + 1)
-                        ? <span key={day} className="green day">{day}</span>
-                        : <span className="day" key={day}>{day}</span>)
-                }
-            </div>
-        )
-    }
-
     practicalsGroupsTable(practicals) {
         console.log(practicals);
 
@@ -71,7 +62,7 @@ class SmartGroupSelector extends Component {
 
         return (
             <div>
-                <label>Lecture:</label>
+                <label>Practice sessions:</label>
                 <table>
                     <thead>
                     <tr>
@@ -86,9 +77,9 @@ class SmartGroupSelector extends Component {
                     <tbody>
                     {practicals.map((p) =>
                         <tr key={p.group.id}>
-                            <td>CB</td>
+                            <td><CheckBox changeHandler={console.log} value={p.group.id} classes="small green"/></td>
                             <td>{p.group.name}</td>
-                            <td>TIME</td>
+                            <td><ScheduleBar occurrences={p.occurrences} class="narrow"/></td>
                             <td>{p.places.join(", ")}</td>
                             <td>{p.regAttendants + "/" + p.maxAttendants}</td>
                             <td>{p.lecturers.join(", ")}</td>
@@ -118,14 +109,18 @@ class SmartGroupSelector extends Component {
         // console.log(lectureOccurrences);
         // console.log(practicalOccurrences);
 
-        const lecturesScheduleBar = this.lecturesScheduleBar(lectureOccurrences);
         const practicalsGroupsTable = this.practicalsGroupsTable(practicalOccurrences);
 
-        return <div>{lecturesScheduleBar}{practicalsGroupsTable}</div>;
+        return (
+            <div>
+                <label>Lecture:</label><ScheduleBar occurrences={lectureOccurrences} class="wide"/>
+                {practicalsGroupsTable}
+            </div>
+        )
     }
 
     render() {
-        return <div>{this.makeChild(this.props.course)}</div>
+        return <div>{this.makeChild(this.state.course)}</div>
     }
 }
 
