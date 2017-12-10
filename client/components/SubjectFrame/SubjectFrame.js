@@ -23,7 +23,7 @@ const SubjectFrame = (props) => {
             <label className="name">{occurrence.name}</label>
 
             <div className="lower-info">
-                <label className="type">{occurrence.type === 'lecture' ? 'LECTURE' : 'PRACTICE'}</label>
+                <label className="type">{occurrence.type.toUpperCase()}</label>
                 <label className="additional-info">{occurrence.isDraft ? <b>DRAFT</b> : occurrence.place}</label>
             </div>
         </div>

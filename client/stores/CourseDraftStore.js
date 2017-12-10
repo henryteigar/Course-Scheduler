@@ -56,7 +56,39 @@ class CourseDraftStore extends EventEmitter {
             });
     };
 
+    hasGroupSystem(draftCourse) {
+        let hasGroups = false;
+        draftCourse.course.occurrences.forEach((occurrence) => {
+            if (occurrence.group !== null) {
+                hasGroups = true;
+            }
+        });
+        return hasGroups;
+    }
+
+    getRelevantOccurrences(draftCourse) {
+        let course = draftCourse.course;
+        let groupId = draftCourse.active_group.id;
+        let specificOccurrences = [];
+
+        course.occurrences.forEach((occurrence) => {
+            if (occurrence.group === null || occurrence.group.id === groupId) {
+                specificOccurrences.push(occurrence);
+            }
+        });
+
+        return specificOccurrences;
+    }
+
     getAll() {
+        this.draftedCourses.forEach((draftCourse) => {
+            let hasGroups = this.hasGroupSystem(draftCourse);
+            draftCourse.has_group_system = hasGroups;
+
+            if (hasGroups && draftCourse.active_group !== null) {
+                draftCourse.active_group.occurrences = this.getRelevantOccurrences(draftCourse)
+            }
+        });
         return this.draftedCourses;
     }
 }

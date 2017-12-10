@@ -97,7 +97,7 @@ class Timetable extends Component {
         RegisteredCoursesStore.on("change", () => {
             let courses = this.state.courses;
             courses.registeredCourses = RegisteredCoursesStore.getAll();
-            console.log(courses.registeredCourses)
+            console.log(courses.draftedCourses)
             this.setState({courses: courses})
         })
     }

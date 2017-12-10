@@ -59,6 +59,16 @@ class RegisteredCoursesStore extends EventEmitter {
             });
     };
 
+    hasGroupSystem(registeredCourse) {
+        let hasGroups = false;
+        registeredCourse.course.occurrences.forEach((occurrence) => {
+            if (occurrence.group !== null) {
+                hasGroups = true;
+            }
+        });
+        return hasGroups;
+    }
+
     getRelevantOccurrences(registeredCourse) {
         let course = registeredCourse.course;
         let groupId = registeredCourse.locked_group.id;
@@ -75,7 +85,12 @@ class RegisteredCoursesStore extends EventEmitter {
 
     getAll() {
         this.registeredCourses.forEach((registeredCourse) => {
-            registeredCourse.locked_group.occurrences = this.getRelevantOccurrences(registeredCourse)
+            let hasGroups = this.hasGroupSystem(registeredCourse);
+            registeredCourse.has_group_system = hasGroups;
+
+            if (hasGroups && registeredCourse.locked_group !== null) {
+                registeredCourse.locked_group.occurrences = this.getRelevantOccurrences(registeredCourse)
+            }
         });
 
         return this.registeredCourses;

@@ -27,9 +27,22 @@ class Grid extends Component {
             let relevantOccurrences = null;
 
             if (isDraft) {
-                relevantOccurrences = el.course.occurrences; // TODO
+                if (el.has_group_system) {
+                    if (el.active_group !== null) {
+                        relevantOccurrences = el.active_group.occurrences;
+                    } else {
+                        relevantOccurrences = [];
+                    }
+                } else {
+                    relevantOccurrences = el.course.occurrences;
+                }
+                console.log(relevantOccurrences)
             } else {
-                relevantOccurrences = el.locked_group.occurrences;
+                if (el.has_group_system && el.locked_group !== null) {
+                    relevantOccurrences = el.locked_group.occurrences;
+                } else {
+                    relevantOccurrences = el.course.occurrences;
+                }
             }
 
             relevantOccurrences.forEach((occurrence) => {
