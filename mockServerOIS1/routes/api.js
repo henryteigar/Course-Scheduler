@@ -39,7 +39,7 @@ router.get('/courses', (req, res) => {
     if (input_start === undefined) {
         input_start = 0;
     }
-    let input_end = req.query.end
+    let input_end = req.query.end;
     if (input_end !== undefined) {
         input_end -= input_start;
     }

@@ -36,10 +36,6 @@ module.exports = {
             query += " AND EXISTS (SELECT 1 FROM ois1.course_faculty cofa WHERE cofa.course_id = ois1.v_courses.id AND cofa.faculty_id = $" + (parameters.length + 1) + ")";
             parameters.push(input_faculty);
         }
-        else {
-            query += " AND EXISTS (SELECT 1 FROM ois1.course_faculty cofa WHERE cofa.course_id = ois1.v_courses.id AND cofa.faculty_id = (SELECT usr.curricula_id FROM ois1.users usr WHERE usr.id = $" + (parameters.length + 1) + "))";
-            parameters.push(user_id);
-        }
 
 
         if (input_institute !== undefined) {
