@@ -22,7 +22,7 @@ const CourseSearchTable = (props) => {
                 <tr key={course.id}>
                     {!props.disabledCoursesIds.includes(course.id) ?
                         <td>
-                            <CheckBox changeHandler={props.rememberChangeHandler} value={course} classes="blue small" />
+                            <CheckBox changeHandler={props.changeHandler} value={course} classes="blue small" />
                         </td> : <td />}
                     <td>{course.name_eng}</td>
                     <td>{course.credits} EAP</td>
