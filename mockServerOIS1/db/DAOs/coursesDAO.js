@@ -1,6 +1,6 @@
 module.exports = {
     getCourses: function (input_query, input_filter, input_lang, input_faculty, input_institute, input_year, input_semester,
-                          input_schedule, input_levelOfStudy, input_assessment, input_currentlyOpened, input_ids) {
+                          input_schedule, input_levelOfStudy, input_assessment, input_currentlyOpened, input_ids, input_start, input_end) {
         //SQLQuery and parameters
         let query = "SELECT * FROM ois1.v_courses WHERE 1=1";
         let parameters = [];
@@ -73,6 +73,15 @@ module.exports = {
                 parameters.push(listOfIds[i]);
             }
             query += " )";
+        }
+
+        if (input_start !== undefined) {
+            query += " OFFSET $" + (parameters.length + 1);
+            parameters.push(input_start);
+        }
+        if (input_end !== undefined) {
+            query += " LIMIT $" + (parameters.length + 1);
+            parameters.push(input_end);
         }
 
         return {
