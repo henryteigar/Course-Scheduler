@@ -18,7 +18,7 @@ module.exports = {
         if (input_filter !== undefined) {
 
             if (input_filter === "isiklik" || input_filter === "personal") {
-                query += "AND EXISTS (SELECT 1 FROM ois1.user_personal_courses upc where ois1.v_courses.id = upc.course_id AND upc.user_id = $" + (parameters.length + 1) +")";
+                query += " AND EXISTS (SELECT 1 FROM ois1.user_personal_courses upc where ois1.v_courses.id = upc.course_id AND upc.user_id = $" + (parameters.length + 1) +")";
                 parameters.push(user_id);
             }
             else {
