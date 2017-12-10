@@ -6,14 +6,14 @@ class SmartGroupSelector extends Component {
         super();
     }
 
-    parseOccurrences(occurrence) {
+    parseTimeFromOccurrence(occurrence) {
         const times = occurrence.map((occurrence) => occurrence.time);
 
-        const groups = _.groupBy(_.flatten(times), function(value) {
+        const groups = _.groupBy(_.flatten(times), (value) => {
             return value.day + '#' + value.start_time + '#' + value.end_time;
         });
 
-        const occurrences = _.map(groups, function(group) {
+        const occurrences = _.map(groups, (group) => {
             return {
                 day: group[0].day,
                 start_time: group[0].start_time,
@@ -25,56 +25,71 @@ class SmartGroupSelector extends Component {
         return occurrences;
     };
 
-    getDay(occurrence) { return occurrence.day; };
+    parseTimeFromPracticalOccurrences(occurences) {
+        const groups = _.groupBy(occurences, (value) => {
+            return value.group.id + '#' + value.group.name;
+        });
 
-    lecturesScheduleBar(lectures) {
+        const occurrences = _.map(groups, (group) => {
+            return {
+                group: group[0].group,
+                occurrences: this.parseTimeFromOccurrence(group)
+            }
+        });
+
+        return occurrences
+    }
+
+    lecturesScheduleBar(lectureOccurrences) {
         const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-        if (!lectures) return null;
+        if (!lectureOccurrences) return null;
 
         return (
             <div>
                 <label>Lecture:</label>
-                { days.map((day) =>
-                    lectures.map(this.getDay).includes(_.indexOf(days, day) + 1) ?
-                        <span key={day} className="green day">{day}</span>
-                        :
-                        <span className="day" key={day}>{day}</span>)
+                {days.map((day) =>
+                    _.pluck(lectureOccurrences, 'day').includes(_.indexOf(days, day) + 1)
+                        ? <span key={day} className="green day">{day}</span>
+                        : <span className="day" key={day}>{day}</span>)
                 }
             </div>
         )
     }
 
     practicalsGroupsTable(practicals) {
+        console.log(practicals);
+
         if (!practicals) return null;
 
         return (
             <div>
-                Practicals: {practicals.map(this.getDay)}
+                <label>Practicals: </label>
+                {practicals.map((p) => <span key={p.group.id}>{p.group.name}   </span>)}
             </div>
         )
     }
 
     makeChild(draftedCourse) {
-        let lectures, practicals;
+        let lectureOccurrences, practicalOccurrences;
 
         const occurrences = _.groupBy(draftedCourse.course.occurrences, 'type');
 
-        console.log(occurrences);
+        // console.log(occurrences)
 
         if (occurrences.lecture) {
-            const lectureTimes = occurrences.lecture;
-            lectures = this.parseOccurrences(lectureTimes);
-        } else if (occurrences.practice) {
-            const practiceTimes = occurrences.practice;
-            practicals = this.parseOccurrences(practiceTimes);
+            lectureOccurrences = this.parseTimeFromOccurrence(occurrences.lecture);
         }
 
-        console.log(lectures);
-        console.log(practicals);
+        if (occurrences.practice) {
+            practicalOccurrences = this.parseTimeFromPracticalOccurrences(occurrences.practice);
+        }
 
-        const lecturesScheduleBar = this.lecturesScheduleBar(lectures);
-        const practicalsGroupsTable = this.practicalsGroupsTable(practicals);
+        // console.log(lectureOccurrences);
+        // console.log(practicalOccurrences);
+
+        const lecturesScheduleBar = this.lecturesScheduleBar(lectureOccurrences);
+        const practicalsGroupsTable = this.practicalsGroupsTable(practicalOccurrences);
 
         return <div>{lecturesScheduleBar}{practicalsGroupsTable}</div>;
     }
