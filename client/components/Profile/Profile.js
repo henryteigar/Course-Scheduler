@@ -8,7 +8,7 @@ const Profile = (props) => {
     return (
         <div className="profile">
             <img onClick={props.clickHandler} className="profile-pic" src="../../images/user4.svg"/>
-            <DetailedProfileBox clickHandler={props.clickHandler} logoutHandler={props.logoutHandler} class={props.showDetailedBox ? "" : "hidden"}/>
+            <DetailedProfileBox user={props.user} clickHandler={props.clickHandler} logoutHandler={props.logoutHandler} class={props.showDetailedBox ? "" : "hidden"}/>
         </div>
     )
 };

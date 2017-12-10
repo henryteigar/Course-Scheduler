@@ -8,9 +8,6 @@ class Header extends Component {
     constructor () {
         super();
         this.state = {
-            name: "John Doe",
-            studentId: "B33043",
-            email: "john@doe.ut.ee",
             showDetailedBox: false
         }
     }
@@ -27,7 +24,7 @@ class Header extends Component {
         return (
             <header className="header">
                 <h1>Registration for courses</h1>
-                <Profile name={this.state.name} studentId={this.state.studentId} logoutHandler={this.logout.bind(this)} showDetailedBox={this.state.showDetailedBox} clickHandler={this.toggleDetailedBox.bind(this)}/>
+                <Profile user={this.props.user} logoutHandler={this.logout.bind(this)} showDetailedBox={this.state.showDetailedBox} clickHandler={this.toggleDetailedBox.bind(this)}/>
             </header>
         )
     }

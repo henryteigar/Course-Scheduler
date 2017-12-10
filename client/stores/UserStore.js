@@ -3,6 +3,8 @@ import {EventEmitter} from 'events';
 import axios from 'axios';
 import {LoginConstants} from "client/constants/LoginConstants";
 import {LoginAction} from 'client/actions/LoginAction'
+import { browserHistory } from 'react-router'
+
 
 class UserStore extends EventEmitter {
     constructor() {
@@ -28,17 +30,21 @@ class UserStore extends EventEmitter {
         if (this.jwt) {
             let conf = this.axoisConf;
             conf.headers['x-access-token'] = this.jwt;
-            console.log(conf)
-            console.log(this.jwt)
             axios.create(conf).get('user')
                 .then((response) => {
                     this.user = response.data[0];
                     this.emit("change");
                 })
                 .catch((error) => {
+                    this.user = null;
                     console.log(error);
+                    this.emit("change");
                 });
+        } else {
+            this.user = null;
+            this.emit("change");
         }
+
     }
 
     loginAttempt(credentials) {
@@ -67,6 +73,8 @@ class UserStore extends EventEmitter {
     }
 
     logout() {
+        this.user = null;
+        this.jwt = null;
         localStorage.removeItem('token');
     }
 
@@ -79,6 +87,9 @@ dispatcher.register((action) => {
             break;
         case LoginConstants.LOGOUT:
             userStore.logout();
+            break;
+        case LoginConstants.FETCH_USER:
+            userStore.fetchUser();
             break;
 
     }
