@@ -50,8 +50,13 @@ function makeChild(draftedCourse) {
         const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
         lectures =
             <div>
-                Lecture: { days.map((day) =>
-                    lectures.map(getDay).includes(_.indexOf(days, day)) ? <span key={day} className="green day">{day}</span> : <span className="day" key={day}>{day}</span>) }
+                <label>Lecture:</label>
+                { days.map((day) =>
+                    lectures.map(getDay).includes(_.indexOf(days, day)) ?
+                        <span key={day} className="green day">{day}</span>
+                        :
+                        <span className="day" key={day}>{day}</span>)
+                }
             </div>
     } else {
         lectures = <div>No lectures</div>
