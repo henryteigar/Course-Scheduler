@@ -51,6 +51,7 @@ class CourseDraftStore extends EventEmitter {
         this.axoisConf.headers['x-access-token'] = localStorage.getItem('token');
         axios.create(this.axoisConf).get('drafts')
             .then((response) => {
+                console.log(response.data)
                 this.draftedCourses = response.data;
                 this.emit("change");
             })
@@ -61,6 +62,9 @@ class CourseDraftStore extends EventEmitter {
 
     hasGroupSystem(draftCourse) {
         let hasGroups = false;
+        if (draftCourse.course.occurrences === null) {
+            return false;
+        }
         draftCourse.course.occurrences.forEach((occurrence) => {
             if (occurrence.group !== null) {
                 hasGroups = true;
@@ -96,13 +100,8 @@ class CourseDraftStore extends EventEmitter {
     }
 
     setLockedGroups(courseId, groupsIds) {
-        console.log(courseId)
-        console.log(groupsIds)
-
         let groups = groupsIds.map((groupId) => { return {id: groupId} });
-
-        console.log(groups)
-
+        this.axoisConf.headers['x-access-token'] = localStorage.getItem('token');
         axios.create(this.axoisConf).put('drafts/', {course_id: courseId, locked_groups: groups, active_group_id: null})
             .then(() => {
                 this.fetchDraftedCourses();
