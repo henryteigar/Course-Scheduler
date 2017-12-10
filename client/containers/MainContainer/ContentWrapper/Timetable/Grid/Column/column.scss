@@ -5,10 +5,18 @@
     position: relative;
     width: 20%;
 
-    label {
+    &>label {
+        margin-top: -6px;
         display: block;
-        height: 30px;
+        height: 40px;
         text-align: center;
+
+        span {
+            display: block;
+            margin-top:3px;
+            font-weight: 400;
+            color: $blue-primary;
+        }
     }
 
     .day-area {

@@ -1,40 +1,87 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-import CheckBox from "../CheckBox/CheckBox";
-import DropdownSelectBox from 'client/components/DropdownSelectBox/DropdownSelectBox';
+import CheckBox from "client/components/CheckBox/CheckBox";
+import Modal from 'client/components/Modal/Modal';
+import SmartGroupSelector from 'client/components/SmartGroupSelector/SmartGroupSelector';
 
-const DraftTable = (props) => {
-    return (
-        <table>
-            <thead>
-            <tr>
-                <th />
-                <th>Course name</th>
-                <th>Credits</th>
-                <th>Reg. persons</th>
-                <th>Preferences</th>
-            </tr>
-            </thead>
-            <tbody>
-            {props.courses.map((draftedCourse) =>
-                <tr key={draftedCourse.course.id}>
-                    <td><CheckBox changeHandler={props.changeHandler} value={draftedCourse} classes="blue small" /></td>
-                    <td>{draftedCourse.course.name_eng}</td>
-                    <td>{draftedCourse.course.credits} EAP</td>
-                    <td>{draftedCourse.course.reg_persons_info}</td>
-                    <td><DropdownSelectBox key={draftedCourse.course.id} id={draftedCourse.course.id}
-                                           className="full-width"
-                                           values={draftedCourse.course.occurrences
-                                               .filter((el) => el.type == "practice")
-                                               .map((el) => { return { id: el.group.id, label_eng: el.group.name }})}
-                                           clickHandler={console.log} /></td>
-                    <td>{draftedCourse.active_group ? draftedCourse.active_group.name : null}</td>
-                    <td>{draftedCourse.active_group ? draftedCourse.active_lecturer.name : null}</td>
-                </tr>
-            )}
-            </tbody>
-        </table>
-    )
+import 'client/components/DraftTable/draft-table.scss';
+
+class DraftTable extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            child: null,
+        };
+        this.groupLockModalId = "lock-group-preference-modal";
+    }
+
+    groupPreference(draftedCourse) {
+        let rowContent;
+
+        if (draftedCourse.locked_groups) {
+            rowContent =
+                <div>
+                    <img height='18' src="../../images/lock.svg" className="lock-icon" />
+                    <span className="green">{draftedCourse.locked_groups.map((group) => group.name).join(", ")}</span>
+                </div>
+        } else {
+            rowContent =
+                <div>
+                    <img height='18' src="../../images/unlock.svg" className="lock-icon" />
+                    <span>Lock group</span>
+                </div>
+        }
+
+        return (
+            <div className="preference" onClick={() => this.openGroupSelectModal(draftedCourse)}>
+                { rowContent }
+            </div>
+        )
+    }
+
+    openGroupSelectModal(draftedCourse) {
+        this.setChild(draftedCourse);
+        const modal = document.getElementById(this.groupLockModalId);
+        modal.style.display = "block";
+    }
+
+    setChild(draftedCourse) {
+        const child = <SmartGroupSelector course={draftedCourse} />;
+        this.setState({child});
+    }
+
+    render () {
+        return (
+            <div>
+                <Modal child={this.state.child} id={this.groupLockModalId}
+                       heading="Lock group preference" showX />
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th />
+                        <th>Course name</th>
+                        <th>Credits</th>
+                        <th>Reg. persons</th>
+                        <th>Preferences</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {this.props.courses.map((draftedCourse) =>
+                        <tr key={draftedCourse.course.id}>
+                            <td><CheckBox changeHandler={this.props.changeHandler} value={draftedCourse}
+                                          classes="blue small" /></td>
+                            <td>{draftedCourse.course.name_eng}</td>
+                            <td>{draftedCourse.course.credits} EAP</td>
+                            <td>{draftedCourse.course.reg_persons_info}</td>
+                            <td>{this.groupPreference(draftedCourse)}</td>
+                        </tr>
+                    )}
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
 };
 
 export default DraftTable;

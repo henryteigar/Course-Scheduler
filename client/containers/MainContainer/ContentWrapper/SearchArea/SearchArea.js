@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 
 import CourseSearchTable from "client/components/CourseSearchTable/CourseSearchTable";
-import SearchBox from '../../../../components/SearchBox/SearchBox';
+import SearchBox from 'client/components/SearchBox/SearchBox';
 import Button from "client/components/Button/Button";
-import Tabs from "../../../../components/Tabs/Tabs";
+import Tabs from "client/components/Tabs/Tabs";
+import Modal from "client/components/Modal/Modal";
 import DetailedSearchArea from "client/containers/MainContainer/ContentWrapper/SearchArea/DetailedSearchArea/DetailedSearchArea"
-import DropdownSelectBox from "../../../../components/DropdownSelectBox/DropdownSelectBox";
+import DropdownSelectBox from "client/components/DropdownSelectBox/DropdownSelectBox";
 
 import * as CourseSearchAction from 'client/actions/CourseSearchAction';
 import * as CourseDraftAction from 'client/actions/CourseDraftAction';
@@ -20,7 +21,6 @@ class SearchArea extends Component {
 
     constructor(props) {
         super(props);
-        this.addEventListenerToWindow();
 
         this.state = {
             draftedCourses: CourseDraftStore.getAll(),
@@ -38,6 +38,8 @@ class SearchArea extends Component {
             selectedCourses: [],
             selectedGroups: {}
         };
+
+        this.groupSelectionModalId = "group-selection-on-register-modal";
     }
 
     componentWillMount() {
@@ -59,7 +61,8 @@ class SearchArea extends Component {
     }
 
     getSearchResultArea() {
-        let searchResultArea = null;
+        let searchResultArea;
+
         if (this.state.courses.length > 0) {
             searchResultArea =
                 <div className="search-result">
@@ -76,6 +79,7 @@ class SearchArea extends Component {
                     </div>
                 </div>
         }
+
         return searchResultArea;
     }
 
@@ -122,7 +126,7 @@ class SearchArea extends Component {
     }
 
     addToDraft() {
-        let courses = this.state.selectedCourses.map((course) => {
+        const courses = this.state.selectedCourses.map((course) => {
             return {'course': course}
         });
 
@@ -133,8 +137,8 @@ class SearchArea extends Component {
     }
 
     isDataValidForRegistering() {
-        let selectedCoursesIds = this.state.selectedCourses.map((selectedCourse) => selectedCourse.id);
-        let courseIdsFromSelectedGroups = Object.keys(this.state.selectedGroups).map((el) => parseInt(el));
+        const selectedCoursesIds = this.state.selectedCourses.map((selectedCourse) => selectedCourse.id);
+        const courseIdsFromSelectedGroups = Object.keys(this.state.selectedGroups).map((el) => parseInt(el));
 
         return selectedCoursesIds.every((id) => courseIdsFromSelectedGroups.includes(id))
     }
@@ -175,59 +179,50 @@ class SearchArea extends Component {
     }
 
     closeGroupSelectModal() {
-        let modal = document.getElementById('group-search-modal');
+        const modal = document.getElementById(this.groupSelectionModalId);
         modal.style.display = "none";
     }
 
     openGroupSelectModal() {
         if (this.state.selectedCourses.length > 0) {
-            let modal = document.getElementById('group-search-modal');
+            const modal = document.getElementById(this.groupSelectionModalId);
             modal.style.display = "block";
         }
-    }
-
-    addEventListenerToWindow() {
-        window.addEventListener('click', (e) => {
-            let modal = document.getElementById('group-search-modal');
-
-            if (e.target === modal) {
-                modal.style.display = "none";
-            }
-        });
     }
 
     getPracticeGroupsFromCourse(course) {
         return course.occurrences
             .filter((course) => course.type === "practice")
             .map((occurrence) => {
-                return {
-                    id: occurrence.group.id,
-                    label_eng: occurrence.group.name
+                if (occurrence.group) {
+                    return {
+                        id: occurrence.group.id,
+                        label_eng: occurrence.group.name
+                    }
+                } else {
+                    return;
                 }
             });
+    }
+
+    groupSelectionModal() {
+        return <div>
+            {this.state.selectedCourses.map((selectedCourse) =>
+                <DropdownSelectBox key={selectedCourse.id} id={selectedCourse.id}
+                                   label={selectedCourse.name_eng} className="full-width"
+                                   values={this.getPracticeGroupsFromCourse(selectedCourse)}
+                                   clickHandler={this.setCourseGroup.bind(this)} />)}
+
+            <Button class="big green register" name="Register"
+                    clickHandler={this.addToRegisteredCourses.bind(this)} />
+        </div>;
     }
 
     render() {
         return (
             <div className="search-area">
 
-                <div id="group-search-modal" className="group-search-modal">
-                    <div className="group-search-modal-content">
-                        <h3>Choose group</h3>
-                        <span onClick={this.closeGroupSelectModal} className="close">&times;</span>
-                        {
-                            this.state.selectedCourses.map((selectedCourse) =>
-                                <DropdownSelectBox key={selectedCourse.id} id={selectedCourse.id}
-                                                   label={selectedCourse.name_eng} className="full-width"
-                                                   values={this.getPracticeGroupsFromCourse(selectedCourse)}
-                                                   clickHandler={this.setCourseGroup.bind(this)} />
-                            )
-                        }
-
-                        <Button class="big green" name="Register"
-                                clickHandler={this.addToRegisteredCourses.bind(this)} />
-                    </div>
-                </div>
+                <Modal child={this.groupSelectionModal()} id={this.groupSelectionModalId} heading="Choose group" showX />
 
                 <h2>Add courses</h2>
                 <hr />

@@ -17,3 +17,17 @@ export function getDropdownSelectBoxClassNameByFilter(filter) {
         return "small"
     }
 }
+
+export function addDays(date, days) {
+    let result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+}
+
+export function formatDate(date) {
+    let day = ('0' + date.getDate()).slice(-2);
+    let month = ('0' + (date.getMonth() + 1)).slice(-2);
+    return day + "." + month;
+}
+
+

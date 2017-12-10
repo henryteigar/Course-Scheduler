@@ -9,7 +9,7 @@ class MainContainer extends Component {
 
     render() {
         return (
-            <div className="mainContainer">
+            <div className="main-container">
                 <Header/>
                 <ContentWrapper />
             </div>

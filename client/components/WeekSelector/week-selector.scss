@@ -1,0 +1,54 @@
+@import "../../css/variables";
+
+.week-selector {
+
+    p {
+        color: $blue-primary;
+        font-weight: 400;
+        text-align: center;
+
+        span {
+            padding: 5px 5px 5px 5px;
+            position: relative;
+            top: -2px;
+
+            &.hidden {
+                img.arrow {
+                    opacity: 0;
+                }
+            }
+
+            &:first-child {
+                margin-right: -3px;
+            }
+
+            &:last-child {
+                margin-left: -3px;
+            }
+
+            img.arrow {
+                display: inline-block;
+                height: 15px;
+                position: relative;
+                vertical-align: middle;
+                width: 15px;
+            }
+
+            &:hover {
+                cursor: pointer;
+
+                &:first-child {
+                    img.arrow {
+                        content: url("../../images/angle-left-hover.svg");
+                    }
+                }
+
+                &:last-child {
+                    img.arrow {
+                        content: url("../../images/angle-right-hover.svg");
+                    }
+                }
+            }
+        }
+    }
+}

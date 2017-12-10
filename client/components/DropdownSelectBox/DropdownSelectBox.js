@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
-import './dropdown-select-box.scss'
-import Ionicon from 'react-ionicons'
+import './dropdown-select-box.scss';
+import Ionicon from 'react-ionicons';
 
 class DropdownSelectBox extends Component {
     constructor(props) {
@@ -56,6 +56,18 @@ class DropdownSelectBox extends Component {
     }
 
     render() {
+        let values = this.state.values;
+        let ids = [];
+
+        values = values.filter((value) => {
+            if (!ids.includes(value.id)) {
+                ids.push(value.id);
+                return true;
+            } else {
+                return false;
+            }
+        });
+
         return (
             <div className={"dropdown-select-box " + this.props.className} ref={this.setWrapperRef}>
                 {this.props.label ? <label>{this.props.label}</label> : null}
@@ -67,7 +79,7 @@ class DropdownSelectBox extends Component {
                     </div>
                 </button>
                 <ul className={this.state.isCollapsed ? "collapsed" : ""}>
-                    {this.state.values.filter(el => this.state.selectedEl !== null || el.id !== 0).map((el) =>
+                    {values.filter(el => this.state.selectedEl !== null || el.id !== 0).map((el) =>
                         <li className={el === this.state.selectedEl ? "selected" : ""} onClick={(e) => this.onItemClickHandler(el)} key={el.id}>{el.label_eng}</li>
                     )}
                 </ul>

@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 
-import DraftTable from "../../../../components/DraftTable/DraftTable";
-import Button from "../../../../components/Button/Button";
+import DraftTable from "client/components/DraftTable/DraftTable";
+import Button from "client/components/Button/Button";
 
 import * as CourseDraftAction from 'client/actions/CourseDraftAction';
 import CourseDraftStore from 'client/stores/CourseDraftStore';
-
+import RegisteredCoursesStore from 'client/stores/RegisteredCoursesStore';
+import _ from 'underscore';
 import 'client/containers/MainContainer/ContentWrapper/DraftArea/draft-area.scss';
 
 class DraftArea extends Component {
@@ -14,17 +15,25 @@ class DraftArea extends Component {
         super(props);
         CourseDraftAction.fetchDraftedCourses();
         this.state = {
-            courses: [],
+            courses: {
+                draftedCourses: [],
+                registeredCourses: []
+            },
             selectedCourses: []
         }
     }
 
     componentWillMount() {
         CourseDraftStore.on("change", () => {
-            this.setState({
-                courses: CourseDraftStore.getAll(),
-            })
+            let courses = this.state.courses;
+            courses.draftedCourses = CourseDraftStore.getAll();
+            this.setState({courses: courses})
         });
+        RegisteredCoursesStore.on("change", () => {
+            let courses = this.state.courses;
+            courses.registeredCourses = RegisteredCoursesStore.getAll();
+            this.setState({courses: courses})
+        })
     }
 
     toggleCourse(course) {
@@ -40,25 +49,42 @@ class DraftArea extends Component {
 
     removeFromDraft() {
         CourseDraftAction.removeFromDraft(this.state.selectedCourses);
-        this.setState({selectedCourses: []});
-        this.setState({courses: CourseDraftStore.getAll()});
+        this.setState({
+            selectedCourses: [],
+            courses: CourseDraftStore.getAll()
+        });
+    }
+
+    putAutomaticallyToTimetable() {
+        let registered_occurrences = _.flatten(this.state.courses.registeredCourses.map((registeredCourse) => {
+            return registeredCourse.course.occurrences.filter((occurrence) => {
+                return registeredCourse.locked_group === null || occurrence.group === null || occurrence.group.id === registeredCourse.locked_group.id
+            }).map((occurrence) => {
+                return occurrence.time;
+            })
+        }));
+
+
+        console.log(registered_occurrences)
     }
 
     getResultArea() {
-        let searchResultArea = null;
-        if (this.state.courses.length > 0) {
+        let searchResultArea;
+
+        if (this.state.courses.draftedCourses.length > 0) {
             searchResultArea =
                 <div>
-                    <DraftTable courses={this.state.courses} changeHandler={this.toggleCourse.bind(this)} />
+                    <DraftTable courses={this.state.courses.draftedCourses} changeHandler={this.toggleCourse.bind(this)} />
                     <div className="button-area">
                         <Button class="small red" name="Remove from draft"
                                 clickHandler={this.removeFromDraft.bind(this)} />
                     </div>
                     <div className="button-area">
-                        <Button class="small blue disabled" name="Put courses to timetable" />
+                        <Button class="small blue" name="Put automatically to timetable" clickHandler={this.putAutomaticallyToTimetable.bind(this)}/>
                     </div>
                 </div>
         }
+
         return searchResultArea;
     }
 

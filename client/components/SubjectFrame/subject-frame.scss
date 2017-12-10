@@ -4,7 +4,7 @@
     background: $blue-primary;
     border-left: 3px solid $blue-font-dark;
     position: absolute;
-
+    overflow: hidden;
     width: calc(100% - 3px);
     z-index: 1;
 

@@ -1,0 +1,36 @@
+@import "../../css/variables";
+
+.preference {
+    position: relative;
+
+    .lock-icon {
+        position: absolute;
+        vertical-align: middle;
+    }
+
+    span {
+        margin-left: 20px;
+
+        &.green {
+            color: $green-primary;
+            font-weight: 500;
+        }
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+#lock-group-preference-modal{
+    label {
+        margin-right: 10px;
+    }
+    span.day {
+        margin: 7px;
+
+        &.green {
+            color: $green-primary;
+        }
+    }
+}

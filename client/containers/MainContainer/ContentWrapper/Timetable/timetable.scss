@@ -7,6 +7,27 @@
     float: left;
     width: 100%;
 
+    .header {
+        height: 40px;
+
+        h2 {
+            line-height: 40px;
+            float: left;
+            width: 32%;
+        }
+
+        p {
+            line-height: 40px;
+            display: inline-block;
+            float: left;
+            width: 32%;
+
+            &.warning {
+                text-align: right;
+            }
+        }
+    }
+
     .register-btn {
         width: 200px;
         float: right;
