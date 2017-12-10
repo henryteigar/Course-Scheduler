@@ -3,6 +3,7 @@ import _ from 'underscore';
 
 import CheckBox from "client/components/CheckBox/CheckBox";
 import ScheduleBar from "client/components/ScheduleBar/ScheduleBar";
+import Button from 'client/components/Button/Button';
 
 import 'client/components/SmartGroupSelector/smart-group-selector.scss';
 
@@ -77,9 +78,9 @@ class SmartGroupSelector extends Component {
                     <tbody>
                     {practicals.map((p) =>
                         <tr key={p.group.id}>
-                            <td><CheckBox changeHandler={console.log} value={p.group.id} classes="small green"/></td>
+                            <td><CheckBox changeHandler={console.log} value={p.group.id} classes="small green" /></td>
                             <td>{p.group.name}</td>
-                            <td><ScheduleBar occurrences={p.occurrences} class="narrow"/></td>
+                            <td><ScheduleBar occurrences={p.occurrences} class="narrow" /></td>
                             <td>{p.places.join(", ")}</td>
                             <td>{p.regAttendants + "/" + p.maxAttendants}</td>
                             <td>{p.lecturers.join(", ")}</td>
@@ -113,8 +114,11 @@ class SmartGroupSelector extends Component {
 
         return (
             <div>
-                <label>Lecture:</label><ScheduleBar occurrences={lectureOccurrences} class="wide"/>
+                <label>Lecture:</label><ScheduleBar occurrences={lectureOccurrences} class="wide" />
                 {practicalsGroupsTable}
+                <div className="lock-group-button">
+                    <Button clickHandler={console.log} class="green big" name="Lock groups"/>
+                </div>
             </div>
         )
     }
