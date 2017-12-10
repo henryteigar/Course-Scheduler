@@ -88,6 +88,10 @@ table {
             white-space: nowrap;
             max-width: 200px;
             overflow: hidden;
+
+            &:last-child {
+                padding-right: 10px;
+            }
         }
 
         &:nth-child(odd) {

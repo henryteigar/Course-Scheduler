@@ -21,16 +21,3 @@
         cursor: pointer;
     }
 }
-
-#lock-group-preference-modal{
-    label {
-        margin-right: 10px;
-    }
-    span.day {
-        margin: 7px;
-
-        &.green {
-            color: $green-primary;
-        }
-    }
-}
