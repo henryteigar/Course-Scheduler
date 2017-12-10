@@ -21,3 +21,13 @@
         cursor: pointer;
     }
 }
+
+#lock-group-preference-modal{
+      span.day {
+          margin: 5px;
+
+          &.green {
+              color: $green-primary;
+          }
+      }
+  }
