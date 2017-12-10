@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 //const chai = require('chai');
-//const request = require('request');
+const request = require('request');
 const supertest = require("supertest");
 //const expect = chai.expect();
 //const express = require('express');
@@ -38,16 +38,12 @@ describe("Test 2. -> Testing drafts API endpoint",function(){
 
 });
 
+
 describe("Test 3. -> Testing drafts API endpoint by adding and removing courses",function(){
 
     let length = -1;
     let contains = false;
 
-    /*let options = {
-        json: true,
-        url: 'http://course-scheduler.me:3000/api/drafts/8'
-    };
-*/
     server.get("/api/drafts")
         .end(function(err,res){
             let body = res.body;
@@ -61,36 +57,21 @@ describe("Test 3. -> Testing drafts API endpoint by adding and removing courses"
 
     if (!contains) {
         it("Adding courses to draft and comparing response sizes.", function (done) {
-            /* TODO: add post request
-            request.post(options, function (err, response) {
-                if (err) {
-                    res.status(500).send();
-                } else {
-                    res.status(response.statusCode).send()
-                }
-            });
-             */
+            request.post("http://course-scheduler.me:3000/api/drafts/26");
 
-            server
-                .get("/api/drafts")
-                .expect("Content-type", /json/)
-                .expect(200)
-                .end(function (err, res) {
-                    assert.equal(Object.keys(res.body).length, (length));
-                    done();
-                });
+            setTimeout(() =>
+                server
+                    .get("/api/drafts")
+                    .expect("Content-type", /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        assert.equal(Object.keys(res.body).length, (length+1));
+                        done();
+                    }), 500);
         });
 
         it("Removing courses from draft and comparing response sizes.", function (done) {
-            /* TODO: add delete request
-            request.delete(options, function (err, response) {
-                if (err) {
-                    res.status(500).send();
-                } else {
-                    res.status(response.statusCode).send()
-                }
-            });
-             */
+            request.delete("http://course-scheduler.me:3000/api/drafts/26");
 
             server
                 .get("/api/drafts")
@@ -104,36 +85,21 @@ describe("Test 3. -> Testing drafts API endpoint by adding and removing courses"
     }
     else {
         it("Removing courses from draft and comparing response sizes.", function (done) {
-            /* TODO: add delete request
-            request.delete(options, function (err, response) {
-                if (err) {
-                    res.status(500).send();
-                } else {
-                    res.status(response.statusCode).send()
-                }
-            });
-             */
+            request.delete("http://course-scheduler.me:3000/api/drafts/26");
 
             server
                 .get("/api/drafts")
                 .expect("Content-type", /json/)
                 .expect(200)
                 .end(function (err, res) {
-                    assert.equal(Object.keys(res.body).length, (length));
+                    assert.equal(Object.keys(res.body).length, (length-1));
                     done();
                 });
         });
 
         it("Adding courses to draft and comparing response sizes.", function (done) {
-            /* TODO: add post request
-            request.post(options, function (err, response) {
-                if (err) {
-                    res.status(500).send();
-                } else {
-                    res.status(response.statusCode).send()
-                }
-            });
-             */
+            request.post("http://course-scheduler.me:3000/api/drafts/26");
+
             server
                 .get("/api/drafts")
                 .expect("Content-type", /json/)
@@ -161,6 +127,7 @@ describe("Test 4. -> Testing registered-courses API endpoint",function(){
     });
 });
 
+/*
 describe("Test 5. -> Testing registered-courses API endpoint by adding and removing courses",function(){
 
     let length = -1;
@@ -177,40 +144,37 @@ describe("Test 5. -> Testing registered-courses API endpoint by adding and remov
             length = Object.keys(res.body).length;
         });
 
-    if (contains) {
+    let options = {
+        body: {
+            course_id: 26,
+            group_id: 11
+        },
+        json: true,
+        url: "http://course-scheduler.me:3000/api/registered-courses"
+    };
+
+    if (!contains) {
         it("Adding courses to draft and comparing response sizes.", function (done) {
-            /* TODO: add post request
-            request.post(options, function (err, response) {
-                if (err) {
-                    res.status(500).send();
-                } else {
-                    res.status(response.statusCode).send()
-                }
-            });
-             */
+
+            request.post(options);
 
             server
                 .get("/api/registered-courses")
                 .expect("Content-type", /json/)
                 .expect(200)
                 .end(function (err, res) {
-                    assert.equal(Object.keys(res.body).length, (length));
+                    console.log("pikkus: " + length);
+                    assert.equal(Object.keys(res.body).length, (length+1));
                     done();
                 });
         });
 
         it("Removing courses from draft and comparing response sizes.", function (done) {
-            /* TODO: add delete request
-            request.delete(options, function (err, response) {
-                if (err) {
-                    res.status(500).send();
-                } else {
-                    res.status(response.statusCode).send()
-                }
-            });
-             */
+
+            request.delete("http://course-scheduler.me:3000/api/registered-courses/26");
 
             server
+
                 .get("/api/registered-courses")
                 .expect("Content-type", /json/)
                 .expect(200)
@@ -222,36 +186,23 @@ describe("Test 5. -> Testing registered-courses API endpoint by adding and remov
     }
     else {
         it("Removing courses from draft and comparing response sizes.", function (done) {
-            /* TODO: add delete request
-            request.delete(options, function (err, response) {
-                if (err) {
-                    res.status(500).send();
-                } else {
-                    res.status(response.statusCode).send()
-                }
-            });
-             */
+
+            request.delete("http://course-scheduler.me:3000/api/registered-courses/26");
 
             server
                 .get("/api/registered-courses")
                 .expect("Content-type", /json/)
                 .expect(200)
                 .end(function (err, res) {
-                    assert.equal(Object.keys(res.body).length, (length));
+                    assert.equal(Object.keys(res.body).length, (length-1));
                     done();
                 });
         });
 
         it("Adding courses to draft and comparing response sizes.", function (done) {
-            /* TODO: add post request
-            request.post(options, function (err, response) {
-                if (err) {
-                    res.status(500).send();
-                } else {
-                    res.status(response.statusCode).send()
-                }
-            });
-             */
+
+            request.post(options);
+
             server
                 .get("/api/registered-courses")
                 .expect("Content-type", /json/)
@@ -264,7 +215,7 @@ describe("Test 5. -> Testing registered-courses API endpoint by adding and remov
     }
 
 });
-
+*/
 
 describe("Test 6. -> Testing user API endpoint",function(){
     it("Should get response from /user",function(done){
@@ -278,3 +229,4 @@ describe("Test 6. -> Testing user API endpoint",function(){
             });
     });
 });
+
