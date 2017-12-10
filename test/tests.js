@@ -1,4 +1,4 @@
-const assert = require('assert');
+const assert = require('chai').assert;
 //const chai = require('chai');
 //const request = require('request');
 const supertest = require("supertest");
@@ -7,6 +7,8 @@ const supertest = require("supertest");
 //const router = express.Router();
 
 const server = supertest.agent("course-scheduler.me:3000");
+
+
 
 describe("Test 1. -> Testing courses API endpoint",function(){
     it("Should get response from /courses",function(done){
@@ -36,62 +38,120 @@ describe("Test 2. -> Testing drafts API endpoint",function(){
 
 });
 
-/*
-describe('Test 3. -> Testing drafts API endpoint', function() {
-    it('Adding and removing courses from draft and comparing response sizes.', function(done) {
+describe("Test 3. -> Testing drafts API endpoint by adding and removing courses",function(){
 
-        let length = -1;
-        let contains = false;
-        request.get("http://course-scheduler.me:3000/api/drafts");
+    let length = -1;
+    let contains = false;
 
+    /*let options = {
+        json: true,
+        url: 'http://course-scheduler.me:3000/api/drafts/8'
+    };
+*/
+    server.get("/api/drafts")
+        .end(function(err,res){
+            let body = res.body;
+            for (i = 0; i<body.length; i++){
+                if (body[i].course.name_est == 'Programmeerimise alused') {
+                    contains = true;
+                }
+            }
+            length = Object.keys(res.body).length;
+        });
 
-        server.get("/api/drafts")
-            .end(function(err,res){
-                let body = res.body;
-                contains = (body.toString()).indexOf("Java Harjutused") !== -1;
-                length = Object.keys(res.body).length;
-                //done();
+    if (!contains) {
+        it("Adding courses to draft and comparing response sizes.", function (done) {
+            /* TODO: add post request
+            request.post(options, function (err, response) {
+                if (err) {
+                    res.status(500).send();
+                } else {
+                    res.status(response.statusCode).send()
+                }
             });
+             */
 
-        if (length === 0 || !contains){
-            request.post('http://course-scheduler.me:3000/api/drafts/8');
             server
                 .get("/api/drafts")
                 .expect("Content-type", /json/)
                 .expect(200)
                 .end(function (err, res) {
-                    assert.equal(res.status, 200);
-                    //assert.equal(Object.keys(res.body).length, (length + 1));
-                    request.delete('http://course-scheduler.me:3000/api/drafts/8');
+                    assert.equal(Object.keys(res.body).length, (length));
                     done();
                 });
-
-        }
-        /*
-        else if (contains){
-            request.delete('http://course-scheduler.me:3000/api/drafts/8');
-            server
-                .get("/api/drafts")
-                .expect("Content-type",/json/)
-                .expect(200)
-                .end(function(err,res){
-                    assert.equal(res.status, 200);
-                    //assert.equal(Object.keys(res.body).length, (length - 1));
-                    request.post('http://course-scheduler.me:3000/api/drafts/8');
-                    done();
-                });
-        }
         });
 
+        it("Removing courses from draft and comparing response sizes.", function (done) {
+            /* TODO: add delete request
+            request.delete(options, function (err, response) {
+                if (err) {
+                    res.status(500).send();
+                } else {
+                    res.status(response.statusCode).send()
+                }
+            });
+             */
+
+            server
+                .get("/api/drafts")
+                .expect("Content-type", /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    assert.equal(Object.keys(res.body).length, length);
+                    done();
+                });
+        });
+    }
+    else {
+        it("Removing courses from draft and comparing response sizes.", function (done) {
+            /* TODO: add delete request
+            request.delete(options, function (err, response) {
+                if (err) {
+                    res.status(500).send();
+                } else {
+                    res.status(response.statusCode).send()
+                }
+            });
+             */
+
+            server
+                .get("/api/drafts")
+                .expect("Content-type", /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    assert.equal(Object.keys(res.body).length, (length));
+                    done();
+                });
+        });
+
+        it("Adding courses to draft and comparing response sizes.", function (done) {
+            /* TODO: add post request
+            request.post(options, function (err, response) {
+                if (err) {
+                    res.status(500).send();
+                } else {
+                    res.status(response.statusCode).send()
+                }
+            });
+             */
+            server
+                .get("/api/drafts")
+                .expect("Content-type", /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    assert.equal(Object.keys(res.body).length, length);
+                    done();
+                });
+        });
+    }
 
 });
 
-*/
 
 describe("Test 4. -> Testing registered-courses API endpoint",function(){
     it("Should get response from /registered-courses",function(done){
         server
-            .get("course-scheduler.me:3000/api/registered-courses")
+            .get("/api/registered-courses")
             .expect("Content-type",/json/)
             .expect(200)
             .end(function(err,res){
@@ -101,55 +161,120 @@ describe("Test 4. -> Testing registered-courses API endpoint",function(){
     });
 });
 
-/*
-describe('Test 5. -> Testing registered-courses API endpoint', function() {
-    it('Adding and removing courses from registered-courses and comparing response sizes.', function(done) {
+describe("Test 5. -> Testing registered-courses API endpoint by adding and removing courses",function(){
 
-        let length = -1;
-        let contains = false;
-        server.get("/api/registered-courses")
-            .end(function(err,res){
-                let body = res.body;
-                contains = (body.toString()).indexOf("Multimedia") !== -1;
-                length = Object.keys(res.body).length;
-                done();
+    let length = -1;
+    let contains = false;
+
+    server.get("/api/registered-courses")
+        .end(function(err,res){
+            let body = res.body;
+            for (i = 0; i<body.length; i++){
+                if (body[i].course.name_est == 'Programmeerimise alused') {
+                    contains = true;
+                }
+            }
+            length = Object.keys(res.body).length;
+        });
+
+    if (contains) {
+        it("Adding courses to draft and comparing response sizes.", function (done) {
+            /* TODO: add post request
+            request.post(options, function (err, response) {
+                if (err) {
+                    res.status(500).send();
+                } else {
+                    res.status(response.statusCode).send()
+                }
             });
-
-        if (!contains){
-            request.post('http://course-scheduler.me:3000/api/registered-courses/8');
+             */
 
             server
                 .get("/api/registered-courses")
                 .expect("Content-type", /json/)
                 .expect(200)
                 .end(function (err, res) {
-                    // HTTP status should be 200
-                    assert.equal(res.status, 200);
-                    //assert.equal(Object.keys(res.body).length, (length + 1));
-                    request.delete('http://course-scheduler.me:3000/api/registered-courses/8');
+                    assert.equal(Object.keys(res.body).length, (length));
                     done();
                 });
-        }
+        });
 
-        /*
-        else {
-            request.delete('http://course-scheduler.me:3000/api/registered-courses/8');
+        it("Removing courses from draft and comparing response sizes.", function (done) {
+            /* TODO: add delete request
+            request.delete(options, function (err, response) {
+                if (err) {
+                    res.status(500).send();
+                } else {
+                    res.status(response.statusCode).send()
+                }
+            });
+             */
+
             server
                 .get("/api/registered-courses")
-                .expect("Content-type",/json/)
+                .expect("Content-type", /json/)
                 .expect(200)
-                .end(function(err,res){
-                    assert.equal(res.status, 200);
-                    //assert.equal(Object.keys(res.body).length, (length - 1));
-                    request.post('http://course-scheduler.me:3000/api/registered-courses/8');
+                .end(function (err, res) {
+                    assert.equal(Object.keys(res.body).length, length);
                     done();
                 });
-        }
+        });
+    }
+    else {
+        it("Removing courses from draft and comparing response sizes.", function (done) {
+            /* TODO: add delete request
+            request.delete(options, function (err, response) {
+                if (err) {
+                    res.status(500).send();
+                } else {
+                    res.status(response.statusCode).send()
+                }
+            });
+             */
 
+            server
+                .get("/api/registered-courses")
+                .expect("Content-type", /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    assert.equal(Object.keys(res.body).length, (length));
+                    done();
+                });
+        });
 
-
-    });
+        it("Adding courses to draft and comparing response sizes.", function (done) {
+            /* TODO: add post request
+            request.post(options, function (err, response) {
+                if (err) {
+                    res.status(500).send();
+                } else {
+                    res.status(response.statusCode).send()
+                }
+            });
+             */
+            server
+                .get("/api/registered-courses")
+                .expect("Content-type", /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    assert.equal(Object.keys(res.body).length, length);
+                    done();
+                });
+        });
+    }
 
 });
 
-*/
+
+describe("Test 6. -> Testing user API endpoint",function(){
+    it("Should get response from /user",function(done){
+        server
+            .get("/api/user")
+            .expect("Content-type",/json/)
+            .expect(200)
+            .end(function(err,res){
+                assert.equal(res.status, 200);
+                done();
+            });
+    });
+});

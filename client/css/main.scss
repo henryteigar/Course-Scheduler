@@ -23,6 +23,10 @@ html, body, #app {
     width: 100%;
 }
 
+p {
+    font: normal 13px 'Roboto', sans-serif;
+}
+
 #app > div {
     overflow: auto;
     background: $blue-primary;
@@ -84,10 +88,14 @@ table {
         border: 1px solid $table-border-primary;
 
         td {
-            padding: 9px 0 9px 10px;
+            padding: 9px 5px 9px 10px;
             white-space: nowrap;
             max-width: 200px;
             overflow: hidden;
+
+            &:last-child {
+                padding-right: 10px;
+            }
         }
 
         &:nth-child(odd) {

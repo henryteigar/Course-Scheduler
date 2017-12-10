@@ -20,6 +20,7 @@ class CourseDraftStore extends EventEmitter {
     }
 
     addToDraft(coursesToAdd) {
+        this.axoisConf.headers['x-access-token'] = localStorage.getItem('token');
         coursesToAdd.map((courseToAdd) => courseToAdd.course).forEach((courseToAdd) => {
 
             axios.create(this.axoisConf).post('drafts/' + courseToAdd.id)
@@ -33,6 +34,7 @@ class CourseDraftStore extends EventEmitter {
     }
 
     removeFromDraft(coursesToRemove) {
+        this.axoisConf.headers['x-access-token'] = localStorage.getItem('token');
         coursesToRemove.map((courseToRemove) => courseToRemove.course).forEach((courseToRemove) => {
 
             axios.create(this.axoisConf).delete('drafts/' + courseToRemove.id)
@@ -46,8 +48,10 @@ class CourseDraftStore extends EventEmitter {
     }
 
     fetchDraftedCourses() {
+        this.axoisConf.headers['x-access-token'] = localStorage.getItem('token');
         axios.create(this.axoisConf).get('drafts')
             .then((response) => {
+                console.log(response.data)
                 this.draftedCourses = response.data;
                 this.emit("change");
             })
@@ -58,6 +62,9 @@ class CourseDraftStore extends EventEmitter {
 
     hasGroupSystem(draftCourse) {
         let hasGroups = false;
+        if (draftCourse.course.occurrences === null) {
+            return false;
+        }
         draftCourse.course.occurrences.forEach((occurrence) => {
             if (occurrence.group !== null) {
                 hasGroups = true;
@@ -91,6 +98,18 @@ class CourseDraftStore extends EventEmitter {
         });
         return this.draftedCourses;
     }
+
+    setLockedGroups(courseId, groupsIds) {
+        let groups = groupsIds.map((groupId) => { return {id: groupId} });
+        this.axoisConf.headers['x-access-token'] = localStorage.getItem('token');
+        axios.create(this.axoisConf).put('drafts/', {course_id: courseId, locked_groups: groups, active_group_id: null})
+            .then(() => {
+                this.fetchDraftedCourses();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 }
 
 dispatcher.register((action) => {
@@ -103,6 +122,9 @@ dispatcher.register((action) => {
             break;
         case DraftConstants.FETCH_DRAFT:
             courseDraftStore.fetchDraftedCourses();
+            break;
+        case DraftConstants.SET_LOCKED_GROUPS:
+            courseDraftStore.setLockedGroups(action.courseId, action.groups)
             break;
     }
 });

@@ -4,12 +4,13 @@ import App from './containers/App';
 import Login from './containers/Login';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+let jwt = localStorage.getItem('jwt');
+
+
 ReactDOM.render(
     <BrowserRouter>
         <Switch>
             <Route exact path='/' component={App} />
-            <Route exact path='/test' component={App} />
-            <Route path='/test/:id' component={App} />
             <Route exact path='/login' component={Login}/>
         </Switch>
     </BrowserRouter>,

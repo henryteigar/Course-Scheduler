@@ -1,0 +1,17 @@
+@import "../../css/variables";
+
+.schedule-bar {
+    display: inline-block;
+
+    .wide {
+        margin: 0 8px;
+    }
+
+    .narrow {
+        margin-right: 10px;
+    }
+
+    .green {
+        color: $green-primary;
+    }
+}

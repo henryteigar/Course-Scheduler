@@ -9,8 +9,7 @@ const request = require('request');
 
 
 router.get('/', (req, res) => {
-    /*let token = req.headers['x-access-token'];*/
-    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwic2Vzc2lvbl9rZXkiOjJ9.AsAVpnLnidid00PSduI1z0EHkT8b0YDshdaZAVfCiXI";
+    let token = req.headers['x-access-token'];
     try {
         let sessionKey = jwt.decode(token).session_key;
         let options = {

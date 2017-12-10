@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
+import _ from 'underscore';
 
 import DraftTable from "client/components/DraftTable/DraftTable";
 import Button from "client/components/Button/Button";
-
 import * as CourseDraftAction from 'client/actions/CourseDraftAction';
 import CourseDraftStore from 'client/stores/CourseDraftStore';
 import RegisteredCoursesStore from 'client/stores/RegisteredCoursesStore';
-import _ from 'underscore';
+
 import 'client/containers/MainContainer/ContentWrapper/DraftArea/draft-area.scss';
 
 class DraftArea extends Component {
@@ -63,9 +63,6 @@ class DraftArea extends Component {
                 return occurrence.time;
             })
         }));
-
-
-        console.log(registered_occurrences)
     }
 
     getResultArea() {

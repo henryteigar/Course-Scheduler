@@ -34,23 +34,20 @@ class DraftTable extends Component {
 
         return (
             <div className="preference" onClick={() => this.openGroupSelectModal(draftedCourse)}>
-                { rowContent }
+                {rowContent}
             </div>
         )
     }
 
     openGroupSelectModal(draftedCourse) {
-        this.setChild(draftedCourse);
-        const modal = document.getElementById(this.groupLockModalId);
+        let modal = document.getElementById(this.groupLockModalId);
         modal.style.display = "block";
+
+        let child = <SmartGroupSelector course={draftedCourse} />
+        this.setState({ child });
     }
 
-    setChild(draftedCourse) {
-        const child = <SmartGroupSelector course={draftedCourse} />;
-        this.setState({child});
-    }
-
-    render () {
+    render() {
         return (
             <div>
                 <Modal child={this.state.child} id={this.groupLockModalId}

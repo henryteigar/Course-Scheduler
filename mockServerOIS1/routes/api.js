@@ -35,9 +35,18 @@ router.get('/courses', (req, res) => {
     let input_assessment = req.query.assessment;
     let input_currentlyOpened = req.query.currently_opened;
     let input_ids = req.query.ids;
+    let input_start = req.query.start;
+    if (input_start === undefined) {
+        input_start = 0;
+    }
+    let input_end = req.query.end
+    if (input_end !== undefined) {
+        input_end -= input_start;
+    }
+    let sessionKey = req.headers['session-key'];
 
     let statement = courses.getCourses(input_query, input_filter, input_lang, input_faculty, input_institute, input_year, input_semester,
-        input_schedule, input_levelOfStudy, input_assessment, input_currentlyOpened, input_ids);
+        input_schedule, input_levelOfStudy, input_assessment, input_currentlyOpened, input_ids, input_start, input_end, sessionKey);
 
     db.query(statement.query_text, statement.parameters, (err, result) => {
         if (err) {
@@ -118,7 +127,7 @@ router.post('/login', (req, res) => {
 
     db.query('SELECT id AS session_key from ois1.users WHERE username = $1 AND password = $2', [username, password], (err, result) => {
         if (!result || err || result.rowCount === 0) {
-            res.status(404).send();
+            res.status(401).send();
         }
         else {
             res.status(200).send(result.rows[0]);

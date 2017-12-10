@@ -36,7 +36,6 @@ class Grid extends Component {
                 } else {
                     relevantOccurrences = el.course.occurrences;
                 }
-                console.log(relevantOccurrences)
             } else {
                 if (el.has_group_system && el.locked_group !== null) {
                     relevantOccurrences = el.locked_group.occurrences;
@@ -44,7 +43,9 @@ class Grid extends Component {
                     relevantOccurrences = el.course.occurrences;
                 }
             }
-
+            if (relevantOccurrences === null) {
+                return filteredOccurrences;
+            }
             relevantOccurrences.forEach((occurrence) => {
                 filteredOccurrences = filteredOccurrences.concat(occurrence.time.filter((timeEl) => {
                     return timeEl.week === weekNr && timeEl.day === (dayNr + 1);
