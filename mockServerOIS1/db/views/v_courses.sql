@@ -23,7 +23,7 @@ CREATE OR REPLACE VIEW ois1.v_courses AS
                                 WHERE courses.assessment_id = ois1.assessments.id) obj) AS assessment,
             courses.limit_of_attendants AS limit_of_attendants,
             courses.registered_attendants AS registered_attendants,
-            (SELECT row_to_json(obj) FROM
+            (SELECT JSON_AGG(row_to_json(obj)) FROM
                                 (SELECT
                                     course_type_id AS id,
                                     course_type.name_eng AS course_type_name_eng,
