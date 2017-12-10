@@ -59,7 +59,25 @@ class RegisteredCoursesStore extends EventEmitter {
             });
     };
 
+    getRelevantOccurrences(registeredCourse) {
+        let course = registeredCourse.course;
+        let groupId = registeredCourse.locked_group.id;
+        let specificOccurrences = [];
+
+        course.occurrences.forEach((occurrence) => {
+           if (occurrence.group === null || occurrence.group.id === groupId) {
+               specificOccurrences.push(occurrence);
+           }
+        });
+
+        return specificOccurrences;
+    }
+
     getAll() {
+        this.registeredCourses.forEach((registeredCourse) => {
+            registeredCourse.locked_group.occurrences = this.getRelevantOccurrences(registeredCourse)
+        });
+
         return this.registeredCourses;
     }
 }

@@ -14,8 +14,8 @@ class Timetable extends Component {
         super();
         this.state = {
             courses: {
-                draftedCourses: CourseDraftStore.getAll(),
-                registeredCourses: RegisteredCoursesStore.getAll()
+                draftedCourses: [],
+                registeredCourses: []
             },
             weeks: [
                 {
@@ -87,7 +87,7 @@ class Timetable extends Component {
     };
 
     componentWillMount() {
-        this.setState({currentWeek: this.state.weeks[0]})
+        this.setState({currentWeek: this.state.weeks[12]})
 
         CourseDraftStore.on("change", () => {
             let courses = this.state.courses;
@@ -97,6 +97,7 @@ class Timetable extends Component {
         RegisteredCoursesStore.on("change", () => {
             let courses = this.state.courses;
             courses.registeredCourses = RegisteredCoursesStore.getAll();
+            console.log(courses.registeredCourses)
             this.setState({courses: courses})
         })
     }

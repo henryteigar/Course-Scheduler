@@ -14,7 +14,7 @@ const RegisteredCoursesTable = (props) => {
                 <th>Credits</th>
                 <th>Group</th>
                 <th>Cancellation date</th>
-                <th>Remove</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>

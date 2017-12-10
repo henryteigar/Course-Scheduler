@@ -194,9 +194,13 @@ class SearchArea extends Component {
         return course.occurrences
             .filter((course) => course.type === "practice")
             .map((occurrence) => {
-                return {
-                    id: occurrence.group.id,
-                    label_eng: occurrence.group.name
+                if (occurrence.group) {
+                    return {
+                        id: occurrence.group.id,
+                        label_eng: occurrence.group.name
+                    }
+                } else {
+                    return;
                 }
             });
     }

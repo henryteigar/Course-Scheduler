@@ -24,10 +24,17 @@ class Grid extends Component {
     filterAndMapOccurrences(isDraft, data, weekNr, dayNr) {
         let filteredOccurrences = [];
         data.forEach((el) => {
-            let selectedGroup = (el.locked_group !== undefined && el.locked_group !== null) ? el.locked_group : el.active_group;
-            el.course.occurrences.forEach((occurrence) => {
+            let relevantOccurrences = null;
+
+            if (isDraft) {
+                relevantOccurrences = el.course.occurrences; // TODO
+            } else {
+                relevantOccurrences = el.locked_group.occurrences;
+            }
+
+            relevantOccurrences.forEach((occurrence) => {
                 filteredOccurrences = filteredOccurrences.concat(occurrence.time.filter((timeEl) => {
-                    return timeEl.week === weekNr && timeEl.day === dayNr && (occurrence.group === null || selectedGroup === null || selectedGroup.id === occurrence.group.id);
+                    return timeEl.week === weekNr && timeEl.day === (dayNr + 1);
                 }).map((time) => {
                     time.length = this.getTimeLength(time);
                     return {
@@ -51,23 +58,23 @@ class Grid extends Component {
                 <Column name="Monday"
                         day={0}
                         currentWeek={this.props.currentWeek}
-                        occurrences={this.getOccurrencesForDayAndWeek(this.props.courses, this.props.currentWeek.nr, 1)} />
+                        occurrences={this.getOccurrencesForDayAndWeek(this.props.courses, this.props.currentWeek.nr, 0)} />
                 <Column name="Tuesday"
                         day={1}
                         currentWeek={this.props.currentWeek}
-                        occurrences={this.getOccurrencesForDayAndWeek(this.props.courses, this.props.currentWeek.nr, 2)} />
+                        occurrences={this.getOccurrencesForDayAndWeek(this.props.courses, this.props.currentWeek.nr, 1)} />
                 <Column name="Wednesday"
                         day={2}
                         currentWeek={this.props.currentWeek}
-                        occurrences={this.getOccurrencesForDayAndWeek(this.props.courses, this.props.currentWeek.nr, 3)} />
+                        occurrences={this.getOccurrencesForDayAndWeek(this.props.courses, this.props.currentWeek.nr, 2)} />
                 <Column name="Thursday"
                         day={3}
                         currentWeek={this.props.currentWeek}
-                        occurrences={this.getOccurrencesForDayAndWeek(this.props.courses, this.props.currentWeek.nr, 4)} />
+                        occurrences={this.getOccurrencesForDayAndWeek(this.props.courses, this.props.currentWeek.nr, 3)} />
                 <Column name="Friday"
                         day={4}
                         currentWeek={this.props.currentWeek}
-                        occurrences={this.getOccurrencesForDayAndWeek(this.props.courses, this.props.currentWeek.nr, 5)} />
+                        occurrences={this.getOccurrencesForDayAndWeek(this.props.courses, this.props.currentWeek.nr, 4)} />
             </div>
         )
     }
