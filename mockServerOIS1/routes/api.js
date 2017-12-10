@@ -36,7 +36,13 @@ router.get('/courses', (req, res) => {
     let input_currentlyOpened = req.query.currently_opened;
     let input_ids = req.query.ids;
     let input_start = req.query.start;
-    let input_end = req.query.end;
+    if (input_start === undefined) {
+        input_start = 0;
+    }
+    let input_end = req.query.end
+    if (input_end !== undefined) {
+        input_end -= input_start;
+    }
     let sessionKey = req.headers['session-key'];
 
     let statement = courses.getCourses(input_query, input_filter, input_lang, input_faculty, input_institute, input_year, input_semester,
