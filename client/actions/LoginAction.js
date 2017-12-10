@@ -1,35 +1,17 @@
 import axios from 'axios';
+import dispatcher from '../dispatcher/Dispatcher';
+import { LoginConstants } from '../constants/LoginConstants';
 
 
 export function login(credentials) {
-    let axoisConf = {
-        baseURL: process.env.API_BASE_URL,
-        timeout: 10000,
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    };
-
-    return axios.create(axoisConf)
-        .post('login',
-            {
-                'username': credentials.username,
-                'password': credentials.password
-            }
-        )
-        .then((res) => {
-            let jwt = res.data.jwt;
-
-
-        });
-
-
-
-
-};
+    dispatcher.dispatch({
+        type: LoginConstants.LOGIN_ATTEMPT,
+        credentials: credentials
+    });
+}
 
 export function logout() {
-
-};
-
+    dispatcher.dispatch({
+        type: LoginConstants.LOGOUT
+    });
+}

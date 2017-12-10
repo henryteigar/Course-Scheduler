@@ -4,7 +4,9 @@ import Button from "client/components/Button/Button";
 import InputField from "client/components/UnderlinedInputField/UnderlinedInputField";
 import CheckBox from "client/components/CheckBox/CheckBox";
 import {withRouter} from 'react-router-dom';
-import {login} from "../../../actions/LoginAction";
+import * as LoginActions from "../../../actions/LoginAction";
+import UserStore from 'client/stores/UserStore';
+
 
 
 class LoginFieldsContainer extends Component {
@@ -13,16 +15,24 @@ class LoginFieldsContainer extends Component {
         this.state = {
             username: '',
             password: '',
-            rememberMe: false
+            rememberMe: false,
+            errorMsg: null
         }
+    }
+
+    componentWillMount() {
+        UserStore.on("change", () => {
+            this.setState({errorMsg: UserStore.errorMsg})
+        });
     }
 
     handleClick() {
         let credentials = {
-            "username": this.state.username,
-            "password": this.state.password
+            username: this.state.username,
+            password: this.state.password
         };
-        login(credentials).catch((err) => {
+        LoginActions.login(credentials);
+        /*login(credentials).catch((err) => {
             if (err.response.status === 400) {
                 console.log("MÕLEMAD ON KOHUSTUSLIKUD")
             } else if (err.response.status === 401) {
@@ -30,7 +40,7 @@ class LoginFieldsContainer extends Component {
             } else {
                 console.log("MIDAGI MUUD LÄKS TÄIESTI KATKI")
             }
-        })
+        })*/
         /*this.props.history.push("/");*/
     }
 
@@ -50,6 +60,7 @@ class LoginFieldsContainer extends Component {
         return (
             <div className="login-fields-container">
                 <h2>Sign in with your UT account</h2>
+                <p className="error">{this.state.errorMsg}</p>
                 <div className="input-field">
                     <InputField type="text" placeholder="Username" changeHandler={this.usernameChangeHandler.bind(this)}/>
                 </div>
