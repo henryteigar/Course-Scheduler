@@ -53,15 +53,33 @@ router.delete('/:course_id', (req, res) => {
     let token = req.headers['x-access-token'];
     let course_id = req.params.course_id;
     try {
-        let sessionKey = jwt.decode(token).session_key;
-        db.query('DELETE from draft_courses WHERE user_id = $1 AND course_id = $2', [sessionKey, course_id], (err, result) => {
+        let user_id = jwt.decode(token).session_key;
 
+        db.query('SELECT id FROM draft_courses WHERE user_id = $1 AND course_id = $2', [user_id, course_id], (err, result) => {
             if (err) {
-                console.log(err);
                 res.status(500).send();
             }
-            res.status(200).send();
+            else {
+                let draft_courses_id = result.rows[0].id;
+                db.query('DELETE from draft_courses_locked_groups WHERE draft_courses_id = $1', [draft_courses_id], (err, result) => {
+
+                if (err) {
+                    console.log(err);
+                    res.status(500).send();
+                }
+                db.query('DELETE from draft_courses WHERE user_id = $1 AND course_id = $2', [user_id, course_id], (err, result) => {
+
+                    if (err) {
+                        console.log(err);
+                        res.status(500).send();
+                    }
+                    res.status(200).send();
+                });
+            });
+            }
         });
+
+
     }
     catch (e) {
         res.status(400).send();
