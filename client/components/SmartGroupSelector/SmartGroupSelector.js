@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import _ from 'underscore';
 
+import * as CourseDraftAction from 'client/actions/CourseDraftAction';
 import CheckBox from "client/components/CheckBox/CheckBox";
 import ScheduleBar from "client/components/ScheduleBar/ScheduleBar";
 import Button from 'client/components/Button/Button';
@@ -11,7 +12,7 @@ class SmartGroupSelector extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            course: props.course
+            selectedGroups: [],
         }
     }
 
@@ -39,9 +40,6 @@ class SmartGroupSelector extends Component {
             return value.group.id + '#' + value.group.name;
         });
 
-        console.log('groups')
-        console.log(groups)
-
         const occurrences = _.map(groups, (group) => {
             return {
                 group: group[0].group,
@@ -54,6 +52,25 @@ class SmartGroupSelector extends Component {
         });
 
         return occurrences
+    }
+
+    checkBoxHandler(groupId) {
+        let groupIds = this.state.selectedGroups;
+
+        if (groupIds.includes(groupId)) {
+            groupIds = groupIds.filter(el => el !== groupId);
+        } else {
+            groupIds.push(groupId);
+        }
+        this.setState({selectedGroups: groupIds});
+    }
+
+    lockGroups() {
+        const courseId = this.props.course.course.id;
+        const selectedGroups = this.state.selectedGroups;
+
+        CourseDraftAction.setLockedGroups(courseId, selectedGroups);
+        this.setState({selectedGroups: []})
     }
 
     practicalsGroupsTable(practicals) {
@@ -78,7 +95,7 @@ class SmartGroupSelector extends Component {
                     <tbody>
                     {practicals.map((p) =>
                         <tr key={p.group.id}>
-                            <td><CheckBox changeHandler={console.log} value={p.group.id} classes="small green" /></td>
+                            <td><CheckBox changeHandler={this.checkBoxHandler.bind(this)} value={p.group.id} classes="small green" /></td>
                             <td>{p.group.name}</td>
                             <td><ScheduleBar occurrences={p.occurrences} class="narrow" /></td>
                             <td>{p.places.join(", ")}</td>
@@ -93,6 +110,8 @@ class SmartGroupSelector extends Component {
     }
 
     makeChild(draftedCourse) {
+        console.log('Render model for ' + draftedCourse.course.name_est)
+
         let lectureOccurrences, practicalOccurrences;
 
         const occurrences = _.groupBy(draftedCourse.course.occurrences, 'type');
@@ -117,14 +136,14 @@ class SmartGroupSelector extends Component {
                 <label>Lecture:</label><ScheduleBar occurrences={lectureOccurrences} class="wide" />
                 {practicalsGroupsTable}
                 <div className="lock-group-button">
-                    <Button clickHandler={console.log} class="green big" name="Lock groups"/>
+                    <Button clickHandler={this.lockGroups.bind(this)} class="green big" name="Lock groups"/>
                 </div>
             </div>
         )
     }
 
     render() {
-        return <div>{this.makeChild(this.state.course)}</div>
+        return <div>{this.makeChild(this.props.course)}</div>
     }
 }
 

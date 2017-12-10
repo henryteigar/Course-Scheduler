@@ -191,6 +191,9 @@ class SearchArea extends Component {
     }
 
     getPracticeGroupsFromCourse(course) {
+        console.log('asd')
+        console.log(course)
+
         return course.occurrences
             .filter((course) => course.type === "practice")
             .map((occurrence) => {
@@ -212,7 +215,6 @@ class SearchArea extends Component {
                                    label={selectedCourse.name_eng} className="full-width"
                                    values={this.getPracticeGroupsFromCourse(selectedCourse)}
                                    clickHandler={this.setCourseGroup.bind(this)} />)}
-
             <Button class="big green register" name="Register"
                     clickHandler={this.addToRegisteredCourses.bind(this)} />
         </div>;
