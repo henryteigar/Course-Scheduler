@@ -34,7 +34,7 @@ class DraftTable extends Component {
 
         return (
             <div className="preference" onClick={() => this.openGroupSelectModal(draftedCourse)}>
-                { rowContent }
+                {rowContent}
             </div>
         )
     }
@@ -50,7 +50,7 @@ class DraftTable extends Component {
         this.setState({child});
     }
 
-    render () {
+    render() {
         return (
             <div>
                 <Modal child={this.state.child} id={this.groupLockModalId}
