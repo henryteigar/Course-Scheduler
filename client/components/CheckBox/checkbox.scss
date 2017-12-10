@@ -11,6 +11,11 @@
         position: absolute;
 
         &:checked {
+            & ~ .check_mark {
+                background-color: $gray-font-primary-light;
+                border-color: $gray-font-primary-medium;
+            }
+
             & ~ .green {
                 background-color: $green-primary;
                 border-color: $green-primary;
