@@ -63,7 +63,7 @@ class SmartGroupSelector extends Component {
         return (
             <div>
                 <label>Practice sessions:</label>
-                <table>
+                <table className="pracicals-table">
                     <thead>
                     <tr>
                         <th></th>
