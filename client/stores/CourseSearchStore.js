@@ -32,7 +32,8 @@ class CourseSearchStore extends EventEmitter {
             withCredentials: true,
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'x-access-token': localStorage.getItem('token')
             }
         });
 
