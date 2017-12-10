@@ -8,7 +8,6 @@ import * as LoginActions from "../../../actions/LoginAction";
 import UserStore from 'client/stores/UserStore';
 
 
-
 class LoginFieldsContainer extends Component {
     constructor() {
         super();
@@ -17,14 +16,19 @@ class LoginFieldsContainer extends Component {
             password: '',
             rememberMe: false,
             errorMsg: null
-        }
+        };
+        UserStore.fetchUser();
     }
 
-    componentWillMount() {
+    componentDidMount() {
         UserStore.on("change", () => {
-            this.setState({errorMsg: UserStore.errorMsg})
+            this.setState({errorMsg: UserStore.errorMsg});
+            if (UserStore.getUser() !== null) {
+                this.props.history.push("/");
+            }
         });
     }
+
 
     handleClick() {
         let credentials = {
@@ -32,16 +36,6 @@ class LoginFieldsContainer extends Component {
             password: this.state.password
         };
         LoginActions.login(credentials);
-        /*login(credentials).catch((err) => {
-            if (err.response.status === 400) {
-                console.log("MÕLEMAD ON KOHUSTUSLIKUD")
-            } else if (err.response.status === 401) {
-                console.log("VALED ANDMED")
-            } else {
-                console.log("MIDAGI MUUD LÄKS TÄIESTI KATKI")
-            }
-        })*/
-        /*this.props.history.push("/");*/
     }
 
     rememberChangeHandler() {

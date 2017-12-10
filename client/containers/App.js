@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Sidebar from '../components/Sidebar/Sidebar';
 import MainContainer from './MainContainer/MainContainer';
 import UserStore from 'client/stores/UserStore';
-
+import * as LoginAction from 'client/actions/LoginAction';
 
 import '../css/main.scss';
 
@@ -13,23 +13,28 @@ class App extends Component {
         this.state = {
             user: null
         };
+
     }
 
     componentDidMount() {
-        UserStore.fetchUser();
+        LoginAction.fetchUser();
+    }
+
+    componentWillMount() {
         UserStore.on("change", () => {
             this.setState({user: UserStore.getUser()});
-            console.log(this.state.user)
+            if (UserStore.getUser() === null) {
+                this.props.history.push("/login")
+            }
         });
     }
 
-
-
     render() {
+
         return (
             <div>
                 <Sidebar />
-                <MainContainer />
+                <MainContainer user={this.state.user}/>
             </div>
         )
     }

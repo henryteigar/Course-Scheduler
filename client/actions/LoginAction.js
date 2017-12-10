@@ -15,3 +15,9 @@ export function logout() {
         type: LoginConstants.LOGOUT
     });
 }
+
+export function fetchUser() {
+    dispatcher.dispatch({
+        type: LoginConstants.FETCH_USER
+    });
+};

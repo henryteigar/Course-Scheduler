@@ -9,9 +9,10 @@ const DetailedProfileBox = (props) => {
         <div className={"detailed-profile-box " + props.class}>
             <img src="../../images/user4.svg"/>
             <div className="info-text">
-                <p className="name">John Doe</p>
-                <p className="email">john@doe.ut.ee</p>
-                <p className="student-id">B33043</p>
+                {console.log(props.user)}
+                <p className="name">{props.user !== null ? props.user.name : ""}</p>
+                <p className="email">student@ut.ee</p>
+                <p className="student-id">{props.user !== null ? props.user.nr_of_study_book : ""}</p>
             </div>
             <div className="buttons">
                 <Link to='' onClick={props.clickHandler} className="link">Settings</Link>
