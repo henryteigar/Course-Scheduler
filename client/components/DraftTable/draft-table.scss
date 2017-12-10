@@ -23,11 +23,14 @@
 }
 
 #lock-group-preference-modal{
-      span.day {
-          margin: 5px;
+    label {
+        margin-right: 10px;
+    }
+    span.day {
+        margin: 7px;
 
-          &.green {
-              color: $green-primary;
-          }
-      }
-  }
+        &.green {
+            color: $green-primary;
+        }
+    }
+}

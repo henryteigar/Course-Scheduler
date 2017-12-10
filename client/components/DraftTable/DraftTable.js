@@ -1,78 +1,10 @@
 import React, {Component} from 'react';
-import _ from 'underscore';
 
 import CheckBox from "client/components/CheckBox/CheckBox";
-import Modal from 'client/components/Modal/Modal'
+import Modal from 'client/components/Modal/Modal';
+import SmartGroupSelector from 'client/components/SmartGroupSelector/SmartGroupSelector';
 
 import 'client/components/DraftTable/draft-table.scss';
-
-function makeChild(draftedCourse) {
-    const parseOccurrences = function(occurrence) {
-        const times = occurrence.map((occurrence) => occurrence.time);
-
-        const groups = _.groupBy(_.flatten(times), function(value) {
-            return value.day + '#' + value.start_time + '#' + value.end_time;
-        });
-
-        const occurrences = _.map(groups, function(group) {
-            return {
-                day: group[0].day - 1,
-                start_time: group[0].start_time,
-                end_time: group[0].end_time,
-                weeks: _.pluck(group, 'week')
-            }
-        });
-
-        return occurrences;
-    };
-
-    const getWeeks = function(occurrence) { return occurrence.weeks };
-    const getDay = function(occurrence) { return occurrence.day; };
-
-    let lectures, practicals;
-
-    const occurrences = _.groupBy(draftedCourse.course.occurrences, 'type');
-
-    console.log(occurrences.practice)
-
-    if (occurrences.lecture) {
-        const lectureTimes = occurrences.lecture;
-        lectures = parseOccurrences(lectureTimes);
-    } else if (occurrences.practice) {
-        const practiceTimes = occurrences.practice;
-        practicals = parseOccurrences(practiceTimes);
-    }
-
-    console.log(lectures);
-    console.log(practicals);
-
-    if (lectures) {
-        const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-        lectures =
-            <div>
-                <label>Lecture:</label>
-                { days.map((day) =>
-                    lectures.map(getDay).includes(_.indexOf(days, day)) ?
-                        <span key={day} className="green day">{day}</span>
-                        :
-                        <span className="day" key={day}>{day}</span>)
-                }
-            </div>
-    } else {
-        lectures = <div>No lectures</div>
-    }
-
-    if (practicals) {
-        practicals =
-            <div>
-                Practicals: {practicals.map(getDay)}
-            </div>
-    } else {
-        practicals = <div>No practicals</div>
-    }
-
-    return <div>{lectures}{practicals}</div>;
-}
 
 class DraftTable extends Component {
     constructor(props) {
@@ -114,8 +46,8 @@ class DraftTable extends Component {
     }
 
     setChild(draftedCourse) {
-        const child = makeChild(draftedCourse);
-        this.setState({child})
+        const child = <SmartGroupSelector course={draftedCourse} />;
+        this.setState({child});
     }
 
     render () {
