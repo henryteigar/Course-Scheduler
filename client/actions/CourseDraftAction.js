@@ -20,3 +20,11 @@ export function fetchDraftedCourses() {
         type: DraftConstants.FETCH_DRAFT,
     });
 }
+
+export function setLockedGroups(courseId, groups) {
+    dispatcher.dispatch({
+        type: DraftConstants.SET_LOCKED_GROUPS,
+        courseId,
+        groups
+    });
+}

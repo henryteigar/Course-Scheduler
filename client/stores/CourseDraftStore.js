@@ -91,6 +91,23 @@ class CourseDraftStore extends EventEmitter {
         });
         return this.draftedCourses;
     }
+
+    setLockedGroups(courseId, groupsIds) {
+        console.log(courseId)
+        console.log(groupsIds)
+
+        let groups = groupsIds.map((groupId) => { return {id: groupId} });
+
+        console.log(groups)
+
+        axios.create(this.axoisConf).put('drafts/', {course_id: courseId, locked_groups: groups, active_group_id: null})
+            .then(() => {
+                this.fetchDraftedCourses();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 }
 
 dispatcher.register((action) => {
@@ -103,6 +120,9 @@ dispatcher.register((action) => {
             break;
         case DraftConstants.FETCH_DRAFT:
             courseDraftStore.fetchDraftedCourses();
+            break;
+        case DraftConstants.SET_LOCKED_GROUPS:
+            courseDraftStore.setLockedGroups(action.courseId, action.groups)
             break;
     }
 });
