@@ -58,7 +58,6 @@ class SmartGroupSelector extends Component {
     }
 
     practicalsGroupsTable(practicals) {
-        console.log(practicals);
 
         if (!practicals) return null;
 

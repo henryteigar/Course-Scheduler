@@ -63,9 +63,6 @@ class DraftArea extends Component {
                 return occurrence.time;
             })
         }));
-
-
-        console.log(registered_occurrences)
     }
 
     getResultArea() {

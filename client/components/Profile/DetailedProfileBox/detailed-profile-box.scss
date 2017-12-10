@@ -5,10 +5,14 @@
     border: 1px solid $table-border-primary;
     height: 110px;
     position: relative;
-    right: 0px;
+    right: 0;
     top: 65px;
     width: 190px;
     z-index: 1;
+
+    &.hidden {
+        display: none;
+    }
 
     img {
         display: block;

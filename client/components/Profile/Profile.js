@@ -7,8 +7,8 @@ import DetailedProfileBox from './DetailedProfileBox/DetailedProfileBox';
 const Profile = (props) => {
     return (
         <div className="profile">
-            <img className="profile-pic" src="../../images/user4.svg"/>
-            <DetailedProfileBox />
+            <img onClick={props.clickHandler} className="profile-pic" src="../../images/user4.svg"/>
+            <DetailedProfileBox clickHandler={props.clickHandler} logoutHandler={props.logoutHandler} class={props.showDetailedBox ? "" : "hidden"}/>
         </div>
     )
 };
