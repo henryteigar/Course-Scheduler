@@ -7,11 +7,10 @@ import './detailed-profile-box.scss'
 const DetailedProfileBox = (props) => {
     return (
         <div className={"detailed-profile-box " + props.class}>
-            <img src="../../images/user4.svg"/>
+            <img src={props.user !== null && props.user.id % 2 === 0 ? "../../images/user1.svg" : "../../images/user4.svg"}/>
             <div className="info-text">
-                {console.log(props.user)}
                 <p className="name">{props.user !== null ? props.user.name : ""}</p>
-                <p className="email">student@ut.ee</p>
+                <p className="email">{props.user !== null ? props.user.institute.name_eng : ""}</p>
                 <p className="student-id">{props.user !== null ? props.user.nr_of_study_book : ""}</p>
             </div>
             <div className="buttons">
