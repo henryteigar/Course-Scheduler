@@ -20,6 +20,7 @@ class RegisteredCoursesStore extends EventEmitter {
     };
 
     addToRegisteredCourses(coursesToAdd) {
+        this.axoisConf.headers['x-access-token'] = localStorage.getItem('token');
         coursesToAdd.forEach((courseToAdd) => {
             axios.create(this.axoisConf)
                 .post('registered-courses',
@@ -38,6 +39,7 @@ class RegisteredCoursesStore extends EventEmitter {
     };
 
     removeFromRegisteredCourses(courseToRemove) {
+        this.axoisConf.headers['x-access-token'] = localStorage.getItem('token');
         axios.create(this.axoisConf)
             .delete('registered-courses/' + courseToRemove.id)
             .then(() => {
@@ -49,9 +51,11 @@ class RegisteredCoursesStore extends EventEmitter {
     };
 
     fetchRegisteredCourses() {
+        this.axoisConf.headers['x-access-token'] = localStorage.getItem('token');
         axios.create(this.axoisConf).get('registered-courses')
             .then((response) => {
                 this.registeredCourses = response.data;
+                console.log(response.data)
                 this.emit("change");
             })
             .catch((error) => {

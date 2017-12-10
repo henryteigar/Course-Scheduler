@@ -20,6 +20,7 @@ class CourseDraftStore extends EventEmitter {
     }
 
     addToDraft(coursesToAdd) {
+        this.axoisConf.headers['x-access-token'] = localStorage.getItem('token');
         coursesToAdd.map((courseToAdd) => courseToAdd.course).forEach((courseToAdd) => {
 
             axios.create(this.axoisConf).post('drafts/' + courseToAdd.id)
@@ -33,6 +34,7 @@ class CourseDraftStore extends EventEmitter {
     }
 
     removeFromDraft(coursesToRemove) {
+        this.axoisConf.headers['x-access-token'] = localStorage.getItem('token');
         coursesToRemove.map((courseToRemove) => courseToRemove.course).forEach((courseToRemove) => {
 
             axios.create(this.axoisConf).delete('drafts/' + courseToRemove.id)
@@ -46,6 +48,7 @@ class CourseDraftStore extends EventEmitter {
     }
 
     fetchDraftedCourses() {
+        this.axoisConf.headers['x-access-token'] = localStorage.getItem('token');
         axios.create(this.axoisConf).get('drafts')
             .then((response) => {
                 this.draftedCourses = response.data;
