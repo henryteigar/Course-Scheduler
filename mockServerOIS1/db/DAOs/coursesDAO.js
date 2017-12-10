@@ -1,6 +1,6 @@
 module.exports = {
     getCourses: function (input_query, input_filter, input_lang, input_faculty, input_institute, input_year, input_semester,
-                          input_schedule, input_levelOfStudy, input_assessment, input_currentlyOpened, input_ids, input_start, input_end) {
+                          input_schedule, input_levelOfStudy, input_assessment, input_currentlyOpened, input_ids, input_start, input_end, user_id) {
         //SQLQuery and parameters
         let query = "SELECT * FROM ois1.v_courses WHERE 1=1";
         let parameters = [];
@@ -16,19 +16,31 @@ module.exports = {
         }
 
         if (input_filter !== undefined) {
-            let field = 'name_eng';
-            if (input_lang && input_lang.toLowerCase() === 'est') {
-                field = 'name_est';
+
+            if (input_filter === "isiklik" || input_filter === "personal") {
+                query += "AND EXISTS (SELECT 1 FROM ois1.user_personal_courses upc where ois1.v_courses.id = upc.course_id AND upc.user_id = $" + (parameters.length + 1) +")";
+                parameters.push(user_id);
             }
-            query += " AND EXISTS (SELECT 1 FROM ois1.course_curricula coty JOIN ois1.course_type ON coty.course_type_id = ois1.course_type.id " +
-                "WHERE coty.course_id = ois1.v_courses.id AND LOWER(ois1.course_type." + field + ") LIKE $" + (parameters.length + 1) + ")";
-            parameters.push('%' + input_filter + '%');
+            else {
+                let field = 'name_eng';
+                if (input_lang && input_lang.toLowerCase() === 'est') {
+                    field = 'name_est';
+                }
+                query += " AND EXISTS (SELECT 1 FROM ois1.course_curricula coty JOIN ois1.course_type ON coty.course_type_id = ois1.course_type.id " +
+                    "WHERE coty.course_id = ois1.v_courses.id AND LOWER(ois1.course_type." + field + ") LIKE $" + (parameters.length + 1) + ")";
+                parameters.push('%' + input_filter + '%');
+            }
         }
 
         if (input_faculty !== undefined) {
             query += " AND EXISTS (SELECT 1 FROM ois1.course_faculty cofa WHERE cofa.course_id = ois1.v_courses.id AND cofa.faculty_id = $" + (parameters.length + 1) + ")";
             parameters.push(input_faculty);
         }
+        else {
+            query += " AND EXISTS (SELECT 1 FROM ois1.course_faculty cofa WHERE cofa.course_id = ois1.v_courses.id AND cofa.faculty_id = (SELECT usr.curricula_id FROM ois1.users usr WHERE usr.id = $" + (parameters.length + 1) + "))";
+            parameters.push(user_id);
+        }
+
 
         if (input_institute !== undefined) {
             query += " AND EXISTS (SELECT 1 FROM ois1.course_institute coin WHERE coin.course_id = ois1.v_courses.id AND coin.institute_id = $" + (parameters.length + 1) + ")";
