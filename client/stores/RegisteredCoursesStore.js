@@ -63,6 +63,9 @@ class RegisteredCoursesStore extends EventEmitter {
     };
 
     hasGroupSystem(registeredCourse) {
+        if (registeredCourse.course.occurrences === null) {
+            return false;
+        }
         let hasGroups = false;
         registeredCourse.course.occurrences.forEach((occurrence) => {
             if (occurrence.group !== null) {
