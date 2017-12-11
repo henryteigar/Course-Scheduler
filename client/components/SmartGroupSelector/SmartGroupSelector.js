@@ -71,6 +71,8 @@ class SmartGroupSelector extends Component {
 
         CourseDraftAction.setLockedGroups(courseId, selectedGroups);
         this.setState({selectedGroups: []})
+
+        this.props.closeModal();
     }
 
     practicalsGroupsTable(practicals) {

@@ -13,14 +13,14 @@ class DraftArea extends Component {
 
     constructor(props) {
         super(props);
-        CourseDraftAction.fetchDraftedCourses();
         this.state = {
             courses: {
                 draftedCourses: [],
                 registeredCourses: []
             },
             selectedCourses: []
-        }
+        };
+        CourseDraftAction.fetchDraftedCourses();
     }
 
     componentWillMount() {
@@ -49,9 +49,11 @@ class DraftArea extends Component {
 
     removeFromDraft() {
         CourseDraftAction.removeFromDraft(this.state.selectedCourses);
+        let courses = this.state.courses;
+        courses.draftedCourses = CourseDraftStore.getAll()
         this.setState({
             selectedCourses: [],
-            courses: CourseDraftStore.getAll()
+            courses
         });
     }
 
@@ -66,9 +68,9 @@ class DraftArea extends Component {
     }
 
     getResultArea() {
-        let searchResultArea;
+        let searchResultArea ;
 
-        if (this.state.courses.draftedCourses.length > 0) {
+        if (this.state.courses.draftedCourses) {
             searchResultArea =
                 <div>
                     <DraftTable courses={this.state.courses.draftedCourses} changeHandler={this.toggleCourse.bind(this)} />

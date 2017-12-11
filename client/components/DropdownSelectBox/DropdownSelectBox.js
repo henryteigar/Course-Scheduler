@@ -60,7 +60,7 @@ class DropdownSelectBox extends Component {
         let ids = [];
 
         values = values.filter((value) => {
-            if (!ids.includes(value.id)) {
+            if (value && !ids.includes(value.id)) {
                 ids.push(value.id);
                 return true;
             } else {
