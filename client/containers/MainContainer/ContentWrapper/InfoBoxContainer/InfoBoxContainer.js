@@ -24,7 +24,7 @@ class InfoBoxContainer extends Component {
         }
     }
 
-    genTotalCreditString () {
+    getTotalCreditString () {
         if (this.props.user) {
             const obligatoryCredits = parseInt(this.props.user.obligatory_credits);
             const electiveCredits = parseInt(this.props.user.elective_credits);
@@ -38,13 +38,33 @@ class InfoBoxContainer extends Component {
         }
     }
 
+    genElectiveCreditString () {
+        if (this.props.user) {
+            const electiveCredits = parseInt(this.props.user.elective_credits);
+
+            return (this.props.user ? electiveCredits : "")
+        } else {
+            return ""
+        }
+    }
+
+    genOptionalCreditString () {
+        if (this.props.user) {
+            const optionalCredits = parseInt(this.props.user.optional_credits);
+
+            return (this.props.user ? optionalCredits : "")
+        } else {
+            return ""
+        }
+    }
+
     render() {
         console.log(this.props.user)
         return (
             <div className="infoBoxContainer">
-                <InfoBox value={this.genTotalCreditString()} description={this.state.infoBox[0].description}/>
-                <InfoBox value={this.state.infoBox[1].value} description={this.state.infoBox[1].description}/>
-                <InfoBox value={this.state.infoBox[2].value} description={this.state.infoBox[2].description}/>
+                <InfoBox value={this.getTotalCreditString()} description={this.state.infoBox[0].description}/>
+                <InfoBox value={this.genElectiveCreditString()} description={this.state.infoBox[1].description}/>
+                <InfoBox value={this.genOptionalCreditString()} description={this.state.infoBox[2].description}/>
             </div>
         )
     }
