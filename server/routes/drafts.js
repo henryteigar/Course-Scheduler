@@ -125,17 +125,22 @@ router.put('/', (req, res) => {
                         if (err) {
                             res.status(500).send();
                         } else {
-                            let values = locked_groups !== null ? locked_groups.map((group) => {
-                                return [draft_courses_id, group.id];
-                            }) : [];
-                            let query = format('INSERT INTO draft_courses_locked_groups (draft_courses_id, group_id) VALUES %L', values);
-                            db.query(query, [], (err, result) => {
+                            if (locked_groups !== null) {
+                                let values = locked_groups.map((group) => {
+                                    return [draft_courses_id, group.id];
+                                });
 
-                                if (err) {
-                                    res.status(500).send();
-                                }
+                                let query = format('INSERT INTO draft_courses_locked_groups (draft_courses_id, group_id) VALUES %L', values);
+                                db.query(query, [], (err, result) => {
+
+                                    if (err) {
+                                        res.status(500).send();
+                                    }
+                                    res.status(200).send();
+                                });
+                            } else {
                                 res.status(200).send();
-                            });
+                            }
                         }
                     })
                 }
