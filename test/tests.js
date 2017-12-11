@@ -8,13 +8,13 @@ const assert = require('chai').assert;
 const axios = require('axios');
 
 //const server = supertest.agent("course-scheduler.me:3000");
-//const remoteApiUrl = "course-scheduler.me:3000/api";
+const remoteApiUrl = "course-scheduler.me:3000/api";
 
 
 describe("Test 1. -> Testing login",function(){
     it("Should get JWT from /api/login",function(done){
 
-        axios.post('http://localhost:3000/api/login' , {
+        axios.post(remoteApiUrl+ '/login' , {
             username: "test",
             password: "test"}
         ).then(function (response) {
@@ -23,7 +23,6 @@ describe("Test 1. -> Testing login",function(){
             assert.equal(response.data.jwt.length > 0, true);
             done();
         }).catch(function (error) {
-           console.log(error);
            done(error);
         });
     });
@@ -33,7 +32,7 @@ describe("Test 2. -> Testing courses API endpoint", function(){
     let jwt;
 
     before(function () {
-        axios.post('http://localhost:3000/api/login' , {
+        axios.post(remoteApiUrl+ '/login' , {
             username: "test",
             password: "test"}
         ).then(function (response) {
@@ -50,12 +49,11 @@ describe("Test 2. -> Testing courses API endpoint", function(){
         });
 
 
-        axios.get('http://localhost:3000/api/courses' ,{}, instance
+        axios.get(remoteApiUrl+ '/courses' ,{}, instance
         ).then(function (response) {
             assert.equal(response.status, 200);
             done();
         }).catch(function (error) {
-            console.log(error);
             done(error);
         });
 
@@ -67,7 +65,7 @@ describe("Test 3. -> Testing drafts API endpoint", function(){
     let jwt;
 
     before(function () {
-        axios.post('http://localhost:3000/api/login' , {
+        axios.post(remoteApiUrl+ '/login' , {
             username: "test",
             password: "test"}
         ).then(function (response) {
@@ -83,12 +81,11 @@ describe("Test 3. -> Testing drafts API endpoint", function(){
         });
 
 
-        axios.get('http://localhost:3000/api/drafts' ,{}, instance
+        axios.get(remoteApiUrl+ '/drafts' ,{}, instance
         ).then(function (response) {
             assert.equal(response.status, 200);
             done();
         }).catch(function (error) {
-            console.log(error);
             done(error);
         });
 
@@ -101,7 +98,7 @@ describe("Test 4. -> Testing drafts API endpoint", function(){
     let jwt;
 
     before(function () {
-        axios.post('http://localhost:3000/api/login' , {
+        axios.post(remoteApiUrl+ '/login' , {
             username: "test",
             password: "test"}
         ).then(function (response) {
@@ -117,12 +114,11 @@ describe("Test 4. -> Testing drafts API endpoint", function(){
         });
 
 
-        axios.get('http://localhost:3000/api/drafts', instance
+        axios.get(remoteApiUrl+ '/drafts', instance
         ).then(function (response) {
             assert.equal(response.status, 200);
             done();
         }).catch(function (error) {
-            console.log(error);
             done(error);
         });
     });
@@ -133,7 +129,7 @@ describe("Test 5. -> Testing registered-courses API endpoint", function(){
     let jwt;
 
     before(function () {
-        axios.post('http://localhost:3000/api/login' , {
+        axios.post(remoteApiUrl+ '/login' , {
             username: "test",
             password: "test"}
         ).then(function (response) {
@@ -149,12 +145,11 @@ describe("Test 5. -> Testing registered-courses API endpoint", function(){
         });
 
 
-        axios.get('http://localhost:3000/api/registered-courses', instance
+        axios.get(remoteApiUrl+ '/registered-courses', instance
         ).then(function (response) {
             assert.equal(response.status, 200);
             done();
         }).catch(function (error) {
-            console.log(error);
             done(error);
         });
     });
@@ -165,7 +160,7 @@ describe("Test 6. -> Testing registered-courses API endpoint", function(){
     let jwt;
 
     before(function () {
-        axios.post('http://localhost:3000/api/login' , {
+        axios.post(remoteApiUrl+ '/login' , {
             username: "test",
             password: "test"}
         ).then(function (response) {
@@ -181,12 +176,11 @@ describe("Test 6. -> Testing registered-courses API endpoint", function(){
         });
 
 
-        axios.get('http://localhost:3000/api/registered-courses', instance
+        axios.get(remoteApiUrl+ '/registered-courses', instance
         ).then(function (response) {
             assert.equal(response.status, 200);
             done();
         }).catch(function (error) {
-            console.log(error);
             done(error);
         });
     });
@@ -197,7 +191,7 @@ describe("Test 7. -> Testing user API endpoint", function(){
     let jwt;
 
     before(function () {
-        axios.post('http://localhost:3000/api/login' , {
+        axios.post(remoteApiUrl+ '/login' , {
             username: "test",
             password: "test"}
         ).then(function (response) {
@@ -213,12 +207,11 @@ describe("Test 7. -> Testing user API endpoint", function(){
         });
 
 
-        axios.get('http://localhost:3000/api/user' ,{}, instance
+        axios.get(remoteApiUrl+ '/user' ,{}, instance
         ).then(function (response) {
             assert.equal(response.status, 200);
             done();
         }).catch(function (error) {
-            console.log(error);
             done(error);
         });
 
