@@ -127,9 +127,6 @@ class SmartGroupSelector extends Component {
             practicalOccurrences = this.parseTimeFromPracticalOccurrences(occurrences.practice);
         }
 
-        // console.log(lectureOccurrences);
-        // console.log(practicalOccurrences);
-
         const practicalsGroupsTable = this.practicalsGroupsTable(practicalOccurrences);
 
         return (

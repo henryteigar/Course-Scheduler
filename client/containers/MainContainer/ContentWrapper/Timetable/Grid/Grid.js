@@ -22,6 +22,7 @@ class Grid extends Component {
     }
 
     filterAndMapOccurrences(isDraft, data, weekNr, dayNr) {
+        
         let filteredOccurrences = [];
         data.forEach((el) => {
             let relevantOccurrences = null;

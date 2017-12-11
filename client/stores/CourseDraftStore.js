@@ -51,7 +51,6 @@ class CourseDraftStore extends EventEmitter {
         this.axoisConf.headers['x-access-token'] = localStorage.getItem('token');
         axios.create(this.axoisConf).get('drafts')
             .then((response) => {
-                console.log(response.data)
                 this.draftedCourses = response.data;
                 this.emit("change");
             })
@@ -110,6 +109,17 @@ class CourseDraftStore extends EventEmitter {
                 console.log(error);
             });
     }
+
+    updateDraftCourse(courseId, lockedGroups, activeGroup) {
+        this.axoisConf.headers['x-access-token'] = localStorage.getItem('token');
+        axios.create(this.axoisConf).put('drafts/', {course_id: courseId, locked_groups: lockedGroups, active_group_id: activeGroup.id})
+            .then(() => {
+                this.fetchDraftedCourses();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 }
 
 dispatcher.register((action) => {
@@ -124,7 +134,10 @@ dispatcher.register((action) => {
             courseDraftStore.fetchDraftedCourses();
             break;
         case DraftConstants.SET_LOCKED_GROUPS:
-            courseDraftStore.setLockedGroups(action.courseId, action.groups)
+            courseDraftStore.setLockedGroups(action.courseId, action.groups);
+            break;
+        case DraftConstants.UPDATE_DRAFT_COURSE:
+            courseDraftStore.updateDraftCourse(action.courseId, action.lockedGroups, action.activeGroup);
             break;
     }
 });

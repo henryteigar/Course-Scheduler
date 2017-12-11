@@ -191,8 +191,6 @@ class SearchArea extends Component {
     }
 
     getPracticeGroupsFromCourse(course) {
-        console.log('asd')
-        console.log(course)
 
         return course.occurrences
             .filter((course) => course.type === "practice")
