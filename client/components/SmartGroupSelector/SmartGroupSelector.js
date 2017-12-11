@@ -111,14 +111,9 @@ class SmartGroupSelector extends Component {
     }
 
     makeChild(draftedCourse) {
-        console.log('Render model for ' + draftedCourse.course.name_est)
-
         let lectureOccurrences, practicalOccurrences;
 
         const occurrences = _.groupBy(draftedCourse.course.occurrences, 'type');
-
-        // console.log(occurrences)
-
         if (occurrences.lecture) {
             lectureOccurrences = this.parseTimeFromOccurrence(occurrences.lecture);
         }
