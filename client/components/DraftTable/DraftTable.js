@@ -63,7 +63,6 @@ class DraftTable extends Component {
     }
 
     render() {
-        console.log('render')
         return (
             <div>
                 <Modal child={this.state.child} id={this.groupLockModalId}
