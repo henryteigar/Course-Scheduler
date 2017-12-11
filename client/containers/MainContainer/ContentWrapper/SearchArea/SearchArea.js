@@ -98,7 +98,7 @@ class SearchArea extends Component {
 
     filterChangeHandler(tab) {
         this.clearSearchResult();
-        this.setState({ activeFilter: tab });
+        this.setState({activeFilter: tab});
 
         if (tab === "all") {
             this.setState({inputPlaceholder: "Search course name, code, institute etc..."});
@@ -136,19 +136,39 @@ class SearchArea extends Component {
         });
     }
 
-    isDataValidForRegistering() {
-        const selectedCoursesIds = this.state.selectedCourses.map((selectedCourse) => selectedCourse.id);
-        const courseIdsFromSelectedGroups = Object.keys(this.state.selectedGroups).map((el) => parseInt(el));
+    hasGroupSystem(course) {
+        let hasGroups = false;
+        if (course.occurrences === null) {
+            return false;
+        }
+        course.occurrences.forEach((occurrence) => {
+            if (occurrence.group !== null) {
+                hasGroups = true;
+            }
+        });
+        return hasGroups;
+    }
 
-        return selectedCoursesIds.every((id) => courseIdsFromSelectedGroups.includes(id))
+    isDataValidForRegistering() {
+        const courseIdsFromSelectedGroups = Object.keys(this.state.selectedGroups)
+            .map((el) => parseInt(el))
+            .sort().join(',');
+
+        const courseIdFromCoursesWithGroupSelection = this.state.selectedCourses
+            .filter(this.hasGroupSystem)
+            .map((course) => course.id)
+            .sort().join(',');
+
+        return courseIdsFromSelectedGroups === courseIdFromCoursesWithGroupSelection;
     }
 
     addToRegisteredCourses() {
         if (this.isDataValidForRegistering()) {
             let courses = this.state.selectedCourses.map((course) => {
+                console.log(course)
                 return {
                     'course': course,
-                    'locked_group': this.state.selectedGroups[course.id]
+                    'locked_group': this.hasGroupSystem(course) ? this.state.selectedGroups[course.id] : null
                 }
             });
 
@@ -213,10 +233,14 @@ class SearchArea extends Component {
     groupSelectionModal() {
         return <div>
             {this.state.selectedCourses.map((selectedCourse) =>
-                <DropdownSelectBox key={selectedCourse.id} id={selectedCourse.id}
-                                   label={selectedCourse.name_eng} className="full-width"
-                                   values={this.getPracticeGroupsFromCourse(selectedCourse)}
-                                   clickHandler={this.setCourseGroup.bind(this)} />)}
+                this.hasGroupSystem(selectedCourse)
+                    ? <DropdownSelectBox key={selectedCourse.id} id={selectedCourse.id}
+                                         label={selectedCourse.name_eng} className="full-width"
+                                         values={this.getPracticeGroupsFromCourse(selectedCourse)}
+                                         clickHandler={this.setCourseGroup.bind(this)} />
+                    : <div key={selectedCourse.id} className="no-groups">No groups for {selectedCourse.name_eng}</div>
+            )}
+
             <Button class="big green register" name="Register"
                     clickHandler={this.addToRegisteredCourses.bind(this)} />
         </div>;
@@ -226,7 +250,8 @@ class SearchArea extends Component {
         return (
             <div className="search-area">
 
-                <Modal child={this.groupSelectionModal()} id={this.groupSelectionModalId} heading="Choose group" showX />
+                <Modal child={this.groupSelectionModal()} id={this.groupSelectionModalId}
+                       heading="Choose group" showX />
 
                 <h2>Add courses</h2>
                 <hr />
