@@ -9,12 +9,15 @@ import RegisteredCoursesStore from 'client/stores/RegisteredCoursesStore';
 import WeekSelector from 'client/components/WeekSelector/WeekSelector';
 import * as RegisteredCoursesAction from 'client/actions/RegisteredCoursesAction';
 import * as CourseDraftAction from 'client/actions/CourseDraftAction';
-
+import _ from 'underscore';
+import moment from 'moment';
 
 class Timetable extends Component {
     constructor() {
         super();
         this.state = {
+            nrOfConflicts: null,
+            conflictingWeeks: null,
             courses: {
                 draftedCourses: [],
                 registeredCourses: []
@@ -94,11 +97,13 @@ class Timetable extends Component {
         CourseDraftStore.on("change", () => {
             let courses = this.state.courses;
             courses.draftedCourses = CourseDraftStore.getAll();
+            this.updateConflictInfo();
             this.setState({courses: courses})
         });
         RegisteredCoursesStore.on("change", () => {
             let courses = this.state.courses;
             courses.registeredCourses = RegisteredCoursesStore.getAll();
+            this.updateConflictInfo();
             this.setState({courses: courses})
         })
     }
@@ -117,14 +122,113 @@ class Timetable extends Component {
         }
     }
 
+    makeMagicWithCourses(courses, isDraft) {
+        let filteredOccurrences = [];
+
+        courses.forEach((el) => {
+            let relevantOccurrences = null;
+
+            if (isDraft) {
+                if (el.has_group_system) {
+                    if (el.active_group !== null) {
+                        relevantOccurrences = el.active_group.occurrences;
+                    } else {
+                        relevantOccurrences = [];
+                    }
+                } else {
+                    relevantOccurrences = el.course.occurrences;
+                }
+            } else {
+                if (el.has_group_system && el.locked_group !== null) {
+                    relevantOccurrences = el.locked_group.occurrences;
+                } else {
+                    relevantOccurrences = el.course.occurrences;
+                }
+            }
+            if (relevantOccurrences === null) {
+                return filteredOccurrences;
+            }
+            relevantOccurrences.forEach((occurrence) => {
+                filteredOccurrences = filteredOccurrences.concat(occurrence.time.map((time) => {
+                    time.length = this.getTimeLength(time);
+                    return {
+                        isDraft: isDraft,
+                        type: occurrence.type,
+                        name: el.course.name_eng,
+                        time: time,
+                        group: occurrence.group,
+                        place: occurrence.place
+                    }
+                }));
+            });
+        });
+        return filteredOccurrences;
+    }
+
+    getAllOccurrences() {
+        let registeredCourses = this.makeMagicWithCourses(this.state.courses.registeredCourses, false);
+        let draftedCourses = this.makeMagicWithCourses(this.state.courses.draftedCourses, true);
+        return registeredCourses.concat(draftedCourses);
+    }
+
+    getTimeLength(time) {
+        let hourDiff = time.end_hour - time.start_hour;
+        let minuteDiff = time.end_minute - time.start_minute;
+        return Math.round(hourDiff * 60 + minuteDiff);
+    }
+
+    updateConflictInfo() {
+        let allOccurrences = this.getAllOccurrences();
+        let nrOfConflicts = 0;
+        let conflictingWeeks = [];
+
+        let timeFormat = 'hh:mm:ss';
+
+        let occurrences_new = allOccurrences.map((occurrence) => {
+            let startTime = moment(occurrence.time.start_time, timeFormat);
+            let endTime = moment(occurrence.time.end_time, timeFormat);
+            let overlappingOccurrences = [];
+            allOccurrences.forEach((occurrence_other) => {
+                if (occurrence === occurrence_other) {
+                    return;
+                }
+                let otherStartTime = moment(occurrence_other.time.start_time, timeFormat);
+                let otherEndTime = moment(occurrence_other.time.end_time, timeFormat);
+
+                if (occurrence_other.time.week === occurrence.time.week
+                    && occurrence_other.time.day === occurrence.time.day
+                    && startTime.isBetween(otherStartTime, otherEndTime, 'minutes', '[]')
+                    && startTime !== otherEndTime
+                    && endTime !== otherEndTime) {
+                    nrOfConflicts += 1;
+                    if (conflictingWeeks.indexOf(occurrence_other.time.week) === -1) {
+                        conflictingWeeks.push(occurrence_other.time.week);
+                    }
+                    overlappingOccurrences.push(occurrence_other)
+                }
+            });
+            occurrence.overlapping_occurrences = overlappingOccurrences;
+
+            return occurrence
+        });
+        allOccurrences = occurrences_new;
+
+        this.setState({nrOfConflicts});
+        this.setState({conflictingWeeks});
+    }
+
+    getConflictInfoMessage() {
+        return (this.state.conflictingWeeks !== null && this.state.conflictingWeeks.length > 0) ? "Conflict weeks: (" + this.state.conflictingWeeks + ")" : "";
+    }
+
     handleRegisterDraftCourses() {
         let draftedCourses = this.state.courses.draftedCourses;
         let allValid = true;
 
         draftedCourses.forEach((draftedCourse) => {
-           if (draftedCourse.has_group_system && !draftedCourse.active_group) {
-               allValid = false;
-           }
+            if (draftedCourse.has_group_system && !draftedCourse.active_group) {
+                allValid = false;
+            }
         });
 
         if (allValid) {
@@ -138,7 +242,7 @@ class Timetable extends Component {
             CourseDraftAction.removeFromDraft(draftedCourses);
             RegisteredCoursesAction.addToRegisteredCourses(toBeRegisteredCourses);
         } else {
-            alert("Some of the draft courses' groups haven't been selected. Click 'Put automatically to timetable'")
+            alert("Some of the groups of draft courses haven't been selected. Click 'Put automatically to timetable'")
         }
     }
 
@@ -151,13 +255,14 @@ class Timetable extends Component {
                                   currentWeek={this.state.currentWeek}
                                   forwardHandler={this.handleForward.bind(this)}
                                   backHandler={this.handleBack.bind(this)} />
-                    <p className="warning">Conflicts on weeks: 3, 4, 5</p>
+                    <p className="warning">{this.getConflictInfoMessage()}</p>
                 </div>
                 <hr />
                 <TimetableTimeBar />
-                <Grid courses={this.state.courses} currentWeek={this.state.currentWeek}/>
+                <Grid courses={this.state.courses} currentWeek={this.state.currentWeek} />
                 <div className="register-btn">
-                    <Button clickHandler={this.handleRegisterDraftCourses.bind(this)} name="Register draft courses" class="green small" />
+                    <Button clickHandler={this.handleRegisterDraftCourses.bind(this)} name="Register draft courses"
+                            class="green small" />
                 </div>
             </div>
         )

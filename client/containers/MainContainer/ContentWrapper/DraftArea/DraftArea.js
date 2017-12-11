@@ -64,14 +64,6 @@ class DraftArea extends Component {
     }
 
     putAutomaticallyToTimetable() {
-        let registeredOccurrences = _.flatten(this.state.courses.registeredCourses.map((registeredCourse) => {
-            return registeredCourse.course.occurrences.filter((occurrence) => {
-                return !registeredCourse.has_group_system|| occurrence.group === null || occurrence.group.id === registeredCourse.locked_group.id
-            }).map((occurrence) => {
-                return occurrence.time;
-            })
-        }));
-
         let draftedCourses = this.state.courses.draftedCourses;
 
         draftedCourses.forEach((draftedCourse) => {
