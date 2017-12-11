@@ -16,9 +16,10 @@ class DraftArea extends Component {
         this.state = {
             courses: {
                 draftedCourses: [],
-                registeredCourses: []
+                registeredCourses: [],
             },
-            selectedCourses: []
+            selectedCourses: [],
+            lastAutomaticalSchedulingTime: null,
         };
         CourseDraftAction.fetchDraftedCourses();
     }
@@ -64,6 +65,23 @@ class DraftArea extends Component {
     }
 
     putAutomaticallyToTimetable() {
+        let currentTime = (new Date()).getTime();
+
+        if (this.state.lastAutomaticalSchedulingTime
+            && currentTime - this.state.lastAutomaticalSchedulingTime < 500) {
+            return;
+        }
+
+        this.state.lastAutomaticalSchedulingTime = currentTime;
+
+        let registeredOccurrences = _.flatten(this.state.courses.registeredCourses.map((registeredCourse) => {
+            return registeredCourse.course.occurrences.filter((occurrence) => {
+                return !registeredCourse.has_group_system|| occurrence.group === null || occurrence.group.id === registeredCourse.locked_group.id
+            }).map((occurrence) => {
+                return occurrence.time;
+            })
+        }));
+
         let draftedCourses = this.state.courses.draftedCourses;
 
         draftedCourses.forEach((draftedCourse) => {
