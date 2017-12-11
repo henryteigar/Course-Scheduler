@@ -13,16 +13,6 @@ class DraftTable extends Component {
             child: null,
         };
         this.groupLockModalId = "lock-group-preference-modal";
-        this.addWindowListener();
-    }
-
-    addWindowListener() {
-        window.addEventListener('click', (e) => {
-
-            if (e.target === document.getElementById(this.groupLockModalId)) {
-                this.render();
-            }
-        })
     }
 
     groupPreference(draftedCourse) {
@@ -62,7 +52,7 @@ class DraftTable extends Component {
         let modal = document.getElementById(this.groupLockModalId);
         modal.style.display = "block";
 
-        let child = <SmartGroupSelector closeModal={this.closeGroupSelectModal.bind(this)} course={draftedCourse} />
+        let child = <SmartGroupSelector modalId={this.groupLockModalId} closeModal={this.closeGroupSelectModal.bind(this)} course={draftedCourse} />
         this.setState({ child });
     }
 
