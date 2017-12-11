@@ -13,7 +13,26 @@ class SmartGroupSelector extends Component {
         super(props);
         this.state = {
             selectedGroups: [],
-        }
+        };
+        this.addWindowListener()
+    }
+
+    addWindowListener() {
+        window.addEventListener('click', (e) => {
+            if (
+                e.target === document.getElementById(this.props.modalId)
+                || e.target.className.slice().includes("close")
+                || e.target.className.slice().includes("lock-groups")
+            ) {
+                this.setState({selectedGroups: []}),
+                this.unCheckAll();
+            }
+        })
+    }
+
+    unCheckAll() {
+        const checkBoxes = '#' + this.props.modalId + ' input[type="checkbox"]';
+        document.querySelectorAll(checkBoxes).forEach((cb) => cb.checked = false);
     }
 
     parseTimeFromOccurrence(occurrence) {
@@ -129,13 +148,14 @@ class SmartGroupSelector extends Component {
                 <label>Lecture:</label><ScheduleBar occurrences={lectureOccurrences} class="wide" />
                 {practicalsGroupsTable}
                 <div className="lock-group-button">
-                    <Button clickHandler={this.lockGroups.bind(this)} class="green big" name="Lock groups"/>
+                    <Button clickHandler={this.lockGroups.bind(this)} class="lock-groups green big" name="Lock groups"/>
                 </div>
             </div>
         )
     }
 
     render() {
+        console.log("render SmartGroupSelector")
         return <div>{this.makeChild(this.props.course)}</div>
     }
 }
