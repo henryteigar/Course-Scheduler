@@ -155,7 +155,6 @@ class SmartGroupSelector extends Component {
     }
 
     render() {
-        console.log("render SmartGroupSelector")
         return <div>{this.makeChild(this.props.course)}</div>
     }
 }
