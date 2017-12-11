@@ -26,9 +26,14 @@ module.exports = {
                 if (input_lang && input_lang.toLowerCase() === 'est') {
                     field = 'name_est';
                 }
+                let input_filter_id = 1;
+                if (input_filter === "elective" || input_filter === "valik") {
+                    input_filter_id = 2;
+                }
                 query += " AND EXISTS (SELECT 1 FROM ois1.course_curricula coty JOIN ois1.course_type ON coty.course_type_id = ois1.course_type.id " +
-                    "WHERE coty.course_id = ois1.v_courses.id AND LOWER(ois1.course_type." + field + ") LIKE $" + (parameters.length + 1) + ")";
-                parameters.push('%' + input_filter + '%');
+                    "WHERE coty.course_id = ois1.v_courses.id AND coty.course_type_id = $" + (parameters.length + 1) + " AND coty.curricula_id = (SELECT usr.curricula_id FROM ois1.users usr WHERE usr.id = $" + (parameters.length + 2) + "))";
+                parameters.push(input_filter_id);
+                parameters.push(user_id);
             }
         }
 
