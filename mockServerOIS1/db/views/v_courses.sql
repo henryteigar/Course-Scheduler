@@ -55,4 +55,4 @@ CREATE OR REPLACE VIEW ois1.v_courses AS
                                                                 WHERE lecturer.id = o_lecturer.lecturer_id AND occurrence.id = o_lecturer.occurrence_id) obj) AS lecturers
                        FROM ois1.occurrences occurrence
                        JOIN ois1.course_occurrences cooc ON cooc.occurrence_id = occurrence.id AND cooc.course_id = courses.id) obj1) AS occurrences
-     FROM ois1.courses courses;
+     FROM ois1.courses courses WHERE courses.registration_open = TRUE ;
