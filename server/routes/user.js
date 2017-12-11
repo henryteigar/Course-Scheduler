@@ -22,9 +22,14 @@ router.get('/', (req, res) => {
         };
         request.get(options, function (error, response, body) {
             if (response.statusCode === 200) {
-                res.status(200).send(body);
+                if (body !== null) {
+                    res.status(200).send(body);
+                }
+                else {
+                    res.status(500).send();
+                }
             } else {
-                res.status(400).send()
+                res.status(400).send();
             }
         })
     } catch(e) {

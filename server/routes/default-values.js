@@ -28,7 +28,12 @@ router.get('/', (req, res) => {
                 res.status(400).send(error);
             }
             else {
-                res.status(200).send(body[0]);
+                if (body !== null) {
+                    res.status(200).send(body[0]);
+                }
+                else {
+                    res.status(500).send();
+                }
             }
 
         });

@@ -15,10 +15,15 @@ router.get('/', (req, res) => {
                 res.status(500).send();
             }
             else {
-                result.rows.map((row) => {
-                    row.course = mockOis1Converter.processCourse(row.course);
-                });
-                res.status(200).send(result.rows);
+                if (result !== null) {
+                    result.rows.map((row) => {
+                        row.course = mockOis1Converter.processCourse(row.course);
+                    });
+                    res.status(200).send(result.rows);
+                }
+                else {
+                    res.status(500).send();
+                }
             }
         });
     }
