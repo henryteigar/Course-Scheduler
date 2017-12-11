@@ -70,7 +70,8 @@ class Timetable extends Component {
                 {
                     nr: 35,
                     startDate: new Date(2018, 3, 30)
-                }, {
+                },
+                {
                     nr: 36,
                     startDate: new Date(2018, 4, 7)
                 },
@@ -149,26 +150,28 @@ class Timetable extends Component {
                 return filteredOccurrences;
             }
             relevantOccurrences.forEach((occurrence) => {
-                filteredOccurrences = filteredOccurrences.concat(occurrence.time.map((time) => {
-                    time.length = this.getTimeLength(time);
-                    return {
-                        isDraft: isDraft,
-                        type: occurrence.type,
-                        name: el.course.name_eng,
-                        time: time,
-                        group: occurrence.group,
-                        place: occurrence.place
-                    }
-                }));
+                if (occurrence.time) {
+                    filteredOccurrences = filteredOccurrences.concat(occurrence.time.map((time) => {
+                        time.length = this.getTimeLength(time);
+                        return {
+                            isDraft: isDraft,
+                            type: occurrence.type,
+                            name: el.course.name_eng,
+                            time: time,
+                            group: occurrence.group,
+                            place: occurrence.place
+                        }
+                    }));
+                }
             });
         });
         return filteredOccurrences;
     }
 
     getAllOccurrences() {
-        let registeredCourses = this.makeMagicWithCourses(this.state.courses.registeredCourses, false);
-        let draftedCourses = this.makeMagicWithCourses(this.state.courses.draftedCourses, true);
-        return registeredCourses.concat(draftedCourses);
+        let magicalRegisteredCourses = this.makeMagicWithCourses(this.state.courses.registeredCourses, false);
+        let magicalDraftedCourses = this.makeMagicWithCourses(this.state.courses.draftedCourses, true);
+        return magicalRegisteredCourses.concat(magicalDraftedCourses);
     }
 
     getTimeLength(time) {

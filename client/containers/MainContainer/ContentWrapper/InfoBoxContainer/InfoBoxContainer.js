@@ -3,12 +3,13 @@ import InfoBox from 'client/components/InfoBox/InfoBox'
 import 'client/containers/MainContainer/ContentWrapper/InfoBoxContainer/info-box-container.scss';
 
 class InfoBoxContainer extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        console.log(props)
         this.state = {
             infoBox: [
                 {
-                    value: "108/120",
+                    value: "",
                     description: "ECTS taken from recommended amount"
                 },
                 {
@@ -23,10 +24,25 @@ class InfoBoxContainer extends Component {
         }
     }
 
+    genTotalCreditString () {
+        if (this.props.user) {
+            const obligatoryCredits = parseInt(this.props.user.obligatory_credits);
+            const electiveCredits = parseInt(this.props.user.elective_credits);
+            const optionalCredits = parseInt(this.props.user.optional_credits);
+
+            const totalCredits = obligatoryCredits + electiveCredits + optionalCredits;
+
+            return (this.props.user ? totalCredits + "/180" : "")
+        } else {
+            return ""
+        }
+    }
+
     render() {
+        console.log(this.props.user)
         return (
             <div className="infoBoxContainer">
-                <InfoBox value={this.state.infoBox[0].value} description={this.state.infoBox[0].description}/>
+                <InfoBox value={this.genTotalCreditString()} description={this.state.infoBox[0].description}/>
                 <InfoBox value={this.state.infoBox[1].value} description={this.state.infoBox[1].description}/>
                 <InfoBox value={this.state.infoBox[2].value} description={this.state.infoBox[2].description}/>
             </div>

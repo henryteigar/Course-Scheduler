@@ -10,8 +10,8 @@ import 'client/containers/MainContainer/ContentWrapper/content-wrapper.scss';
 
 class ContentWrapper extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             flashMessage: "Registration for the next semester's courses starts on May 15"
         }
@@ -21,7 +21,7 @@ class ContentWrapper extends Component {
         return (
             <div className="content-wrapper">
                 <FlashMessage message={this.state.flashMessage}/>
-                <InfoBoxContainer />
+                <InfoBoxContainer user={this.props.user}/>
                 <SearchArea />
                 <DraftArea />
                 <RegisteredCoursesArea />

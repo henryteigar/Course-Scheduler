@@ -10,7 +10,7 @@ class MainContainer extends Component {
         return (
             <div className="main-container">
                 <Header user={this.props.user}/>
-                <ContentWrapper />
+                <ContentWrapper user={this.props.user}/>
             </div>
         )
     }

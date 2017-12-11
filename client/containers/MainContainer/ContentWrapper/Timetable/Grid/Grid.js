@@ -48,19 +48,21 @@ class Grid extends Component {
                 return filteredOccurrences;
             }
             relevantOccurrences.forEach((occurrence) => {
-                filteredOccurrences = filteredOccurrences.concat(occurrence.time.filter((timeEl) => {
-                    return timeEl.week === weekNr && timeEl.day === (dayNr + 1);
-                }).map((time) => {
-                    time.length = this.getTimeLength(time);
-                    return {
-                        isDraft: isDraft,
-                        type: occurrence.type,
-                        name: el.course.name_eng,
-                        time: time,
-                        group: occurrence.group,
-                        place: occurrence.place
-                    }
-                }));
+                if (occurrence.time) {
+                    filteredOccurrences = filteredOccurrences.concat(occurrence.time.filter((timeEl) => {
+                        return timeEl.week === weekNr && timeEl.day === (dayNr + 1);
+                    }).map((time) => {
+                        time.length = this.getTimeLength(time);
+                        return {
+                            isDraft: isDraft,
+                            type: occurrence.type,
+                            name: el.course.name_eng,
+                            time: time,
+                            group: occurrence.group,
+                            place: occurrence.place
+                        }
+                    }));
+                }
             });
         });
 
