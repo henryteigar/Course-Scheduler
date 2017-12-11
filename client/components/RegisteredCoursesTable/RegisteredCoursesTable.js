@@ -22,7 +22,7 @@ const RegisteredCoursesTable = (props) => {
                 <tr key={registeredCourse.course.id}>
                     <td>{registeredCourse.course.name_eng}</td>
                     <td>{registeredCourse.course.credits} EAP</td>
-                    <td>{registeredCourse.locked_group.name}</td>
+                    <td>{registeredCourse.locked_group !== null ? registeredCourse.locked_group.name : ""}</td>
                     <td>{registeredCourse.course.cancellation_date}</td>
                     <td><span className="remove-icon" onClick={() => RegisteredCoursesAction.removeFromDraft(registeredCourse.course)}><Ionicon color="#BD5E5E" icon="ion-close" /></span></td>
                 </tr>

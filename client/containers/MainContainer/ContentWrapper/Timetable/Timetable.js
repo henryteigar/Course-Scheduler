@@ -7,6 +7,8 @@ import TimetableTimeBar from "client/components/TimetableTimeBar/TimetableTimeBa
 import CourseDraftStore from 'client/stores/CourseDraftStore';
 import RegisteredCoursesStore from 'client/stores/RegisteredCoursesStore';
 import WeekSelector from 'client/components/WeekSelector/WeekSelector';
+import * as RegisteredCoursesAction from 'client/actions/RegisteredCoursesAction';
+import * as CourseDraftAction from 'client/actions/CourseDraftAction';
 
 
 class Timetable extends Component {
@@ -115,6 +117,31 @@ class Timetable extends Component {
         }
     }
 
+    handleRegisterDraftCourses() {
+        let draftedCourses = this.state.courses.draftedCourses;
+        let allValid = true;
+
+        draftedCourses.forEach((draftedCourse) => {
+           if (draftedCourse.has_group_system && !draftedCourse.active_group) {
+               allValid = false;
+           }
+        });
+
+        if (allValid) {
+            let toBeRegisteredCourses = draftedCourses.map((draftedCourse) => {
+                let course = draftedCourse;
+                course.locked_group = course.active_group;
+
+                return course;
+            });
+
+            CourseDraftAction.removeFromDraft(draftedCourses);
+            RegisteredCoursesAction.addToRegisteredCourses(toBeRegisteredCourses);
+        } else {
+            alert("Some of the draft courses' groups haven't been selected. Click 'Put automatically to timetable'")
+        }
+    }
+
     render() {
         return (
             <div className="timetable">
@@ -130,7 +157,7 @@ class Timetable extends Component {
                 <TimetableTimeBar />
                 <Grid courses={this.state.courses} currentWeek={this.state.currentWeek}/>
                 <div className="register-btn">
-                    <Button name="Register draft courses" class="green small disabled" />
+                    <Button clickHandler={this.handleRegisterDraftCourses.bind(this)} name="Register draft courses" class="green small" />
                 </div>
             </div>
         )

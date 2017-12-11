@@ -26,7 +26,7 @@ class RegisteredCoursesStore extends EventEmitter {
                 .post('registered-courses',
                     {
                         'course_id': courseToAdd.course.id,
-                        'group_id': courseToAdd.locked_group.id
+                        'group_id': courseToAdd.locked_group !== null ? courseToAdd.locked_group.id : null
                     }
                 )
                 .then(() => {
