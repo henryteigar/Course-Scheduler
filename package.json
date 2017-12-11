@@ -27,10 +27,10 @@
     "pg-format": "^1.0.4",
     "pm2": "^2.7.1",
     "request": "^2.83.0",
-    "testcafe": "^0.18.3"
+    "testcafe": "^0.18.3",
+    "axios": "^0.16.2"
   },
   "devDependencies": {
-    "axios": "^0.16.2",
     "babel-core": "^6.26.0",
     "babel-loader": "6.2.0",
     "babel-preset-env": "^1.6.0",
