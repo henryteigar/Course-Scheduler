@@ -28,3 +28,12 @@ export function setLockedGroups(courseId, groups) {
         groups
     });
 }
+
+export function updateDraftCourse(courseId, lockedGroups, activeGroup) {
+    dispatcher.dispatch({
+        type: DraftConstants.UPDATE_DRAFT_COURSE,
+        courseId,
+        lockedGroups,
+        activeGroup
+    });
+}

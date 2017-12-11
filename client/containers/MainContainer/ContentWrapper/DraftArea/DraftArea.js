@@ -57,14 +57,46 @@ class DraftArea extends Component {
         });
     }
 
+    getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+
     putAutomaticallyToTimetable() {
-        let registered_occurrences = _.flatten(this.state.courses.registeredCourses.map((registeredCourse) => {
+        let registeredOccurrences = _.flatten(this.state.courses.registeredCourses.map((registeredCourse) => {
             return registeredCourse.course.occurrences.filter((occurrence) => {
-                return registeredCourse.locked_group === null || occurrence.group === null || occurrence.group.id === registeredCourse.locked_group.id
+                return !registeredCourse.has_group_system|| occurrence.group === null || occurrence.group.id === registeredCourse.locked_group.id
             }).map((occurrence) => {
                 return occurrence.time;
             })
         }));
+
+        let draftedCourses = this.state.courses.draftedCourses;
+
+        draftedCourses.forEach((draftedCourse) => {
+            if (draftedCourse.has_group_system) {
+                let candidateGroups = [];
+
+                if (draftedCourse.locked_groups !== null && draftedCourse.locked_groups.length > 0) {
+                    candidateGroups = draftedCourse.locked_groups;
+                } else {
+                    let allPossibleGroupsIds = [];
+                    draftedCourse.course.occurrences.forEach((occurrence) => {
+                        if (occurrence.group !== null && allPossibleGroupsIds.indexOf(occurrence.group.id) <= -1) {
+                            allPossibleGroupsIds.push(occurrence.group.id);
+                        }
+                    });
+                    candidateGroups = allPossibleGroupsIds.map((id) => { return {id:id}});
+                }
+
+                if (candidateGroups.length > 0) {
+                    draftedCourse.active_group = candidateGroups[this.getRandomInt(0,candidateGroups.length)];
+
+                    CourseDraftAction.updateDraftCourse(draftedCourse.course.id, draftedCourse.locked_groups, draftedCourse.active_group);
+                }
+            }
+        });
     }
 
     getResultArea() {
