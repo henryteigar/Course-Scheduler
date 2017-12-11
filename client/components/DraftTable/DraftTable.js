@@ -28,7 +28,11 @@ class DraftTable extends Component {
     groupPreference(draftedCourse) {
         let rowContent;
 
-        if (draftedCourse.locked_groups) {
+        if (draftedCourse.has_group_system == false) {
+            rowContent = null;
+        }
+
+        else if (draftedCourse.locked_groups) {
             rowContent =
                 <div>
                     <img height='18' src="../../images/lock.svg" className="lock-icon" />

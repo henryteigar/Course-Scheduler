@@ -192,18 +192,22 @@ class SearchArea extends Component {
 
     getPracticeGroupsFromCourse(course) {
 
-        return course.occurrences
-            .filter((course) => course.type === "practice")
-            .map((occurrence) => {
-                if (occurrence.group) {
-                    return {
-                        id: occurrence.group.id,
-                        label_eng: occurrence.group.name
+        if (course.occurrences === null)
+            return [];
+        else {
+            return course.occurrences
+                .filter((occurrence) => occurrence.type === "practice")
+                .map((occurrence) => {
+                    if (occurrence.group) {
+                        return {
+                            id: occurrence.group.id,
+                            label_eng: occurrence.group.name
+                        }
+                    } else {
+                        return;
                     }
-                } else {
-                    return;
-                }
-            });
+                });
+        }
     }
 
     groupSelectionModal() {
