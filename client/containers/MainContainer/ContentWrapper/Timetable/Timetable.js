@@ -18,6 +18,7 @@ class Timetable extends Component {
         this.state = {
             nrOfConflicts: null,
             conflictingWeeks: null,
+            allOccurrences: [],
             courses: {
                 draftedCourses: [],
                 registeredCourses: []
@@ -93,7 +94,7 @@ class Timetable extends Component {
     };
 
     componentWillMount() {
-        this.setState({currentWeek: this.state.weeks[0]});
+        this.setState({currentWeek: this.state.weeks[2]});
 
         CourseDraftStore.on("change", () => {
             let courses = this.state.courses;
@@ -215,7 +216,7 @@ class Timetable extends Component {
             return occurrence
         });
         allOccurrences = occurrences_new;
-
+        this.setState({allOccurrences});
         this.setState({nrOfConflicts});
         this.setState({conflictingWeeks});
     }
@@ -262,7 +263,7 @@ class Timetable extends Component {
                 </div>
                 <hr />
                 <TimetableTimeBar />
-                <Grid courses={this.state.courses} currentWeek={this.state.currentWeek} />
+                <Grid courses={this.state.courses} allOccurrences={this.state.allOccurrences} currentWeek={this.state.currentWeek} />
                 <div className="register-btn">
                     <Button clickHandler={this.handleRegisterDraftCourses.bind(this)} name="Register draft courses"
                             class="green small" />

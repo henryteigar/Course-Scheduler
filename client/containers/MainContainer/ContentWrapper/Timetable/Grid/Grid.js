@@ -9,89 +9,29 @@ class Grid extends Component {
         this.state = {};
     }
 
-    getOccurrencesForDayAndWeek(courses, weekNr, dayNr) {
-
-        return this.filterAndMapOccurrences(false, courses.registeredCourses, weekNr, dayNr)
-            .concat(this.filterAndMapOccurrences(true, courses.draftedCourses, weekNr, dayNr));
-    }
-
-    getTimeLength(time) {
-        let hourDiff = time.end_hour - time.start_hour;
-        let minuteDiff = time.end_minute - time.start_minute;
-        return Math.round(hourDiff * 60 + minuteDiff);
-    }
-
-    filterAndMapOccurrences(isDraft, data, weekNr, dayNr) {
-        
-        let filteredOccurrences = [];
-        data.forEach((el) => {
-            let relevantOccurrences = null;
-
-            if (isDraft) {
-                if (el.has_group_system) {
-                    if (el.active_group !== null) {
-                        relevantOccurrences = el.active_group.occurrences;
-                    } else {
-                        relevantOccurrences = [];
-                    }
-                } else {
-                    relevantOccurrences = el.course.occurrences;
-                }
-            } else {
-                if (el.has_group_system && el.locked_group !== null) {
-                    relevantOccurrences = el.locked_group.occurrences;
-                } else {
-                    relevantOccurrences = el.course.occurrences;
-                }
-            }
-            if (relevantOccurrences === null) {
-                return filteredOccurrences;
-            }
-            relevantOccurrences.forEach((occurrence) => {
-                if (occurrence.time) {
-                    filteredOccurrences = filteredOccurrences.concat(occurrence.time.filter((timeEl) => {
-                        return timeEl.week === weekNr && timeEl.day === (dayNr + 1);
-                    }).map((time) => {
-                        time.length = this.getTimeLength(time);
-                        return {
-                            isDraft: isDraft,
-                            type: occurrence.type,
-                            name: el.course.name_eng,
-                            time: time,
-                            group: occurrence.group,
-                            place: occurrence.place
-                        }
-                    }));
-                }
-            });
-        });
-
-        return filteredOccurrences;
-    }
-
     render() {
         return (
             <div className="grid">
                 <Column name="Monday"
                         day={0}
                         currentWeek={this.props.currentWeek}
-                        occurrences={this.getOccurrencesForDayAndWeek(this.props.courses, this.props.currentWeek.nr, 0)} />
+                        occurrences={this.props.allOccurrences.filter(occ => occ.time.week == this.props.currentWeek.nr && occ.time.day == 1)} />
                 <Column name="Tuesday"
                         day={1}
                         currentWeek={this.props.currentWeek}
-                        occurrences={this.getOccurrencesForDayAndWeek(this.props.courses, this.props.currentWeek.nr, 1)} />
+                        occurrences={this.props.allOccurrences.filter(occ => occ.time.week == this.props.currentWeek.nr && occ.time.day == 2)} />
                 <Column name="Wednesday"
                         day={2}
                         currentWeek={this.props.currentWeek}
-                        occurrences={this.getOccurrencesForDayAndWeek(this.props.courses, this.props.currentWeek.nr, 2)} />
+                        occurrences={this.props.allOccurrences.filter(occ => occ.time.week == this.props.currentWeek.nr && occ.time.day == 3)} />
                 <Column name="Thursday"
                         day={3}
                         currentWeek={this.props.currentWeek}
-                        occurrences={this.getOccurrencesForDayAndWeek(this.props.courses, this.props.currentWeek.nr, 3)} />
+                        occurrences={this.props.allOccurrences.filter(occ => occ.time.week == this.props.currentWeek.nr && occ.time.day == 4)} />
                 <Column name="Friday"
                         day={4}
                         currentWeek={this.props.currentWeek}
-                        occurrences={this.getOccurrencesForDayAndWeek(this.props.courses, this.props.currentWeek.nr, 4)} />
+                        occurrences={this.props.allOccurrences.filter(occ => occ.time.week == this.props.currentWeek.nr && occ.time.day == 5)} />
             </div>
         )
     }

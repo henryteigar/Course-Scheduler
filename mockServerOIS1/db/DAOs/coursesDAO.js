@@ -69,7 +69,8 @@ module.exports = {
         }
 
         if (input_assessment !== undefined) {
-            query += " AND EXISTS (SELECT 1 FROM ois1.course_assessment coas WHERE coas.course_id = ois1.v_courses.id AND coas.assessment_id = $" + (parameters.length + 1) + ")";
+            query += " AND assessment_id = $" + (parameters.length + 1);
+            console.log(query)
             parameters.push(input_assessment);
         }
 

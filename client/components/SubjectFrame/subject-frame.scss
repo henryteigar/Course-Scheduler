@@ -1,5 +1,7 @@
 @import "../../css/variables";
 
+// MUST BE RESTRUCTURED; DONE IN HURRY
+
 .subject-frame {
     background: $blue-primary;
     border-left: 3px solid $blue-font-dark;
@@ -7,9 +9,33 @@
     overflow: hidden;
     width: calc(100% - 3px);
     z-index: 1;
+    cursor: pointer;
+
+    * {
+        cursor: pointer;
+    }
 
     &.draft {
         opacity: 0.75;
+    }
+
+    &.conflict {
+        background: $red-primary;
+        border-left: 3px solid #844242;
+    }
+
+    &:hover {
+        width: calc(100% - 3px) !important;
+        margin-left: 0 !important;
+        opacity: 1 !important;
+        z-index: 100;
+        transition: width 100ms, margin 100ms;
+
+        label.time, label.additional-info {
+            &.hidden {
+                opacity: 1;
+            }
+        }
     }
 
     label {
@@ -17,18 +43,50 @@
         display: inline-block;
         padding: 5px;
         color: white;
+        overflow: hidden;
 
         &:not(.name) {
             font-size: 11px;
             font-weight: 300;
+            white-space: nowrap;
+        }
+
+        &.type {
+            position: absolute;
+            bottom:0;
+        }
+
+        &.additional-info {
+            position: absolute;
+            right: 0px;
+            height: 23px;
+            bottom:0;
+
+            &.hidden {
+                opacity: 0;
+            }
+        }
+
+        &.time {
+            &.hidden {
+                opacity: 0;
+            }
         }
 
         &.name {
             margin-top: -5px;
+            display: block;
+            max-height: 35px;
+        }
+
+        &.group {
+            position: absolute;
+            right: 0;
         }
     }
 
     .upper-info {
+        overflow: hidden;
         .group {
             float: right;
         }
