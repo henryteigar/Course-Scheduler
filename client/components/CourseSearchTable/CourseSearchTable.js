@@ -24,7 +24,7 @@ const CourseSearchTable = (props) => {
                         <td>
                             <CheckBox changeHandler={props.changeHandler} value={course} classes="blue small" />
                         </td> : <td />}
-                    <td>{course.name_eng}</td>
+                    <td className="name-col">{course.name_eng}</td>
                     <td>{course.credits} EAP</td>
                     <td>{course.occurrence_days_eng}</td>
                     <td>{course.responsible_lecturer_name}</td>
