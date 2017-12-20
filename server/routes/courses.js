@@ -25,7 +25,7 @@ router.get('/', (req, res) => {
                 res.status(response.statusCode).send()
             }
             else {
-                if (body !== null) {
+                if (body) {
 
                     let resp = body.map((course_json) => {
                         return mockOis1Converter.processCourse(course_json);
