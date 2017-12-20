@@ -5,7 +5,6 @@ import 'client/containers/MainContainer/ContentWrapper/InfoBoxContainer/info-box
 class InfoBoxContainer extends Component {
     constructor(props) {
         super(props);
-        console.log(props)
         this.state = {
             infoBox: [
                 {
@@ -59,7 +58,6 @@ class InfoBoxContainer extends Component {
     }
 
     render() {
-        console.log(this.props.user)
         return (
             <div className="infoBoxContainer">
                 <InfoBox value={this.getTotalCreditString()} description={this.state.infoBox[0].description}/>

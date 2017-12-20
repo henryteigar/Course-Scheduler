@@ -13,5 +13,15 @@
 
     .green {
         color: $green-primary;
+        cursor: pointer;
+        display: inline-block;
+
+        &:hover .tooltip-data {
+            visibility: visible;
+        }
+
+        &:hover .arrow-up {
+            visibility: visible;
+        }
     }
 }

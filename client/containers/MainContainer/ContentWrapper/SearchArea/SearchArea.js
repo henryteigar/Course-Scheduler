@@ -165,7 +165,6 @@ class SearchArea extends Component {
     addToRegisteredCourses() {
         if (this.isDataValidForRegistering()) {
             let courses = this.state.selectedCourses.map((course) => {
-                console.log(course)
                 return {
                     'course': course,
                     'locked_group': this.hasGroupSystem(course) ? this.state.selectedGroups[course.id] : null
