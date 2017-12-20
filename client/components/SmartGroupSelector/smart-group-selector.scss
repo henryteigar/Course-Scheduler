@@ -1,17 +1,24 @@
 @import "../../css/variables";
 
-table.pracicals-table {
-    margin-left: -15px !important;
-    margin-right: 50px;
-    width: calc(100% + 29px) !important;
+.smart-group-selector {
+    table.pracicals-table {
+        margin-left: -15px !important;
+        margin-right: 50px;
+        width: calc(100% + 29px) !important;
 
-    td {
-        max-width: 100%;
+        td {
+            max-width: 100%;
+        }
     }
-}
 
-.lock-group-button {
-    margin-top: 15px;
-    width: 250px;
-    float: right;
+    .lock-group-button {
+        float: right;
+        margin-top: 15px;
+        width: 250px;
+    }
+
+    label.occurrence-type {
+        display: inline-block;
+        margin-bottom: 18px;
+    }
 }

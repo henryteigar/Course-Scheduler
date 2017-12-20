@@ -25,7 +25,7 @@ class SmartGroupSelector extends Component {
                 || e.target.className.slice().includes("lock-groups")
             ) {
                 this.setState({selectedGroups: []}),
-                this.unCheckAll();
+                    this.unCheckAll();
             }
         })
     }
@@ -100,7 +100,7 @@ class SmartGroupSelector extends Component {
 
         return (
             <div>
-                <label>Practice sessions:</label>
+                <label className="occurrence-type">PRACTICE SESSIONS:</label>
                 <table className="pracicals-table">
                     <thead>
                     <tr>
@@ -115,7 +115,8 @@ class SmartGroupSelector extends Component {
                     <tbody>
                     {practicals.map((p) =>
                         <tr key={p.group.id}>
-                            <td><CheckBox changeHandler={this.checkBoxHandler.bind(this)} value={p.group.id} classes="small green" /></td>
+                            <td><CheckBox changeHandler={this.checkBoxHandler.bind(this)} value={p.group.id}
+                                          classes="small green" /></td>
                             <td>{p.group.name}</td>
                             <td><ScheduleBar occurrences={p.occurrences} class="narrow" /></td>
                             <td>{p.places.join(", ")}</td>
@@ -144,11 +145,15 @@ class SmartGroupSelector extends Component {
         const practicalsGroupsTable = this.practicalsGroupsTable(practicalOccurrences);
 
         return (
-            <div>
-                <label>Lecture:</label><ScheduleBar occurrences={lectureOccurrences} class="wide" />
+            <div className="smart-group-selector">
+                {lectureOccurrences ?
+                    <div><label className="occurrence-type">LECTURE:</label><ScheduleBar
+                        occurrences={lectureOccurrences} class="wide" />
+                    </div> : null}
                 {practicalsGroupsTable}
                 <div className="lock-group-button">
-                    <Button clickHandler={this.lockGroups.bind(this)} class="lock-groups green big" name="Lock groups"/>
+                    <Button clickHandler={this.lockGroups.bind(this)} class="lock-groups green big"
+                            name="Lock groups" />
                 </div>
             </div>
         )
