@@ -222,7 +222,7 @@ class Timetable extends Component {
     }
 
     getConflictInfoMessage() {
-        return (this.state.conflictingWeeks !== null && this.state.conflictingWeeks.length > 0) ? "Conflict weeks: (" + this.state.conflictingWeeks + ")" : "";
+        return (this.state.conflictingWeeks !== null && this.state.conflictingWeeks.length > 0) ? "Conflicting weeks: " + this.state.conflictingWeeks + "" : "";
     }
 
     handleRegisterDraftCourses() {
