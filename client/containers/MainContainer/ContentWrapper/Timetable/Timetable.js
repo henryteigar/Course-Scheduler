@@ -94,7 +94,7 @@ class Timetable extends Component {
     };
 
     componentWillMount() {
-        this.setState({currentWeek: this.state.weeks[2]});
+        this.setState({currentWeek: this.state.weeks[0]});
 
         CourseDraftStore.on("change", () => {
             let courses = this.state.courses;
