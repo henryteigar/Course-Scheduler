@@ -5,7 +5,6 @@ import 'client/components/Tooltip/tooltip.scss';
 class Tooltip extends Component {
     constructor(props) {
         super(props);
-        console.log(props.occurrence)
     }
 
     render() {
@@ -14,7 +13,7 @@ class Tooltip extends Component {
                 <div className="arrow-up"></div>
                 <div className="tooltip-data">
                     <p>{this.props.occurrence.start_time} - {this.props.occurrence.end_time}</p>
-                    <p>weeks {this.props.occurrence.weeks.sort().join(", ")}</p>
+                    <p>weeks {this.props.occurrence.weeks}</p>
                 </div>
             </div>
         )
