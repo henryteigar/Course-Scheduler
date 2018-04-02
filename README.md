@@ -5,8 +5,8 @@ University of Tartu is in progress of developing a new information system for st
 This project's goal is to work out and develop the course registration system which should greatly 
 improve the current user experience.
  
-## Demo 
-The latest released state of the software is currently accessible on http://course-scheduler.me:3000/
+## Design 
+Design is available [here](https://github.com/henryteigar/course-scheduler/wiki/Initial-design-and-layout)
 
 ## Documentation
 The relavant documentation is accessible in our [wiki page](https://github.com/henryteigar/course-scheduler/wiki)
@@ -18,7 +18,7 @@ The relavant documentation is accessible in our [wiki page](https://github.com/h
 
 ### Installing for testing
 * Clone the repository: `git clone https://github.com/henryteigar/course-scheduler.git` 
-* Being in the project root, execute `npm install` to install all the dependencies.
+* Being in the project root, run `npm install` to install all the dependencies.
 * You also need to rename .env.sample to .env and insert necessary secrets (If not sure, ask the team members)
 * To start the server, run `npm run prod`. This should start the server on `http://localhost:3000`
 * That's it!
